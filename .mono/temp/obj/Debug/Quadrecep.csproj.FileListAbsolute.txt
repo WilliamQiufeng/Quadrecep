@@ -1,0 +1,10 @@
+/Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/bin/Debug/Quadrecep.dll
+/Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/bin/Debug/Quadrecep.pdb
+/Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/obj/Debug/Quadrecep.csproj.AssemblyReference.cache
+/Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/obj/Debug/Quadrecep.AssemblyInfoInputs.cache
+/Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/obj/Debug/Quadrecep.AssemblyInfo.cs
+/Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/obj/Debug/Quadrecep.csproj.CoreCompileInputs.cache
+/Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/obj/Debug/Quadrecep.dll
+/Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/obj/Debug/Quadrecep.pdb
+/Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/bin/Debug/YamlDotNet.dll
+/Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/obj/Debug/Quadrecep.csproj.CopyComplete

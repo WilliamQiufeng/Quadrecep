@@ -1,0 +1,95 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Resources/tete-a-tete.mp3" type="AudioStream" id=1]
+[ext_resource path="res://Default_BGA.webm" type="VideoStream" id=2]
+[ext_resource path="res://font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=4]
+[ext_resource path="res://Textures/Mask.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/Play.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scripts/Player.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/background_brightness.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/Map.cs" type="Script" id=10]
+
+[node name="Root" type="Node2D"]
+script = ExtResource( 6 )
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ParallaxBackground"]
+stream = ExtResource( 1 )
+bus = "Music"
+
+[node name="Background" type="TextureRect" parent="ParallaxBackground"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VideoPlayer" type="VideoPlayer" parent="ParallaxBackground"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+stream = ExtResource( 2 )
+bus = "Void"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mask" type="TextureRect" parent="ParallaxBackground"]
+modulate = Color( 1, 1, 1, 0.768627 )
+margin_right = 40.0
+margin_bottom = 40.0
+texture = ExtResource( 5 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": "Use this to set the brightness of the background"
+}
+
+[node name="Tween" type="Tween" parent="ParallaxBackground/Mask"]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Score" type="Label" parent="HUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -110.0
+margin_top = 10.0
+margin_right = -110.0
+custom_fonts/font = ExtResource( 3 )
+text = "0000000"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accuracy" type="Label" parent="HUD"]
+anchor_left = 0.999701
+anchor_right = 0.999701
+margin_left = -100.0
+margin_top = 50.0
+margin_right = -10.0
+custom_fonts/font = ExtResource( 3 )
+text = "00.00%"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" parent="." instance=ExtResource( 7 )]
+margin_left = 512.0
+margin_top = 300.0
+margin_right = 576.0
+margin_bottom = 364.0
+rect_scale = Vector2( 0.75, 0.75 )
+script = ExtResource( 8 )
+
+[node name="Tween" type="Tween" parent="Player"]
+
+[node name="Map" type="CanvasLayer" parent="."]
+script = ExtResource( 10 )

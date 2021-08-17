@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "7lqSQ1NSExebwd9SFvdezEzT/QXBP/Mld2o1PhkrbjubiRQgQ17FeFvoL7j0PsRQePKiOPNZ4kkTc3we1bfqUA==",
+  "success": true,
+  "projectFilePath": "/Users/mac/Documents/GodotProjects/New Game Project/Quadrecep.csproj",
+  "expectedPackageFiles": [
+    "/Users/mac/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.0/microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
+    "/Users/mac/.nuget/packages/microsoft.netframework.referenceassemblies.net472/1.0.0/microsoft.netframework.referenceassemblies.net472.1.0.0.nupkg.sha512",
+    "/Users/mac/.nuget/packages/yamldotnet/11.2.1/yamldotnet.11.2.1.nupkg.sha512"
+  ],
+  "logs": []
+}

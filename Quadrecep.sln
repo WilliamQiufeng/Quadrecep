@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quadrecep", "Quadrecep.csproj", "{E16B5B15-3AA5-4D4A-A295-6BBE2D8C64FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E16B5B15-3AA5-4D4A-A295-6BBE2D8C64FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E16B5B15-3AA5-4D4A-A295-6BBE2D8C64FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E16B5B15-3AA5-4D4A-A295-6BBE2D8C64FE}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{E16B5B15-3AA5-4D4A-A295-6BBE2D8C64FE}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{E16B5B15-3AA5-4D4A-A295-6BBE2D8C64FE}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{E16B5B15-3AA5-4D4A-A295-6BBE2D8C64FE}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal
