@@ -33,7 +33,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://Scripts/global.gd"
+Utils="*res://Scripts/utils.gd"
+Global="*res://Scripts/Global.cs"
 
 [display]
 

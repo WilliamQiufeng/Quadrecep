@@ -9,7 +9,7 @@
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/background_brightness.gd" type="Script" id=9]
-[ext_resource path="res://Scripts/Map.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/Map/Map.cs" type="Script" id=10]
 
 [node name="Root" type="Node2D"]
 script = ExtResource( 6 )
@@ -42,8 +42,9 @@ __meta__ = {
 
 [node name="Mask" type="TextureRect" parent="ParallaxBackground"]
 modulate = Color( 1, 1, 1, 0.768627 )
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = -0.612183
+margin_right = 1023.39
+margin_bottom = 600.0
 texture = ExtResource( 5 )
 script = ExtResource( 9 )
 __meta__ = {
@@ -56,13 +57,16 @@ __meta__ = {
 [node name="HUD" type="CanvasLayer" parent="."]
 
 [node name="Name" type="Label" parent="HUD"]
-anchor_left = 0.5
-anchor_right = 0.5
+anchor_right = 1.0
+margin_left = -0.612183
+margin_right = -0.612183
+margin_bottom = 30.0
 rect_pivot_offset = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 3 )
 text = "Name"
 align = 1
 valign = 1
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -94,10 +98,12 @@ __meta__ = {
 }
 
 [node name="Player" parent="." instance=ExtResource( 7 )]
-margin_left = 512.0
-margin_top = 300.0
-margin_right = 576.0
-margin_bottom = 364.0
+margin_left = 480.0
+margin_top = 268.0
+margin_right = 544.0
+margin_bottom = 332.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 8 )
 

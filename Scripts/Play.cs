@@ -1,15 +1,12 @@
 using Godot;
-using System;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 public class Play : Node2D
 {
     public Map Map;
-    public string map_file;
-    private AudioStream stream;
+    public string MapFile;
+    private AudioStream _stream;
 
-    private ImageTexture background_texture;
+    private ImageTexture _backgroundTexture;
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
@@ -19,7 +16,7 @@ public class Play : Node2D
     {
         Map = new Map("Test");
         Map.ReadMap();
-        ((Label) GetNode(new NodePath("HUD/Name"))).Text = Map.map_set.Name;
+        ((Label) GetNode(new NodePath("HUD/Name"))).Text = Map.MapSet.Name;
         LoadBackground();
         LoadAudio();
     }
@@ -27,28 +24,28 @@ public class Play : Node2D
     private void LoadAudio()
     {
         var audioFile = new File();
-        audioFile.Open(MapPath(Map.map_set.Audio), File.ModeFlags.Read);
+        audioFile.Open(MapPath(Map.MapSet.Audio), File.ModeFlags.Read);
         var buffer = audioFile.GetBuffer((int) audioFile.GetLen());
-        if (Map.map_set.Audio.EndsWith(".mp3"))
+        if (Map.MapSet.Audio.EndsWith(".mp3"))
         {
             var mp3Stream = new AudioStreamMP3();
             mp3Stream.Data = buffer;
-            stream = mp3Stream;
+            _stream = mp3Stream;
         }
-        else if (Map.map_set.Audio.EndsWith(".wav"))
+        else if (Map.MapSet.Audio.EndsWith(".wav"))
         {
             var wavStream = new AudioStreamSample();
             wavStream.Data = buffer;
-            stream = wavStream;
+            _stream = wavStream;
         }
-        else if (Map.map_set.Audio.EndsWith(".ogg"))
+        else if (Map.MapSet.Audio.EndsWith(".ogg"))
         {
             var oggStream = new AudioStreamOGGVorbis();
             oggStream.Data = buffer;
-            stream = oggStream;
+            _stream = oggStream;
         }
         var audioPlayer = (AudioStreamPlayer) GetNode(new NodePath("ParallaxBackground/AudioStreamPlayer"));
-        audioPlayer.Stream = stream;
+        audioPlayer.Stream = _stream;
         audioPlayer.Playing = true;
     }
     
@@ -57,19 +54,19 @@ public class Play : Node2D
     private void LoadBackground()
     {
         var img = new Image();
-        var imgPath = MapPath(Map.map_set.Background);
+        var imgPath = MapPath(Map.MapSet.Background);
         GD.Print($"Loading background from {imgPath}");
         img.Load(imgPath);
-        background_texture = new ImageTexture();
-        background_texture.CreateFromImage(img);
+        _backgroundTexture = new ImageTexture();
+        _backgroundTexture.CreateFromImage(img);
         var bg = (TextureRect) GetNode(new NodePath("ParallaxBackground/Background"));
-        bg.Texture = background_texture;
+        bg.Texture = _backgroundTexture;
         bg.Visible = true;
     }
 
-    public string MapPath(string mapRelativePath)
+    private string MapPath(string mapRelativePath)
     {
-        return $"user://{Map.map_file}/{mapRelativePath}";
+        return $"user://{Map.MapFile}/{mapRelativePath}";
     }
 
     //  // Called every frame. 'delta' is the elapsed time since the previous frame.

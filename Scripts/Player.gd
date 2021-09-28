@@ -36,7 +36,7 @@ func get_current_pointing_target():
 
 func set_rotation(target_rotation: float):
 	# print($Player.rect_rotation)
-	$Player.rect_rotation = Global.Rotation.minimize_rotation_angle($Player.rect_rotation, target_rotation)
+	$Player.rect_rotation = Utils.Rotation.minimize_rotation_angle($Player.rect_rotation, target_rotation)
 	$Tween.interpolate_property($Player, "rect_rotation",
 		$Player.rect_rotation, target_rotation, 0.1,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
@@ -47,7 +47,7 @@ func _process(delta):
 	cur_pointing_target = get_current_pointing_target()
 	if last_pointing_target != cur_pointing_target:
 		print("Before: %s, After: %s" % [last_pointing_target, cur_pointing_target])
-		var new_rotation = Global.Rotation.to_nearest_eight_direction(cur_pointing_target.angle())
+		var new_rotation = Utils.Rotation.to_nearest_eight_direction(cur_pointing_target.angle())
 		print("Rotation: %d" % new_rotation)
 		set_rotation(new_rotation)
 	position += cur_pointing_target.normalized() * speed * delta
