@@ -8,3 +8,4 @@
 /Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/obj/Debug/Quadrecep.pdb
 /Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/bin/Debug/YamlDotNet.dll
 /Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/obj/Debug/Quadrecep.csproj.CopyComplete
+/Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/obj/Debug/Quadrecep.GeneratedMSBuildEditorConfig.editorconfig

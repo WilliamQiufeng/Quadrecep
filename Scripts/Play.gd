@@ -12,9 +12,6 @@ func _ready():
 	$ParallaxBackground/VideoPlayer.free()
 	$ParallaxBackground/Background.visible = true
 	$ParallaxBackground/Mask.fade_in(1)
-	var my_csharp_script = load("res://Scripts/Map.cs")
-	var my_csharp_node = my_csharp_script.new()
-	my_csharp_node.CreateMap("Test", "TestName")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

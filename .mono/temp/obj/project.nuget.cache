@@ -1,11 +1,20 @@
 {
   "version": 2,
-  "dgSpecHash": "7lqSQ1NSExebwd9SFvdezEzT/QXBP/Mld2o1PhkrbjubiRQgQ17FeFvoL7j0PsRQePKiOPNZ4kkTc3we1bfqUA==",
+  "dgSpecHash": "DdvI7bB3doDRdVRyTKD5b0/r2ppKKeDRzjd62gbZcLXVdjdiUaBRu1ZYbxBg5/fCLWS8C/9TGrGv52wsLxa45Q==",
   "success": true,
   "projectFilePath": "/Users/mac/Documents/GodotProjects/New Game Project/Quadrecep.csproj",
   "expectedPackageFiles": [
     "/Users/mac/.nuget/packages/microsoft.netframework.referenceassemblies/1.0.0/microsoft.netframework.referenceassemblies.1.0.0.nupkg.sha512",
     "/Users/mac/.nuget/packages/microsoft.netframework.referenceassemblies.net472/1.0.0/microsoft.netframework.referenceassemblies.net472.1.0.0.nupkg.sha512",
+    "/Users/mac/.nuget/packages/sqlite-net-pcl/1.8.116/sqlite-net-pcl.1.8.116.nupkg.sha512",
+    "/Users/mac/.nuget/packages/sqlitepclraw.bundle_green/2.0.4/sqlitepclraw.bundle_green.2.0.4.nupkg.sha512",
+    "/Users/mac/.nuget/packages/sqlitepclraw.core/2.0.4/sqlitepclraw.core.2.0.4.nupkg.sha512",
+    "/Users/mac/.nuget/packages/sqlitepclraw.lib.e_sqlite3/2.0.4/sqlitepclraw.lib.e_sqlite3.2.0.4.nupkg.sha512",
+    "/Users/mac/.nuget/packages/sqlitepclraw.provider.dynamic_cdecl/2.0.4/sqlitepclraw.provider.dynamic_cdecl.2.0.4.nupkg.sha512",
+    "/Users/mac/.nuget/packages/system.buffers/4.4.0/system.buffers.4.4.0.nupkg.sha512",
+    "/Users/mac/.nuget/packages/system.memory/4.5.3/system.memory.4.5.3.nupkg.sha512",
+    "/Users/mac/.nuget/packages/system.numerics.vectors/4.4.0/system.numerics.vectors.4.4.0.nupkg.sha512",
+    "/Users/mac/.nuget/packages/system.runtime.compilerservices.unsafe/4.5.2/system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
     "/Users/mac/.nuget/packages/yamldotnet/11.2.1/yamldotnet.11.2.1.nupkg.sha512"
   ],
   "logs": []
