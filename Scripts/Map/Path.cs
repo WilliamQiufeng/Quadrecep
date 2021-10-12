@@ -1,73 +1,86 @@
+using System;
 using Godot;
+using YamlDotNet.Serialization;
 
-namespace Quadrecep.Scripts.Map
+namespace Quadrecep.Map
 {
-    public class PathObject
+    public class Path
     {
-        private int _rawDirection;
-        private int[] _direction = new int[4];
-        public Vector2 NetDirection { get; private set; }
+        public static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
 
-        public int[] Direction
-        {
-            get => _direction;
-            set
-            {
-                _direction = value;
-                CalculateNetDirection();
-                CalculateRawDirection();
-            }
-        }
+        /// <summary>
+        /// Number of pixels the player goes in one second.
+        /// 
+        /// For directions not parallel to x or y axis, if the player travels
+        /// from (0, 0) to (x, y) in one second, the speed should be sqrt(x^2+y^2)
+        public float Speed;
+        
+        public float StartTime, EndTime;
+        public DirectionObject Direction;
+        public Vector2 StartPosition, EndPosition;
+        public NoteObject TargetNote;
 
-        public int RawDirection
-        {
-            get => _rawDirection;
-            set
-            {
-                _rawDirection = value;
-                CalculateDirection();
-                CalculateNetDirection();
-            }
-        }
+        private Vector2 _k, _p;
 
-        public void CalculateDirection()
+        public Path(float factor, float startTime, float endTime, DirectionObject direction, Vector2 startPosition,
+            NoteObject targetNote, float speed = 300)
         {
-            for (var i = 3; i >= 0; i--)
-            {
-                // int val = (RawDirection & (3 << (i * 2))) >> (2 * i);
-                // GD.Print(val);
-                // // Direction[3 - i] = -(RawDirection & (2 * i + 1) * 2 - 1)  * RawDirection & (1 << (2 * i));
-                // Direction[3 - i] = -(val >> 1) * (val & 1);
-                _direction[3 - i] = (_rawDirection >> i) & 1;
-            }
-        }
-
-        public void CalculateNetDirection()
-        {
-            NetDirection = new Vector2(_direction[3] - _direction[0], _direction[1] - _direction[2]);
-        }
-
-        public void CalculateRawDirection()
-        {
-            _rawDirection = 0;
-            for (var i = 0; i < 4; i++)
-            {
-                // int sign = Math.Sign(Direction[i]) < 0 ? 1 : 0;
-                // RawDirection <<= 2;
-                // RawDirection |= (sign << 1) | (Direction[i] & 1);
-                _rawDirection <<= 1;
-                _rawDirection |= _direction[i] & 1;
-            }
-        }
-
-        public PathObject(int rawDirection = default)
-        {
-            RawDirection = rawDirection;
-        }
-
-        public PathObject(int[] direction)
-        {
+            Speed = speed * factor;
+            StartTime = startTime;
+            EndTime = endTime;
             Direction = direction;
+            StartPosition = startPosition;
+            TargetNote = targetNote;
+            CalculateConstants();
+            EndPosition = GetPosition(EndTime);
+        }
+
+        /// 
+        /// The following explains how to deduce where the player is accurately.
+        /// 
+        /// Let v be the speed, (x, y) be the initial position of the player,
+        /// (dx, dy) be the direction of the note (where dx and dy is in set {-1, 0, 1})
+        /// t1 be the initial time and t2 be the final time.
+        /// 
+        /// The distance travelled in any direction in a constant time should be constant:
+        /// Since dx^2 and dy^2 can only be either 0 or 1,
+        /// There should be a factor C (SqrtHalf), where sqrt((Cdx)^2 + (Cdy)^2) = 1:
+        /// when dx^2 = dy^2 = 1: 2C^2 = 1, C = sqrt(1/2)
+        /// when dx^2 + dy^2 is less than 2, dx and dy in {-1, 0, 1}: C = 1.
+        /// Optional: C can be calculated without using conditions:
+        /// C = sqrt(1/(dx^2+dy^2))
+        /// 
+        /// From that we can calculate the final position the player is at at time t2:
+        /// Pos = (x + vCdx(t2 - t1)/1000, y + vCdy(t2 - t1)/1000)
+        /// When the player is moving from first note to the second at t between t2 and t1:
+        /// Pos = (x + vCdx(t - t1)/1000, y + vCdy(t - t1)/1000)
+        /// While v, C, dx, dy and 1000 are constants, we can define constants Kx, Ky:
+        /// Kx = vCdx/1000, Ky = vCdy/1000
+        /// That way the position of the player at t can be calculated as follow:
+        /// Pos = (x + Kx(t - t1), y + Ky(t - t1))
+        /// which can be further shrunk by defining Px = x - Kxt1, Py = y - Kyt1:
+        /// Pos = (Px + Kx * t, Py + Ky * t)
+        ///
+        
+        ///
+        /// <summary>Calculates the player's position at a given time, given that the time is within the range</summary>
+        /// <param name="time">Time (Absolute)</param>
+        /// <returns>The player's position at the given time</returns>
+        /// 
+        public Vector2 GetPosition(float time)
+        {
+            return _p + _k * time;
+        }
+        
+        /// <summary>
+        /// Calculates constants (K, P) used for <see cref="GetPosition"/>.
+        /// See comments above.
+        /// </summary>
+        public void CalculateConstants()
+        {
+            var c = Direction.NetDirection == new Vector2(1, 1) ? SqrtHalf : 1;
+            _k = Direction.NetDirection * c * Speed / 1000;
+            _p = StartPosition - _k * StartTime;
         }
     }
 }
