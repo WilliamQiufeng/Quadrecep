@@ -1,7 +1,7 @@
 using Godot;
 using System;
 using System.Linq;
-using Quadrecep.Scripts.Map;
+using Quadrecep.Map;
 
 public class CreateMap : Node
 {
@@ -14,12 +14,12 @@ public class CreateMap : Node
     {
         _map = new Map();
         _map.CreateMap("Test");
-        _map.MapSet.Audio = "テレキャスターヒーホーイlong ver  すりぃ feat鏡音レン.mp3";
-        _map.MapSet.Background = "Telecaster_B-Boy_highres.jpg";
-        var path = new PathObject(new int[]{1, 1, 0, 1});
+        _map.MapSet.AudioPath = "テレキャスターヒーホーイlong ver  すりぃ feat鏡音レン.mp3";
+        _map.MapSet.BackgroundPath = "Telecaster_B-Boy_highres.jpg";
+        var path = new DirectionObject(new int[]{1, 1, 0, 1});
         _map.GetMap(0).AddNote(new NoteObject(1000, 0, path.RawDirection));
         _map.SaveMap();
-        var verifyPath = new PathObject(path.RawDirection);
+        var verifyPath = new DirectionObject(path.RawDirection);
         GD.Print("Direction: " + string.Join(", ", verifyPath.Direction));
         GD.Print("VecDirection: " + verifyPath.NetDirection);
     }
