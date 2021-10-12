@@ -1,75 +1,17 @@
 using System.Collections.Generic;
 using Godot;
-using Quadrecep.Scripts.Database;
+using Quadrecep.Database;
+using Quadrecep.Map;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
-
-public class NoteObject
-{
-    public float StartTime { get; set; }
-    public float Length { get; set; }
-    public int Direction { get; set; }
-
-    public NoteObject(float startTime = default, float length = default, int direction = default)
-    {
-        StartTime = startTime;
-        Length = length;
-        Direction = direction;
-    }
-
-    public NoteObject()
-    {
-    }
-
-    public override string ToString()
-    {
-        return $"{nameof(StartTime)}: {StartTime}, {nameof(Length)}: {Length}, {nameof(Direction)}: {Direction}";
-    }
-}
-
-public class MapObject
-{
-    public string DifficultyName { get; set; } = "None";
-    public float StartTime { get; set; } = 0;
-    public List<NoteObject> Notes { get; set; } = new List<NoteObject>();
-
-    public void AddNote(NoteObject note)
-    {
-        Notes.Add(note);
-    }
-
-    public override string ToString()
-    {
-        return
-            $"{nameof(DifficultyName)}: {DifficultyName}, {nameof(StartTime)}: {StartTime}, {nameof(Notes)}: {Notes}";
-    }
-}
-
-public class MapSetObject
-{
-    public float PreviewTime { get; set; } = 0;
-    public string Name { get; set; } = "";
-    public string Artist { get; set; } = "";
-    public string Creator { get; set; } = "";
-    public string Description { get; set; } = "";
-    public string Audio { get; set; } = "audio.mp3";
-    public string Background { get; set; } = "background.jpg";
-    public int LocalId { get; set; } = -1;
-    public int OnlineId { get; set; } = -1;
-    public List<MapObject> Maps { get; set; } = new List<MapObject>();
-
-    public override string ToString()
-    {
-        return
-            $"{nameof(PreviewTime)}: {PreviewTime}, {nameof(Name)}: {Name}, {nameof(Artist)}: {Artist}, {nameof(Creator)}: {Creator}, {nameof(Description)}: {Description}, {nameof(Audio)}: {Audio}, {nameof(Background)}: {Background}, {nameof(LocalId)}: {LocalId}, {nameof(OnlineId)}: {OnlineId}, {nameof(Maps)}: {Maps}";
-    }
-}
 
 public class Map : Node
 {
     [Export(PropertyHint.File, "*.qbm")] public string MapFile { get; set; } = "Test";
 
     public MapSetObject MapSet;
+    
+    
 
     public Map()
     {
@@ -101,7 +43,11 @@ public class Map : Node
         };
         var record = new MapRecord
         {
-            Name = MapSet.Name
+            Name = MapSet.Name,
+            Artist = MapSet.Artist,
+            AudioPath = MapSet.AudioPath,
+            BackgroundPath = MapSet.BackgroundPath,
+            Creator = MapSet.Creator
         };
         if (DatabaseHandler.Connection.Table<MapRecord>().Count(x => x.Name == record.Name) != 0 && !force)
             return false;
