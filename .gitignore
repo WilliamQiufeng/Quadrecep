@@ -10,3 +10,8 @@ lib/
 Resources/
 *.mp4
 *.webm
+
+# Mono
+mono_crash*.json
+.mono/assemblies
+.mono/temp
