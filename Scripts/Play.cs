@@ -24,21 +24,21 @@ public class Play : Node2D
     private void LoadAudio()
     {
         var audioFile = new File();
-        audioFile.Open(MapPath(Map.MapSet.Audio), File.ModeFlags.Read);
+        audioFile.Open(MapPath(Map.MapSet.AudioPath), File.ModeFlags.Read);
         var buffer = audioFile.GetBuffer((int) audioFile.GetLen());
-        if (Map.MapSet.Audio.EndsWith(".mp3"))
+        if (Map.MapSet.AudioPath.EndsWith(".mp3"))
         {
             var mp3Stream = new AudioStreamMP3();
             mp3Stream.Data = buffer;
             _stream = mp3Stream;
         }
-        else if (Map.MapSet.Audio.EndsWith(".wav"))
+        else if (Map.MapSet.AudioPath.EndsWith(".wav"))
         {
             var wavStream = new AudioStreamSample();
             wavStream.Data = buffer;
             _stream = wavStream;
         }
-        else if (Map.MapSet.Audio.EndsWith(".ogg"))
+        else if (Map.MapSet.AudioPath.EndsWith(".ogg"))
         {
             var oggStream = new AudioStreamOGGVorbis();
             oggStream.Data = buffer;
@@ -54,7 +54,7 @@ public class Play : Node2D
     private void LoadBackground()
     {
         var img = new Image();
-        var imgPath = MapPath(Map.MapSet.Background);
+        var imgPath = MapPath(Map.MapSet.BackgroundPath);
         GD.Print($"Loading background from {imgPath}");
         img.Load(imgPath);
         _backgroundTexture = new ImageTexture();
