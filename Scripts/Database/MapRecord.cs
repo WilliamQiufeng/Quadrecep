@@ -1,5 +1,6 @@
 using SQLite;
-namespace Quadrecep.Scripts.Database
+
+namespace Quadrecep.Database
 {
     [Table("Maps")]
     public class MapRecord
@@ -7,8 +8,13 @@ namespace Quadrecep.Scripts.Database
         [PrimaryKey, AutoIncrement]
         [Column("id")]
         [Indexed]
-        public int Id {get; set; }
-        [Column("name")]
-        public string Name {get; set; }
+        public int Id { get; set; }
+
+        [Column("name")] public string Name { get; set; }
+        [Column("creator")] public string Creator { get; set; }
+        [Column("artist")] public string Artist { get; set; }
+
+        [Column("audio_path")] public string AudioPath { get; set; }
+        [Column("background_path")] public string BackgroundPath { get; set; }
     }
 }
