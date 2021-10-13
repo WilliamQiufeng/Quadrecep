@@ -69,5 +69,16 @@ namespace Quadrecep.Map
         {
             Direction = direction;
         }
+
+        public override string ToString()
+        {
+            return $"{NetDirection}";
+        }
+
+        public static implicit operator int(DirectionObject dir) => dir.RawDirection;
+        public static implicit operator int[](DirectionObject dir) => dir.Direction;
+        public static implicit operator Vector2(DirectionObject dir) => dir.NetDirection;
+        public static implicit operator DirectionObject(int dir) => new DirectionObject(dir);
+        public static implicit operator DirectionObject(int[] dir) => new DirectionObject(dir);
     }
 }
