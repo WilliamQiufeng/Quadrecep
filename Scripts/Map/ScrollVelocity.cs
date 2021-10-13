@@ -7,5 +7,15 @@ namespace Quadrecep.Map
     {
         public float Time;
         public float Factor;
+
+        public ScrollVelocity(float time, float factor)
+        {
+            Time = time;
+            Factor = factor;
+        }
+
+        public ScrollVelocity()
+        {
+        }
     }
 }
