@@ -68,7 +68,7 @@ namespace Quadrecep.Map
         /// 
         public Vector2 GetPosition(float time)
         {
-            return _p + _k * time;
+            return (_p + _k * time).Round();
         }
 
         /// <summary>
