@@ -16,6 +16,11 @@ public class Play : Node2D
     {
         Map = new Map("Test");
         Map.ReadMap();
+        Map.MapSet.BuildPaths();
+        foreach (var path in Map.GetMap(0).Paths)
+        {
+            GD.Print(path);
+        }
         ((Label) GetNode(new NodePath("HUD/Name"))).Text = Map.MapSet.Name;
         LoadBackground();
         LoadAudio();
