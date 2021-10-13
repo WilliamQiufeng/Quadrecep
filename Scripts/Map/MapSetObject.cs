@@ -15,10 +15,21 @@ namespace Quadrecep.Map
         public int OnlineId { get; set; } = -1;
         public List<MapObject> Maps { get; set; } = new List<MapObject>();
 
+        /// <summary>
+        /// Invoke BuildPaths for all Maps
+        /// </summary>
+        public void BuildPaths()
+        {
+            foreach (var map in Maps)
+            {
+                map.BuildPaths();
+            }
+        }
+
         public override string ToString()
         {
             return
-                $"{nameof(PreviewTime)}: {PreviewTime}, {nameof(Name)}: {Name}, {nameof(Artist)}: {Artist}, {nameof(Creator)}: {Creator}, {nameof(Description)}: {Description}, {nameof(AudioPath)}: {AudioPath}, {nameof(BackgroundPath)}: {BackgroundPath}, {nameof(LocalId)}: {LocalId}, {nameof(OnlineId)}: {OnlineId}, {nameof(Maps)}: {Maps}";
+                $"[MapSet: {nameof(PreviewTime)}: {PreviewTime}, {nameof(Name)}: {Name}, {nameof(Artist)}: {Artist}, {nameof(Creator)}: {Creator}, {nameof(Description)}: {Description}, {nameof(AudioPath)}: {AudioPath}, {nameof(BackgroundPath)}: {BackgroundPath}, {nameof(LocalId)}: {LocalId}, {nameof(OnlineId)}: {OnlineId}, {nameof(Maps)}: {Maps}]";
         }
     }
 }
