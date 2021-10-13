@@ -6,7 +6,7 @@ namespace Quadrecep.Map
 {
     public class Path
     {
-        public static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
+        private static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
 
         /// <summary>
         /// Number of pixels the player goes in one second.
@@ -14,7 +14,7 @@ namespace Quadrecep.Map
         /// For directions not parallel to x or y axis, if the player travels
         /// from (0, 0) to (x, y) in one second, the speed should be sqrt(x^2+y^2)
         public float Speed;
-        
+
         public float StartTime, EndTime;
         public DirectionObject Direction;
         public Vector2 StartPosition, EndPosition;
@@ -61,7 +61,6 @@ namespace Quadrecep.Map
         /// which can be further shrunk by defining Px = x - Kxt1, Py = y - Kyt1:
         /// Pos = (Px + Kx * t, Py + Ky * t)
         ///
-        
         ///
         /// <summary>Calculates the player's position at a given time, given that the time is within the range</summary>
         /// <param name="time">Time (Absolute)</param>
@@ -71,16 +70,22 @@ namespace Quadrecep.Map
         {
             return _p + _k * time;
         }
-        
+
         /// <summary>
         /// Calculates constants (K, P) used for <see cref="GetPosition"/>.
         /// See comments above.
         /// </summary>
         public void CalculateConstants()
         {
-            var c = Direction.NetDirection == new Vector2(1, 1) ? SqrtHalf : 1;
+            var c = Direction.NetDirection == new Vector2(1f, 1f) ? SqrtHalf : 1;
             _k = Direction.NetDirection * c * Speed / 1000;
             _p = StartPosition - _k * StartTime;
+        }
+
+        public override string ToString()
+        {
+            return
+                $"[Path: {nameof(Speed)}: {Speed}, {nameof(StartTime)}: {StartTime}, {nameof(EndTime)}: {EndTime}, {nameof(Direction)}: {Direction}, {nameof(StartPosition)}: {StartPosition}, {nameof(EndPosition)}: {EndPosition}, {nameof(TargetNote)}: {TargetNote}]";
         }
     }
 }
