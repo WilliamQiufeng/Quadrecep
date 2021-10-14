@@ -45,11 +45,12 @@ namespace Quadrecep.Map
                     svIndex < ScrollVelocities.Count && ScrollVelocities[svIndex].Time < note.StartTime;
                     svIndex++)
                 {
-                    var path = new Path(lastSVFactor, slicedStartTime, ScrollVelocities[svIndex].Time, direction,
+                    ref var endTime = ref ScrollVelocities[svIndex].Time;
+                    var path = new Path(lastSVFactor, slicedStartTime, endTime, direction,
                         currentPosition, null);
-                    if (!slicedStartTime.Equals(ScrollVelocities[svIndex].Time)) Paths.Add(path);
+                    if (!slicedStartTime.Equals(endTime)) Paths.Add(path);
                     lastSVFactor = ScrollVelocities[svIndex].Factor;
-                    slicedStartTime = ScrollVelocities[svIndex].Time;
+                    slicedStartTime = endTime;
                     currentPosition = path.EndPosition;
                 }
 
