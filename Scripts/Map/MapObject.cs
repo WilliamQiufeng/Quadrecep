@@ -47,7 +47,7 @@ namespace Quadrecep.Map
                 {
                     var path = new Path(lastSVFactor, slicedStartTime, ScrollVelocities[svIndex].Time, direction,
                         currentPosition, null);
-                    Paths.Add(path);
+                    if (!slicedStartTime.Equals(ScrollVelocities[svIndex].Time)) Paths.Add(path);
                     lastSVFactor = ScrollVelocities[svIndex].Factor;
                     slicedStartTime = ScrollVelocities[svIndex].Time;
                     currentPosition = path.EndPosition;
