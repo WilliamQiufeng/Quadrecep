@@ -38,7 +38,7 @@ func set_rotation(target_rotation: float):
 	# print($Player.rect_rotation)
 	$Player.rect_rotation = Utils.Rotation.minimize_rotation_angle($Player.rect_rotation, target_rotation)
 	$Tween.interpolate_property($Player, "rect_rotation",
-		$Player.rect_rotation, target_rotation, 0.1,
+		$Player.rect_rotation, target_rotation, 0.5,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	$Tween.start()
 

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/mac/Documents/GodotProjects/New Game Project/Quadrecep.csproj": {}
+    "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj": {}
   },
   "projects": {
-    "/Users/mac/Documents/GodotProjects/New Game Project/Quadrecep.csproj": {
+    "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mac/Documents/GodotProjects/New Game Project/Quadrecep.csproj",
+        "projectUniqueName": "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj",
         "projectName": "Quadrecep",
-        "projectPath": "/Users/mac/Documents/GodotProjects/New Game Project/Quadrecep.csproj",
+        "projectPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj",
         "packagesPath": "/Users/mac/.nuget/packages/",
-        "outputPath": "/Users/mac/Documents/GodotProjects/New Game Project/.mono/temp/obj/",
+        "outputPath": "/Users/mac/Documents/GodotProjects/Quadrecep/.mono/temp/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/mac/.nuget/NuGet/NuGet.Config"
