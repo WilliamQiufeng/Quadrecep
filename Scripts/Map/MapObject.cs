@@ -23,8 +23,8 @@ namespace Quadrecep.Map
         }
 
         /// <summary>
-        /// note(t) #     #
-        /// sv  (t)   # #   
+        ///     note(t) #     #
+        ///     sv  (t)   # #
         /// </summary>
         public void BuildPaths()
         {
@@ -52,6 +52,7 @@ namespace Quadrecep.Map
                     slicedStartTime = ScrollVelocities[svIndex].Time;
                     currentPosition = path.EndPosition;
                 }
+
                 // Add final path where the next note is `note`.
                 // If there isn't any SVs between, the start time will be lastNoteStartTime
                 Paths.Add(new Path(lastSVFactor, slicedStartTime, note.StartTime, direction,
@@ -71,7 +72,8 @@ namespace Quadrecep.Map
 
         public override string ToString()
         {
-            return $"[Map: {nameof(DifficultyName)}: {DifficultyName}, {nameof(StartTime)}: {StartTime}, {nameof(Notes)}: {Notes}, {nameof(ScrollVelocities)}: {ScrollVelocities}, {nameof(Paths)}: {Paths}]";
+            return
+                $"[Map: {nameof(DifficultyName)}: {DifficultyName}, {nameof(StartTime)}: {StartTime}, {nameof(Notes)}: {Notes}, {nameof(ScrollVelocities)}: {ScrollVelocities}, {nameof(Paths)}: {Paths}]";
         }
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using Godot;
-using YamlDotNet.Serialization;
 
 namespace Quadrecep.Map
 {
@@ -8,19 +7,19 @@ namespace Quadrecep.Map
     {
         private static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
 
+        private Vector2 _k, _p;
+        public DirectionObject Direction;
+
         /// <summary>
-        /// Number of pixels the player goes in one second.
-        /// 
-        /// For directions not parallel to x or y axis, if the player travels
-        /// from (0, 0) to (x, y) in one second, the speed should be sqrt(x^2+y^2)
+        ///     Number of pixels the player goes in one second.
+        ///     For directions not parallel to x or y axis, if the player travels
+        ///     from (0, 0) to (x, y) in one second, the speed should be sqrt(x^2+y^2)
         public float Speed;
 
-        public float StartTime, EndTime;
-        public DirectionObject Direction;
         public Vector2 StartPosition, EndPosition;
-        public NoteObject TargetNote;
 
-        private Vector2 _k, _p;
+        public float StartTime, EndTime;
+        public NoteObject TargetNote;
 
         public Path(float factor, float startTime, float endTime, DirectionObject direction, Vector2 startPosition,
             NoteObject targetNote, float speed = 300)
@@ -35,7 +34,6 @@ namespace Quadrecep.Map
             EndPosition = GetPosition(EndTime);
         }
 
-        /// 
         /// The following explains how to deduce where the player is accurately.
         /// 
         /// Let v be the speed, (x, y) be the initial position of the player,
@@ -60,20 +58,17 @@ namespace Quadrecep.Map
         /// Pos = (x + Kx(t - t1), y + Ky(t - t1))
         /// which can be further shrunk by defining Px = x - Kxt1, Py = y - Kyt1:
         /// Pos = (Px + Kx * t, Py + Ky * t)
-        ///
-        ///
         /// <summary>Calculates the player's position at a given time, given that the time is within the range</summary>
         /// <param name="time">Time (Absolute)</param>
         /// <returns>The player's position at the given time</returns>
-        /// 
         public Vector2 GetPosition(float time)
         {
             return (_p + _k * time).Round();
         }
 
         /// <summary>
-        /// Calculates constants (K, P) used for <see cref="GetPosition"/>.
-        /// See comments above.
+        ///     Calculates constants (K, P) used for <see cref="GetPosition" />.
+        ///     See comments above.
         /// </summary>
         public void CalculateConstants()
         {

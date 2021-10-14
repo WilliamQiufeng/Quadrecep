@@ -16,14 +16,11 @@ namespace Quadrecep.Map
         public List<MapObject> Maps { get; set; } = new List<MapObject>();
 
         /// <summary>
-        /// Invoke BuildPaths for all Maps
+        ///     Invoke BuildPaths for all Maps
         /// </summary>
         public void BuildPaths()
         {
-            foreach (var map in Maps)
-            {
-                map.BuildPaths();
-            }
+            foreach (var map in Maps) map.BuildPaths();
         }
 
         public override string ToString()

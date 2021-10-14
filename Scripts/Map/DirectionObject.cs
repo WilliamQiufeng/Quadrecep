@@ -4,8 +4,19 @@ namespace Quadrecep.Map
 {
     public class DirectionObject
     {
-        private int _rawDirection;
         private int[] _direction = new int[4];
+        private int _rawDirection;
+
+        public DirectionObject(int rawDirection = default)
+        {
+            RawDirection = rawDirection;
+        }
+
+        public DirectionObject(int[] direction)
+        {
+            Direction = direction;
+        }
+
         public Vector2 NetDirection { get; private set; }
 
         public int[] Direction
@@ -33,13 +44,11 @@ namespace Quadrecep.Map
         public void CalculateDirection()
         {
             for (var i = 3; i >= 0; i--)
-            {
                 // int val = (RawDirection & (3 << (i * 2))) >> (2 * i);
                 // GD.Print(val);
                 // // Direction[3 - i] = -(RawDirection & (2 * i + 1) * 2 - 1)  * RawDirection & (1 << (2 * i));
                 // Direction[3 - i] = -(val >> 1) * (val & 1);
                 _direction[3 - i] = (_rawDirection >> i) & 1;
-            }
         }
 
         public void CalculateNetDirection()
@@ -60,25 +69,34 @@ namespace Quadrecep.Map
             }
         }
 
-        public DirectionObject(int rawDirection = default)
-        {
-            RawDirection = rawDirection;
-        }
-
-        public DirectionObject(int[] direction)
-        {
-            Direction = direction;
-        }
-
         public override string ToString()
         {
             return $"{NetDirection}";
         }
 
-        public static implicit operator int(DirectionObject dir) => dir.RawDirection;
-        public static implicit operator int[](DirectionObject dir) => dir.Direction;
-        public static implicit operator Vector2(DirectionObject dir) => dir.NetDirection;
-        public static implicit operator DirectionObject(int dir) => new DirectionObject(dir);
-        public static implicit operator DirectionObject(int[] dir) => new DirectionObject(dir);
+        public static implicit operator int(DirectionObject dir)
+        {
+            return dir.RawDirection;
+        }
+
+        public static implicit operator int[](DirectionObject dir)
+        {
+            return dir.Direction;
+        }
+
+        public static implicit operator Vector2(DirectionObject dir)
+        {
+            return dir.NetDirection;
+        }
+
+        public static implicit operator DirectionObject(int dir)
+        {
+            return new DirectionObject(dir);
+        }
+
+        public static implicit operator DirectionObject(int[] dir)
+        {
+            return new DirectionObject(dir);
+        }
     }
 }

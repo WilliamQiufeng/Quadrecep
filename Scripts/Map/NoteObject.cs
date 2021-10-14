@@ -1,17 +1,9 @@
-using Godot;
 using YamlDotNet.Serialization;
 
 namespace Quadrecep.Map
 {
     public class NoteObject
     {
-    
-        public float StartTime { get; set; }
-        public float Length { get; set; }
-        public int Direction { get; set; }
-        [YamlIgnore]
-        public float EndTime => StartTime + Length;
-
         public NoteObject(float startTime = default, float length = default, int direction = default)
         {
             StartTime = startTime;
@@ -23,9 +15,16 @@ namespace Quadrecep.Map
         {
         }
 
+        public float StartTime { get; set; }
+        public float Length { get; set; }
+        public int Direction { get; set; }
+
+        [YamlIgnore] public float EndTime => StartTime + Length;
+
         public override string ToString()
         {
-            return $"[Note: {nameof(StartTime)}: {StartTime}, {nameof(Length)}: {Length}, {nameof(Direction)}: {new DirectionObject(Direction)}]";
+            return
+                $"[Note: {nameof(StartTime)}: {StartTime}, {nameof(Length)}: {Length}, {nameof(Direction)}: {new DirectionObject(Direction)}]";
         }
     }
 }

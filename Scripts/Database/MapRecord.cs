@@ -5,7 +5,8 @@ namespace Quadrecep.Database
     [Table("Maps")]
     public class MapRecord
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
+        [AutoIncrement]
         [Column("id")]
         [Indexed]
         public int Id { get; set; }

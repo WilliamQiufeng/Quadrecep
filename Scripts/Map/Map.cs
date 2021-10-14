@@ -7,11 +7,8 @@ using YamlDotNet.Serialization.NamingConventions;
 
 public class Map : Node
 {
-    [Export(PropertyHint.File, "*.qbm")] public string MapFile { get; set; } = "Test";
-
     public MapSetObject MapSet;
-    
-    
+
 
     public Map()
     {
@@ -21,6 +18,8 @@ public class Map : Node
     {
         MapFile = mapFile;
     }
+
+    [Export(PropertyHint.File, "*.qbm")] public string MapFile { get; set; } = "Test";
 
     // Declare member variables here. Examples:
     // private int a = 2;
@@ -37,7 +36,7 @@ public class Map : Node
             {
                 new MapObject
                 {
-                    DifficultyName = "Default",
+                    DifficultyName = "Default"
                 }
             })
         };

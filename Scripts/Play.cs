@@ -2,11 +2,11 @@ using Godot;
 
 public class Play : Node2D
 {
-    public Map Map;
-    public string MapFile;
-    private AudioStream _stream;
-
     private ImageTexture _backgroundTexture;
+    private AudioStream _stream;
+    public Map Map;
+
+    public string MapFile;
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
@@ -17,10 +17,7 @@ public class Play : Node2D
         Map = new Map("Test");
         Map.ReadMap();
         Map.MapSet.BuildPaths();
-        foreach (var path in Map.GetMap(0).Paths)
-        {
-            GD.Print(path);
-        }
+        foreach (var path in Map.GetMap(0).Paths) GD.Print(path);
         ((Label) GetNode(new NodePath("HUD/Name"))).Text = Map.MapSet.Name;
         LoadBackground();
         LoadAudio();
@@ -49,12 +46,12 @@ public class Play : Node2D
             oggStream.Data = buffer;
             _stream = oggStream;
         }
+
         var audioPlayer = (AudioStreamPlayer) GetNode(new NodePath("ParallaxBackground/AudioStreamPlayer"));
         audioPlayer.Stream = _stream;
         audioPlayer.Playing = true;
     }
-    
-    
+
 
     private void LoadBackground()
     {
