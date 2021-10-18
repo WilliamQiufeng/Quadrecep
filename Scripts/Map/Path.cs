@@ -22,7 +22,7 @@ namespace Quadrecep.Map
         public NoteObject TargetNote;
 
         public Path(float factor, float startTime, float endTime, DirectionObject direction, Vector2 startPosition,
-            NoteObject targetNote, float speed = 300)
+            NoteObject targetNote, float speed = 150)
         {
             Speed = speed * factor;
             StartTime = startTime;
