@@ -30,9 +30,9 @@ namespace Quadrecep.Map
         {
             if (Notes.Count == 0) return;
             var svIndex = 0;
-            var lastNoteStartTime = 0f;
-            var currentPosition = new Vector2(0, 0);
-            var lastSVFactor = 1.0f;
+            var lastNoteStartTime = 0f; // This can be changed to be the audio offset
+            var currentPosition = new Vector2(0, 0); // Origin
+            var lastSVFactor = 1.0f; // Initial SV
             DirectionObject direction = 0b0010; // Up
 
             foreach (var note in Notes)
