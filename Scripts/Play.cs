@@ -1,4 +1,6 @@
 using Godot;
+using Quadrecep.Map;
+using static Godot.Vector2;
 
 public class Play : Node2D
 {
@@ -17,10 +19,42 @@ public class Play : Node2D
         Map = new Map("Test");
         Map.ReadMap();
         Map.MapSet.BuildPaths();
-        foreach (var path in Map.GetMap(0).Paths) GD.Print(path);
+        PlaceNotesInScene();
         ((Label) GetNode(new NodePath("HUD/Name"))).Text = Map.MapSet.Name;
         LoadBackground();
         LoadAudio();
+    }
+
+    private void PlaceNotesInScene()
+    {
+        var noteSpriteScene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
+        var pathScene = GD.Load<PackedScene>("res://Scenes/Path.tscn");
+        // var mapContainer = GetNode<CanvasLayer>("Map");
+        foreach (var path in Map.GetMap(0).Paths)
+        {
+            if (path.TargetNote != null)
+            {
+                if (noteSpriteScene.Instance() is Node2D noteSprite)
+                {
+                    noteSprite.GlobalPosition = path.EndPosition + new Vector2(512, 300);
+                    var targetNoteDirection = (DirectionObject) path.TargetNote.Direction;
+                    noteSprite.Rotation = Zero.AngleToPoint(targetNoteDirection.NetDirection) - Mathf.Pi / 2;
+                    noteSprite.GetNode<Node2D>("Side").Visible = targetNoteDirection.HasSide();
+                    GetNode("Notes").AddChild(noteSprite);
+                }
+            }
+            else
+            {
+                // Remove or otherwise. This is only used for debugging.
+                if (pathScene.Instance() is Node2D pathSprite)
+                {
+                    pathSprite.GlobalPosition = path.EndPosition + new Vector2(512, 300);
+                    GetNode("Notes").AddChild(pathSprite);
+                }
+            }
+
+            GD.Print(path);
+        }
     }
 
     private void LoadAudio()
