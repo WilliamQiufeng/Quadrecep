@@ -14,10 +14,10 @@ public class CreateMap : Node
         _map.CreateMap("Test");
         _map.MapSet.AudioPath = "テレキャスターヒーホーイlong ver  すりぃ feat鏡音レン.mp3";
         _map.MapSet.BackgroundPath = "Telecaster_B-Boy_highres.jpg";
-        _map.GetMap(0).AddNote(new NoteObject(1000, 0, 0b1011));
-        _map.GetMap(0).AddNote(new NoteObject(2000, 0, 0b1110));
+        _map.GetMap(0).AddNote(new NoteObject(1000, 0, 0b1101));
+        _map.GetMap(0).AddNote(new NoteObject(2000, 0, 0b0111));
         _map.GetMap(0).AddNote(new NoteObject(3000, 0, 0b1010));
-        _map.GetMap(0).AddNote(new NoteObject(4000, 0, 0b1000));
+        _map.GetMap(0).AddNote(new NoteObject(4000, 0, 0b1100));
         _map.GetMap(0).AddSV(new ScrollVelocity(500, 0.5f));
         _map.GetMap(0).AddSV(new ScrollVelocity(1500, 1.5f));
         _map.GetMap(0).AddSV(new ScrollVelocity(3000, 1f));
