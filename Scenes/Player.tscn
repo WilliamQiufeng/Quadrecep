@@ -8,6 +8,9 @@ margin_top = -32.0
 margin_right = 32.0
 margin_bottom = 32.0
 rect_pivot_offset = Vector2( 32, 32 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Player" type="TextureRect" parent="."]
 anchor_left = 0.5
