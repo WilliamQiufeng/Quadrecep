@@ -69,6 +69,11 @@ namespace Quadrecep.Map
             }
         }
 
+        public bool HasSide()
+        {
+            return ((Direction[0] & Direction[3]) | (Direction[1] & Direction[2])) == 1;
+        }
+
         public override string ToString()
         {
             return $"{NetDirection}";
