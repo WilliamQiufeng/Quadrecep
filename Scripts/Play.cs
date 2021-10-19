@@ -74,7 +74,7 @@ public class Play : Node2D
             {
                 if (noteSpriteScene.Instance() is Node2D noteSprite)
                 {
-                    noteSprite.GlobalPosition = path.EndPosition + new Vector2(512, 300);
+                    noteSprite.GlobalPosition = path.EndPosition;
                     var targetNoteDirection = (DirectionObject) path.TargetNote.Direction;
                     noteSprite.Rotation = Zero.AngleToPoint(targetNoteDirection.NetDirection) - Mathf.Pi / 2;
                     noteSprite.GetNode<Node2D>("Side").Visible = targetNoteDirection.HasSide();
@@ -86,7 +86,7 @@ public class Play : Node2D
                 // Remove or otherwise. This is only used for debugging.
                 if (pathScene.Instance() is Node2D pathSprite)
                 {
-                    pathSprite.GlobalPosition = path.EndPosition + new Vector2(512, 300);
+                    pathSprite.GlobalPosition = path.EndPosition;
                     GetNode("Notes").AddChild(pathSprite);
                 }
             }
