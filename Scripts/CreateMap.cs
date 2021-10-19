@@ -18,6 +18,7 @@ public class CreateMap : Node
         _map.GetMap(0).AddNote(new NoteObject(2000, 0, 0b0111));
         _map.GetMap(0).AddNote(new NoteObject(3000, 0, 0b1010));
         _map.GetMap(0).AddNote(new NoteObject(4000, 0, 0b1100));
+        _map.GetMap(0).AddNote(new NoteObject(10000, 0, 0b1010));
         _map.GetMap(0).AddSV(new ScrollVelocity(500, 0.5f));
         _map.GetMap(0).AddSV(new ScrollVelocity(1500, 1.5f));
         _map.GetMap(0).AddSV(new ScrollVelocity(3000, 1f));

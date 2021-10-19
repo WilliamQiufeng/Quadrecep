@@ -22,16 +22,6 @@ bus = "Music"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="Background" type="TextureRect" parent="ParallaxBackground"]
-visible = false
-margin_right = 1024.0
-margin_bottom = 600.0
-texture = ExtResource( 4 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="VideoPlayer" type="VideoPlayer" parent="ParallaxBackground"]
 visible = false
 margin_right = 1024.0
@@ -42,7 +32,22 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Mask" type="TextureRect" parent="ParallaxBackground"]
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2( -768, -450 )
+scale = Vector2( 1.5, 1.5 )
+motion_scale = Vector2( 0.02, 0.02 )
+
+[node name="Background" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mask" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
 modulate = Color( 1, 1, 1, 0.768627 )
 margin_left = -0.612183
 margin_right = 1023.39
@@ -54,7 +59,7 @@ __meta__ = {
 "_editor_description_": "Use this to set the brightness of the background"
 }
 
-[node name="Tween" type="Tween" parent="ParallaxBackground/Mask"]
+[node name="Tween" type="Tween" parent="ParallaxBackground/ParallaxLayer/Mask"]
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
@@ -118,6 +123,7 @@ __meta__ = {
 }
 
 [node name="Player" type="CanvasLayer" parent="."]
+follow_viewport_enable = true
 script = ExtResource( 10 )
 
 [node name="Player" parent="Player" instance=ExtResource( 7 )]
@@ -125,10 +131,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 0.0
-margin_top = 0.0
-margin_right = 0.0
-margin_bottom = 0.0
+margin_left = -512.0
+margin_top = -300.0
+margin_right = -512.0
+margin_bottom = -300.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_scale = Vector2( 0.75, 0.75 )
@@ -137,5 +143,16 @@ script = ExtResource( 8 )
 
 [node name="Tween" type="Tween" parent="Player/Player"]
 
+[node name="Camera2D" type="Camera2D" parent="Player/Player"]
+scale = Vector2( 1.33333, 1.33333 )
+current = true
+limit_smoothed = true
+drag_margin_left = 0.3
+drag_margin_top = 0.3
+drag_margin_right = 0.3
+drag_margin_bottom = 0.3
+editor_draw_drag_margin = true
+
 [node name="Notes" type="CanvasLayer" parent="."]
 layer = 0
+follow_viewport_enable = true

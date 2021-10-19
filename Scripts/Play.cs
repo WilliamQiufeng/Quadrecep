@@ -17,6 +17,7 @@ public class Play : Node2D
 
     public string MapFile;
     public float Time;
+    public bool Finished = false;
 
     public Path CurrentPath => _mapObject.Paths[_pathIndex];
     // Declare member variables here. Examples:
@@ -49,15 +50,33 @@ public class Play : Node2D
 
     private void UpdateCurrentPath()
     {
+        if (Finished) return;
         while (CurrentPath.EndTime < Time)
         {
+            var player = GetNode<Player>("Player/Player");
+            player.RectPosition = CurrentPath.EndPosition;
+            if (CurrentPath.TargetNote != null)
+            {
+                var tween = player.GetNode<Tween>("Tween");
+                tween.InterpolateProperty(player, "rect_rotation", player.RectRotation,
+                    Mathf.Rad2Deg(GetNoteRotation(CurrentPath.TargetNote.Direction)), 0.3f);
+                tween.Start();
+            }
+
             _pathIndex++;
+            if (_pathIndex >= _mapObject.Paths.Count)
+            {
+                Finished = true;
+                return;
+            }
+
             GD.Print(CurrentPath);
         }
     }
 
     private void UpdateTime()
     {
+        if (Finished) return;
         // From https://docs.godotengine.org/en/stable/tutorials/audio/sync_with_audio.html
         Time = (float) (GetNode<AudioStreamPlayer>("AudioStreamPlayer").GetPlaybackPosition() +
             AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000;
@@ -76,7 +95,7 @@ public class Play : Node2D
                 {
                     noteSprite.GlobalPosition = path.EndPosition;
                     var targetNoteDirection = (DirectionObject) path.TargetNote.Direction;
-                    noteSprite.Rotation = Zero.AngleToPoint(targetNoteDirection.NetDirection) - Mathf.Pi / 2;
+                    noteSprite.Rotation = GetNoteRotation(targetNoteDirection);
                     noteSprite.GetNode<Node2D>("Side").Visible = targetNoteDirection.HasSide();
                     GetNode("Notes").AddChild(noteSprite);
                 }
@@ -93,6 +112,11 @@ public class Play : Node2D
 
             GD.Print(path);
         }
+    }
+
+    public static float GetNoteRotation(DirectionObject targetNoteDirection)
+    {
+        return Zero.AngleToPoint(targetNoteDirection.NetDirection) - Mathf.Pi / 2;
     }
 
     private void LoadAudio()
@@ -133,7 +157,7 @@ public class Play : Node2D
         img.Load(imgPath);
         _backgroundTexture = new ImageTexture();
         _backgroundTexture.CreateFromImage(img);
-        var bg = (TextureRect) GetNode(new NodePath("ParallaxBackground/Background"));
+        var bg = (TextureRect) GetNode(new NodePath("ParallaxBackground/ParallaxLayer/Background"));
         bg.Texture = _backgroundTexture;
         bg.Visible = true;
     }

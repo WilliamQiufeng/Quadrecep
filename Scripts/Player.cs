@@ -15,6 +15,8 @@ public class Player : Control
     public override void _Process(float delta)
     {
         var play = GetNode<Play>("../..");
-        RectPosition = play.CurrentPath.GetPosition(play.Time) + Global.GlobalOffsetRect;
+        if (play.Finished) return;
+        RectPosition = play.CurrentPath.GetPosition(play.Time);
+        // GetNode<Camera2D>("../../Camera2D").Offset = RectPosition;
     }
 }
