@@ -10,6 +10,7 @@
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=8]
 [ext_resource path="res://Scripts/background_brightness.gd" type="Script" id=9]
 [ext_resource path="res://Scripts/Map/Map.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/FPS.cs" type="Script" id=11]
 
 [node name="Root" type="Node2D"]
 script = ExtResource( 6 )
@@ -67,6 +68,24 @@ text = "Name"
 align = 1
 valign = 1
 autowrap = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="FPS" type="Label" parent="HUD"]
+anchor_top = 1.0
+anchor_bottom = 1.01667
+margin_left = 10.0
+margin_top = -30.0
+margin_right = 150.0
+margin_bottom = -10.0
+rect_scale = Vector2( 0.75, 0.75 )
+rect_pivot_offset = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 3 )
+text = "  60 FPS"
+valign = 2
+autowrap = true
+script = ExtResource( 11 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
