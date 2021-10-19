@@ -58,6 +58,7 @@ public class Play : Node2D
 
     private void UpdateTime()
     {
+        // From https://docs.godotengine.org/en/stable/tutorials/audio/sync_with_audio.html
         Time = (float) (GetNode<AudioStreamPlayer>("AudioStreamPlayer").GetPlaybackPosition() +
             AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000;
     }
