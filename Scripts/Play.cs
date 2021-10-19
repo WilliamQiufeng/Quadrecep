@@ -6,18 +6,19 @@ using Path = Quadrecep.Map.Path;
 public class Play : Node2D
 {
     private ImageTexture _backgroundTexture;
-    private AudioStream _stream;
     private Map _map;
-    private MapObject _mapObject;
-    public float Time;
-
-    public string MapFile;
-    private int _pathIndex = 0;
-    public Path CurrentPath => _mapObject.Paths[_pathIndex];
 
     [Export(PropertyHint.Range, "0,10,1")] private int _mapIndex;
 
     [Export] private string _mapName;
+    private MapObject _mapObject;
+    private int _pathIndex;
+    private AudioStream _stream;
+
+    public string MapFile;
+    public float Time;
+
+    public Path CurrentPath => _mapObject.Paths[_pathIndex];
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
