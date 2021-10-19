@@ -3,6 +3,7 @@ using Quadrecep.Database;
 
 public class Global : Node
 {
+    public static readonly Vector2 GlobalOffsetRect = new Vector2(512, 300);
     // Declare member variables here. Examples:
     // private int a = 2;
     // private string b = "text";
