@@ -12,6 +12,7 @@ public class Global : Node
     public override void _Ready()
     {
         DatabaseHandler.Initialize();
+        OS.VsyncEnabled = false;
     }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
