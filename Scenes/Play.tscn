@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Resources/tete-a-tete.mp3" type="AudioStream" id=1]
 [ext_resource path="res://Default_BGA.webm" type="VideoStream" id=2]
@@ -7,19 +7,20 @@
 [ext_resource path="res://Textures/Mask.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/Play.cs" type="Script" id=6]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scripts/Player.gd" type="Script" id=8]
+[ext_resource path="res://Scripts/Player.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/background_brightness.gd" type="Script" id=9]
 [ext_resource path="res://Scripts/Map/Map.cs" type="Script" id=10]
 [ext_resource path="res://Scripts/FPS.cs" type="Script" id=11]
 
 [node name="Root" type="Node2D"]
 script = ExtResource( 6 )
+_mapName = "Test"
 
-[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ParallaxBackground"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
 bus = "Music"
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
 [node name="Background" type="TextureRect" parent="ParallaxBackground"]
 visible = false
