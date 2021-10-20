@@ -5,8 +5,8 @@ namespace Quadrecep.Map
 {
     public class Path
     {
-        private static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
         private const float BaseSV = 150;
+        private static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
 
         private Vector2 _k, _p;
         public DirectionObject Direction;
@@ -17,8 +17,6 @@ namespace Quadrecep.Map
         ///     from (0, 0) to (x, y) in one second, the speed should be sqrt(x^2+y^2)
         /// </summary>
         public float Speed;
-
-        public float Factor => Speed / BaseSV;
 
         public Vector2 StartPosition, EndPosition;
 
@@ -37,6 +35,8 @@ namespace Quadrecep.Map
             CalculateConstants();
             EndPosition = GetPosition(EndTime);
         }
+
+        public float Factor => Speed / BaseSV;
 
         /// The following explains how to deduce where the player is accurately.
         /// 
@@ -80,7 +80,7 @@ namespace Quadrecep.Map
             _k = Direction.NetDirection * c * Speed / 1000;
             _p = StartPosition - _k * StartTime;
         }
-        
+
 
         public override string ToString()
         {
