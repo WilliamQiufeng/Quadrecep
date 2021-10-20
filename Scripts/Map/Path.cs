@@ -6,6 +6,7 @@ namespace Quadrecep.Map
     public class Path
     {
         private static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
+        private const float BaseSV = 150;
 
         private Vector2 _k, _p;
         public DirectionObject Direction;
@@ -14,7 +15,10 @@ namespace Quadrecep.Map
         ///     Number of pixels the player goes in one second.
         ///     For directions not parallel to x or y axis, if the player travels
         ///     from (0, 0) to (x, y) in one second, the speed should be sqrt(x^2+y^2)
+        /// </summary>
         public float Speed;
+
+        public float Factor => Speed / BaseSV;
 
         public Vector2 StartPosition, EndPosition;
 
@@ -22,7 +26,7 @@ namespace Quadrecep.Map
         public NoteObject TargetNote;
 
         public Path(float factor, float startTime, float endTime, DirectionObject direction, Vector2 startPosition,
-            NoteObject targetNote, float speed = 150)
+            NoteObject targetNote, float speed = BaseSV)
         {
             Speed = speed * factor;
             StartTime = startTime;
@@ -76,6 +80,7 @@ namespace Quadrecep.Map
             _k = Direction.NetDirection * c * Speed / 1000;
             _p = StartPosition - _k * StartTime;
         }
+        
 
         public override string ToString()
         {
