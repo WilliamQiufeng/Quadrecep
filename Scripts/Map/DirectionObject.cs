@@ -17,6 +17,15 @@ namespace Quadrecep.Map
             Direction = direction;
         }
 
+        public DirectionObject(Vector2 netDirection)
+        {
+            Direction = new[]
+            {
+                netDirection[0] == -1 ? 1 : 0, netDirection[1] == 1 ? 1 : 0,
+                netDirection[1] == -1 ? 1 : 0, netDirection[0] == 1 ? 1 : 0
+            };
+        }
+
         public Vector2 NetDirection { get; private set; }
 
         public int[] Direction
@@ -72,6 +81,11 @@ namespace Quadrecep.Map
         public bool HasSide()
         {
             return ((Direction[0] & Direction[3]) | (Direction[1] & Direction[2])) == 1;
+        }
+
+        public DirectionObject GetPrimaryDirection()
+        {
+            return new DirectionObject(NetDirection);
         }
 
         public override string ToString()
