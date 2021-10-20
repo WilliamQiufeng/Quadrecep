@@ -58,7 +58,7 @@ namespace Quadrecep.Gameplay
 
         public float GetStandardDeviance()
         {
-            return (float) Math.Sqrt(ValidJudgements.Sum(x => x.TimeDifference * x.TimeDifference) /
+            return (float) Math.Sqrt(ValidJudgements.Sum(x => Mathf.Pow(x.TimeDifference, 2)) /
                                      ValidJudgements.Count);
         }
 
