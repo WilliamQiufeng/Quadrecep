@@ -17,7 +17,7 @@
 [node name="Root" type="Node2D"]
 process_priority = -3
 script = ExtResource( 6 )
-_mapName = "Test"
+_mapName = "Oniyuri"
 
 [node name="InputRetriever" type="Node" parent="."]
 process_priority = -2

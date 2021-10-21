@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CommandLineParser" Version="2.9.0-preview1" />
+      <PackageReference Include="GodotSharp" Version="3.2.3" />
+      <PackageReference Include="YamlDotNet" Version="11.2.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Quadrecep.csproj" />
+      <ProjectReference Include="Quaver.API\Quaver.API\Quaver.API.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Quaver.API\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Quaver.API\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Quaver.API\**" />
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,3 @@
+[submodule "Qua2Qbm/Quaver.API"]
+	path = Qua2Qbm/Quaver.API
+	url = https://github.com/Quaver/Quaver.API.git
