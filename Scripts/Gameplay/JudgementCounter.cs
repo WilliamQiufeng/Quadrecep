@@ -7,7 +7,7 @@ namespace Quadrecep.Gameplay
 {
     public class JudgementCounter
     {
-        private const float ComboGrouthRate = 1.01f;
+        private const float ComboGrowthRate = 1.01f;
 
         public readonly List<ValidJudgement> ValidJudgements = new List<ValidJudgement>();
         private float _baseMarvelousScore;
@@ -19,7 +19,7 @@ namespace Quadrecep.Gameplay
 
         public JudgementPercentage JudgementPercentage = JudgementPercentage.Default;
 
-        public int MaxScore = 1000000;
+        private const int MaxScore = 1000000;
 
         public float Score;
 
@@ -29,8 +29,8 @@ namespace Quadrecep.Gameplay
             set
             {
                 _validInputCount = value;
-                _baseMarvelousScore = ComboGrouthRate * MaxScore * (ComboGrouthRate - 1) /
-                                      (Mathf.Pow(ComboGrouthRate, ValidInputCount + 1) - 1);
+                _baseMarvelousScore = ComboGrowthRate * MaxScore * (ComboGrowthRate - 1) /
+                                      (Mathf.Pow(ComboGrowthRate, ValidInputCount + 1) - 1);
                 GD.Print($"Valid Input Count: {ValidInputCount}, Base Marv Score: {_baseMarvelousScore}");
             }
         }
@@ -45,10 +45,10 @@ namespace Quadrecep.Gameplay
             GD.Print($"New judgement: {judgement}, {timeDiff}ms diff");
         }
 
-        public void AddScore(Judgement judgement)
+        private void AddScore(Judgement judgement)
         {
             Score += _baseMarvelousScore * JudgementPercentage.Percentages[(int) judgement] *
-                     Mathf.Pow(ComboGrouthRate, Combo - 1);
+                     Mathf.Pow(ComboGrowthRate, Combo - 1);
         }
 
         public float GetPercentageAccuracy()
