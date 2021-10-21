@@ -3,18 +3,18 @@
         <TargetFramework>net472</TargetFramework>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="YamlDotNet" Version="11.2.1" />
+        <PackageReference Include="YamlDotNet" Version="11.2.1"/>
     </ItemGroup>
     <ItemGroup>
-        <Folder Include="Scripts\ThirdParty" />
+        <Folder Include="Scripts\ThirdParty"/>
     </ItemGroup>
     <ItemGroup>
-      <Compile Remove="Qua2Qbm\**" />
+        <Compile Remove="Qua2Qbm\**"/>
     </ItemGroup>
     <ItemGroup>
-      <EmbeddedResource Remove="Qua2Qbm\**" />
+        <EmbeddedResource Remove="Qua2Qbm\**"/>
     </ItemGroup>
     <ItemGroup>
-      <Content Include=".gitignore" />
+        <Content Include=".gitignore"/>
     </ItemGroup>
 </Project>
