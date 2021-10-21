@@ -120,7 +120,6 @@ namespace Quadrecep.Gameplay
             {
                 DirectionObject dir = note.Direction;
                 var primaryDir = dir.GetPrimaryDirection();
-                var isLongNote = note.Length != 0;
                 for (var i = 0; i < dir.Direction.Length; i++)
                 {
                     if (dir.Direction[i] != 1) continue;
@@ -128,11 +127,11 @@ namespace Quadrecep.Gameplay
                     _expectedInputs[i].Enqueue(new InputEvent(note.StartTime, i, false));
                     // Place note release event if the note isn't long note.
                     // Since it's not a long note, it shouldn't count as a valid input.
-                    if (!isLongNote) _expectedInputs[i].Enqueue(new InputEvent(note.EndTime, i, true, false));
+                    if (!note.IsLongNote) _expectedInputs[i].Enqueue(new InputEvent(note.EndTime, i, true, false));
                 }
                 // GD.Print($"{dir}\n->{primaryDir}");
 
-                if (!isLongNote) continue;
+                if (!note.IsLongNote) continue;
                 // Places long note releases at primary directions.
                 // We assume that there wouldn't be any notes inside a long note.
                 // It's the mapper's responsibility not to do so.

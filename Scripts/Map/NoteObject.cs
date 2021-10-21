@@ -20,6 +20,7 @@ namespace Quadrecep.Map
         public int Direction { get; set; }
 
         [YamlIgnore] public float EndTime => StartTime + Length;
+        [YamlIgnore] public bool IsLongNote => Length > 0;
 
         public override string ToString()
         {
