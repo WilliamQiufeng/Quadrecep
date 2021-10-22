@@ -34,6 +34,7 @@ namespace Qua2Qbm
             };
             var resMapSet = new MapSetObject
             {
+                Name = qua.Title,
                 Artist = qua.Artist,
                 Creator = qua.Creator,
                 Description = qua.Description,
