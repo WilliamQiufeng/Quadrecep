@@ -102,6 +102,7 @@ namespace Quadrecep
             var noteSpriteScene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
             var pathScene = GD.Load<PackedScene>("res://Scenes/Path.tscn");
             // var mapContainer = GetNode<CanvasLayer>("Map");
+            var zInd = _mapObject.Paths.Count;
             foreach (var path in _mapObject.Paths)
             {
                 if (path.TargetNote != null)
@@ -112,18 +113,20 @@ namespace Quadrecep
                         var targetNoteDirection = (DirectionObject) path.TargetNote.Direction;
                         noteSprite.Rotation = GetNoteRotation(targetNoteDirection);
                         noteSprite.GetNode<Node2D>("Side").Visible = targetNoteDirection.HasSide();
+                        noteSprite.ZIndex = zInd--;
                         GetNode("Notes").AddChild(noteSprite);
                     }
                 }
-                else
-                {
-                    // Remove or otherwise. This is only used for debugging.
-                    if (pathScene.Instance() is Node2D pathSprite)
-                    {
-                        pathSprite.GlobalPosition = path.EndPosition;
-                        GetNode("Notes").AddChild(pathSprite);
-                    }
-                }
+                // else
+                // {
+                //     // Remove or otherwise. This is only used for debugging.
+                //     if (pathScene.Instance() is Node2D pathSprite)
+                //     {
+                //         pathSprite.GlobalPosition = path.EndPosition;
+                //         pathSprite.ZIndex = z_ind--;
+                //         GetNode("Notes").AddChild(pathSprite);
+                //     }
+                // }
 
                 GD.Print(path);
             }
