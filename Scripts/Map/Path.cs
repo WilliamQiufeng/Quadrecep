@@ -5,7 +5,7 @@ namespace Quadrecep.Map
 {
     public class Path
     {
-        private const float BaseSV = 600;
+        private const float BaseSV = 500;
         private static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
 
         private Vector2 _k, _p;

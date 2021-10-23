@@ -59,6 +59,7 @@ namespace Quadrecep.Gameplay
             while (!IsQueueEmpty(key) && JudgementSet.TooLate(PeekLatestInputEvent(key).Time, time))
             {
                 var targetInput = DequeueLatestInputEvent(key);
+                // if (targetInput.CountAsInput && targetInput.Release) GD.Print("Missed release");
                 if (targetInput.CountAsInput) Counter.AddJudgement(Judgement.Miss, JudgementSet.Set.LastOrDefault());
                 // GD.Print($"\nMiss, {targetInput}\n");
             }
