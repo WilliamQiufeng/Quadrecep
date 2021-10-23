@@ -58,10 +58,11 @@ namespace Quadrecep
         private void UpdateHUD()
         {
             var processor = GetNode<InputProcessor>("Player/InputProcessor");
+            
             GetNode<Label>("HUD/Accuracy").Text =
-                $"{Math.Round(processor.Counter.GetPercentageAccuracy() * 100, 2)}%";
+                $"{Math.Round(processor.Counter.GetPercentageAccuracy() * 100, 2):00.00}%";
             GetNode<Label>("HUD/Combo").Text = $"{processor.Counter.Combo}";
-            GetNode<Label>("HUD/Score").Text = $"{(int) processor.Counter.Score}";
+            GetNode<Label>("HUD/Score").Text = $"{(int) processor.Counter.Score:0000000}";
         }
 
         private void UpdateCurrentPath()
