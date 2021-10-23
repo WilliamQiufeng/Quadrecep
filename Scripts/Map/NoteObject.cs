@@ -22,6 +22,8 @@ namespace Quadrecep.Map
         [YamlIgnore] public float EndTime => StartTime + Length;
         [YamlIgnore] public bool IsLongNote => Length > 0;
 
+        [YamlIgnore] public NoteNode BindNode;
+
         public override string ToString()
         {
             return
