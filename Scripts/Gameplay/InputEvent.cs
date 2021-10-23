@@ -1,3 +1,5 @@
+using Quadrecep.Map;
+
 namespace Quadrecep.Gameplay
 {
     public struct InputEvent
@@ -6,13 +8,15 @@ namespace Quadrecep.Gameplay
         public int Key;
         public bool Release;
         public bool CountAsInput;
+        public readonly NoteObject Note;
 
-        public InputEvent(float time, int key, bool release, bool countAsInput = true)
+        public InputEvent(float time, int key, bool release, bool countAsInput = true, NoteObject note = null)
         {
             Time = time;
             Key = key;
             Release = release;
             CountAsInput = countAsInput;
+            Note = note;
         }
 
         /// <summary>
