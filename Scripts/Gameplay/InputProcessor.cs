@@ -76,7 +76,9 @@ namespace Quadrecep.Gameplay
 
         private InputEvent DequeueLatestInputEvent(int key)
         {
-            return _expectedInputs[key].Dequeue();
+            var latestInputEvent = _expectedInputs[key].Dequeue();
+            if (latestInputEvent.Note != null) latestInputEvent.Note.BindNode.InputLeft[key] = 0;
+            return latestInputEvent;
         }
 
         private InputEvent PeekLatestInputEvent(int key)
