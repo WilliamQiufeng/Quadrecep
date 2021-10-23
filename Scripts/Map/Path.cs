@@ -76,7 +76,7 @@ namespace Quadrecep.Map
         /// </summary>
         public void CalculateConstants()
         {
-            var c = Direction.NetDirection == new Vector2(1f, 1f) ? SqrtHalf : 1;
+            var c = Direction.NetDirection == Vector2.One ? SqrtHalf : 1;
             _k = Direction.NetDirection * c * Speed / 1000;
             _p = StartPosition - _k * StartTime;
         }
