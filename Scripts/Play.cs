@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Godot;
 using Quadrecep.Gameplay;
 using Quadrecep.Map;
@@ -103,32 +104,17 @@ namespace Quadrecep
             var pathScene = GD.Load<PackedScene>("res://Scenes/Path.tscn");
             // var mapContainer = GetNode<CanvasLayer>("Map");
             var zInd = _mapObject.Paths.Count;
-            foreach (var path in _mapObject.Paths)
+            foreach (var path in _mapObject.Paths.Where(path => path.TargetNote != null))
             {
-                if (path.TargetNote != null)
-                {
-                    if (noteSpriteScene.Instance() is Node2D noteSprite)
-                    {
-                        noteSprite.GlobalPosition = path.EndPosition;
-                        var targetNoteDirection = (DirectionObject) path.TargetNote.Direction;
-                        noteSprite.Rotation = GetNoteRotation(targetNoteDirection);
-                        noteSprite.GetNode<Node2D>("Side").Visible = targetNoteDirection.HasSide();
-                        noteSprite.ZIndex = zInd--;
-                        GetNode("Notes").AddChild(noteSprite);
-                    }
-                }
-                // else
-                // {
-                //     // Remove or otherwise. This is only used for debugging.
-                //     if (pathScene.Instance() is Node2D pathSprite)
-                //     {
-                //         pathSprite.GlobalPosition = path.EndPosition;
-                //         pathSprite.ZIndex = z_ind--;
-                //         GetNode("Notes").AddChild(pathSprite);
-                //     }
-                // }
-
-                GD.Print(path);
+                if (!(noteSpriteScene.Instance() is NoteNode noteSprite)) continue;
+                noteSprite.Parent = this;
+                noteSprite.Note = path.TargetNote;
+                noteSprite.GlobalPosition = path.EndPosition;
+                var targetNoteDirection = (DirectionObject) path.TargetNote.Direction;
+                noteSprite.Rotation = GetNoteRotation(targetNoteDirection);
+                noteSprite.GetNode<Node2D>("Side").Visible = targetNoteDirection.HasSide();
+                noteSprite.ZIndex = zInd--;
+                GetNode("Notes").AddChild(noteSprite);
             }
         }
 
