@@ -9,6 +9,8 @@ namespace Quadrecep.Gameplay
     {
         private const float ComboGrowthRate = 1.0001f;
 
+        private const int MaxScore = 1000000;
+
         public readonly List<ValidJudgement> ValidJudgements = new List<ValidJudgement>();
         private float _baseMarvelousScore;
 
@@ -18,8 +20,6 @@ namespace Quadrecep.Gameplay
         public int[] JudgementCount = new int[7];
 
         public JudgementPercentage JudgementPercentage = JudgementPercentage.Default;
-
-        private const int MaxScore = 1000000;
 
         public float Score;
 

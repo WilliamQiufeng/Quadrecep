@@ -5,22 +5,23 @@ namespace Quadrecep
 {
     public class NoteNode : Node2D
     {
-        public Play Parent;
-        public NoteObject Note;
-        public DirectionObject InputLeft;
-        private bool _finished = false;
-
         /// <summary>
-        /// How long before the note is actually pressed
+        ///     How long before the note is actually pressed
         /// </summary>
         public const float FadeInTime = 1000;
 
         /// <summary>
-        /// How long the transition from alpha 0 to 1 takes
+        ///     How long the transition from alpha 0 to 1 takes
         /// </summary>
         public const float FadeLength = 750;
 
+        private bool _finished;
+
         private LogTransition _transition;
+        public DirectionObject InputLeft;
+        public NoteObject Note;
+        public Play Parent;
+
         public override void _Ready()
         {
             _transition = new LogTransition(Note.StartTime - FadeInTime, FadeLength);
@@ -35,6 +36,7 @@ namespace Quadrecep
                 _finished = true;
                 FadeOut();
             }
+
             Modulate = GetAlphaModulate();
         }
 

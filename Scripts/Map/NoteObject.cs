@@ -4,6 +4,8 @@ namespace Quadrecep.Map
 {
     public class NoteObject
     {
+        [YamlIgnore] public NoteNode BindNode;
+
         public NoteObject(float startTime = default, float length = default, int direction = default)
         {
             StartTime = startTime;
@@ -21,8 +23,6 @@ namespace Quadrecep.Map
 
         [YamlIgnore] public float EndTime => StartTime + Length;
         [YamlIgnore] public bool IsLongNote => Length > 0;
-
-        [YamlIgnore] public NoteNode BindNode;
 
         public override string ToString()
         {
