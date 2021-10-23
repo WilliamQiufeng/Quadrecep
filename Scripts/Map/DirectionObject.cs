@@ -39,6 +39,17 @@ namespace Quadrecep.Map
             }
         }
 
+        public int this[int i]
+        {
+            get => Direction[i];
+            set
+            {
+                Direction[i] = value;
+                CalculateNetDirection();
+                CalculateRawDirection();
+            }
+        }
+
         public int RawDirection
         {
             get => _rawDirection;
