@@ -126,20 +126,20 @@ namespace Quadrecep.Gameplay
                 {
                     if (dir.Direction[i] != 1) continue;
                     // Place note press event
-                    _expectedInputs[i].Enqueue(new InputEvent(note.StartTime, i, false));
-                    // Place note release event if the note isn't long note.
-                    // Since it's not a long note, it shouldn't count as a valid input.
-                    if (!note.IsLongNote) _expectedInputs[i].Enqueue(new InputEvent(note.EndTime, i, true, false));
+                    // Don't clear InputLeft when the note is not a long note and is not primary direction
+                    _expectedInputs[i].Enqueue(new InputEvent(note.StartTime, i, false, note: note.IsLongNote && primaryDir[i] == 1 ? null : note));
+                    
+                    // Places long note releases at primary directions.
+                    // We assume that there wouldn't be any notes inside a long note.
+                    // It's the mapper's responsibility not to do so.
+                    if (note.IsLongNote && primaryDir.Direction[i] == 1)
+                        _expectedInputs[i].Enqueue(new InputEvent(note.EndTime, i, true, note: note));
+                    // Place note release event if the currently processing note direction is not primary..
+                    // As a side input it shouldn't be long note..
+                    if (primaryDir[i] != 1) _expectedInputs[i].Enqueue(new InputEvent(note.EndTime, i, true, false));
                 }
                 // GD.Print($"{dir}\n->{primaryDir}");
 
-                if (!note.IsLongNote) continue;
-                // Places long note releases at primary directions.
-                // We assume that there wouldn't be any notes inside a long note.
-                // It's the mapper's responsibility not to do so.
-                for (var i = 0; i < 4; i++)
-                    if (primaryDir.Direction[i] == 1)
-                        _expectedInputs[i].Enqueue(new InputEvent(note.EndTime, i, true));
             }
 
             Counter.ValidInputCount = ValidInputCount;
