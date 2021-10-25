@@ -43,6 +43,7 @@ namespace Quadrecep
         public void FadeOut()
         {
             Visible = false;
+            QueueFree();
         }
 
         private Color GetAlphaModulate()
