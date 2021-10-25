@@ -42,7 +42,9 @@ namespace Quadrecep.Gameplay
             while (!IsQueueEmpty(input.Key) && JudgementSet.TooLate(PeekLatestInputEvent(input.Key).Time, input.Time))
             {
                 var targetInput = DequeueLatestInputEvent(input.Key);
-                if (targetInput.CountAsInput) Counter.AddJudgement(Judgement.Miss, JudgementSet.Set.LastOrDefault());
+                if (!targetInput.CountAsInput) continue;
+                Counter.AddJudgement(Judgement.Miss, JudgementSet.Set.LastOrDefault());
+                PlaceJudgementFeedback(targetInput, Judgement.Miss);
                 // GD.Print($"\nMiss, {targetInput}\n");
             }
         }
@@ -60,7 +62,9 @@ namespace Quadrecep.Gameplay
             {
                 var targetInput = DequeueLatestInputEvent(key);
                 // if (targetInput.CountAsInput && targetInput.Release) GD.Print("Missed release");
-                if (targetInput.CountAsInput) Counter.AddJudgement(Judgement.Miss, JudgementSet.Set.LastOrDefault());
+                if (!targetInput.CountAsInput) continue;
+                Counter.AddJudgement(Judgement.Miss, JudgementSet.Set.LastOrDefault());
+                PlaceJudgementFeedback(targetInput, Judgement.Miss);
                 // GD.Print($"\nMiss, {targetInput}\n");
             }
         }
@@ -87,6 +91,16 @@ namespace Quadrecep.Gameplay
             return _expectedInputs[key].Peek();
         }
 
+        private void PlaceJudgementFeedback(InputEvent input, Judgement judgement)
+        {
+            if (input.Note == null) return;
+            var judgementScene = GD.Load<PackedScene>("res://Scenes/Judgement.tscn");
+            var judgementNode = judgementScene.Instance<JudgementNode>();
+            judgementNode.GlobalPosition = input.Note.BindNode.GlobalPosition;
+            judgementNode.Judgement = judgement;
+            GetNode<CanvasLayer>("../../JudgementFeedbacks").AddChild(judgementNode);
+        }
+
         private bool IsQueueEmpty(int key)
         {
             return _expectedInputs[key].Count == 0;
@@ -109,6 +123,7 @@ namespace Quadrecep.Gameplay
             // At this state we are pretty sure that the input is for targetInput.
             // We take judgement from this and add it to the counter.
             var judgement = JudgementSet.GetJudgement(targetInput.Time, input.Time);
+            PlaceJudgementFeedback(targetInput, judgement);
             if (targetInput.CountAsInput) Counter.AddJudgement(judgement, input.Time - targetInput.Time);
             // GD.Print($"\nNew judgement: {judgement}, {input.Time - targetInput.Time}ms diff\n{targetInput}\n");
         }
