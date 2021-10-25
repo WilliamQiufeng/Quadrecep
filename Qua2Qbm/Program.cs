@@ -52,10 +52,12 @@ namespace Qua2Qbm
             var serializer = new SerializerBuilder()
                 .WithNamingConvention(PascalCaseNamingConvention.Instance)
                 .Build();
-            serializer.Serialize(new StreamWriter(outputFile), mapSet);
+            var streamWriter = new StreamWriter(outputFile);
+            serializer.Serialize(streamWriter, mapSet);
+            streamWriter.Close();
         }
 
-        static List<NoteObject> ConvertNotes(List<HitObjectInfo> hitObjects)
+        private static List<NoteObject> ConvertNotes(List<HitObjectInfo> hitObjects)
         {
             var notes = new List<NoteObject>();
             var lastTime = 0f;
