@@ -184,5 +184,9 @@ editor_draw_drag_margin = true
 script = ExtResource( 12 )
 
 [node name="Notes" type="CanvasLayer" parent="."]
+layer = -1
+follow_viewport_enable = true
+
+[node name="JudgementFeedbacks" type="CanvasLayer" parent="."]
 layer = 0
 follow_viewport_enable = true
