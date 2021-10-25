@@ -5,9 +5,8 @@ namespace Quadrecep.Gameplay
         Marvelous,
         Perfect,
         Great,
-        Okay,
         Good,
-        Bad,
+        Okay,
         Miss
     }
 }

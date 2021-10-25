@@ -17,7 +17,7 @@ namespace Quadrecep.Gameplay
         private int _validInputCount;
 
         public int Combo;
-        public int[] JudgementCount = new int[7];
+        public int[] JudgementCount = new int[6];
 
         public JudgementPercentage JudgementPercentage = JudgementPercentage.Default;
 
