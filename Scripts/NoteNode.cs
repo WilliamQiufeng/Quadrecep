@@ -38,6 +38,7 @@ namespace Quadrecep
             }
 
             Modulate = GetAlphaModulate();
+            Visible = Modulate.a > 0;
         }
 
         public void FadeOut()
