@@ -12,6 +12,9 @@ namespace Quadrecep
     {
         private ImageTexture _backgroundTexture;
         private global::Map _map;
+        private readonly PackedScene _noteSpriteScene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
+        private int _zInd;
+        private int _approachingPathIndex;
 
         [Export(PropertyHint.Range, "0,10,1")] private int _mapIndex;
 
@@ -33,7 +36,7 @@ namespace Quadrecep
         public override void _Ready()
         {
             LoadMap();
-            PlaceNotesInScene();
+            // PlaceNotesInScene();
             GetNode<Label>("HUD/Name").Text = _map.MapSet.Name;
             LoadBackground();
             LoadAudio();
@@ -45,6 +48,7 @@ namespace Quadrecep
             _map.ReadMap();
             _mapObject = _map.GetMap(_mapIndex);
             _mapObject.BuildPaths();
+            _zInd = _mapObject.Paths.Count;
             GetNode<InputProcessor>("Player/InputProcessor").FeedNotes(_mapObject.Notes);
         }
 
@@ -53,6 +57,7 @@ namespace Quadrecep
             UpdateTime();
             UpdateCurrentPath();
             UpdateHUD();
+            PlaceApproachingNotes();
         }
 
         private void UpdateHUD()
@@ -81,13 +86,11 @@ namespace Quadrecep
                 }
 
                 _pathIndex++;
-                if (_pathIndex >= _mapObject.Paths.Count)
-                {
-                    Finished = true;
-                    return;
-                }
+                if (_pathIndex < _mapObject.Paths.Count) continue;
+                Finished = true;
+                return;
 
-                GD.Print(CurrentPath);
+                // GD.Print(CurrentPath);
             }
         }
 
@@ -99,22 +102,39 @@ namespace Quadrecep
                 AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000;
         }
 
+        [Obsolete("Method deprecated. Use PlaceApproachingNotes instead.")]
         private void PlaceNotesInScene()
         {
-            var noteSpriteScene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
-            var pathScene = GD.Load<PackedScene>("res://Scenes/Path.tscn");
+            // var pathScene = GD.Load<PackedScene>("res://Scenes/Path.tscn");
             // var mapContainer = GetNode<CanvasLayer>("Map");
-            var zInd = _mapObject.Paths.Count;
             foreach (var path in _mapObject.Paths.Where(path => path.TargetNote != null))
             {
-                if (!(noteSpriteScene.Instance() is NoteNode noteSprite)) continue;
+                if (!(_noteSpriteScene.Instance() is NoteNode noteSprite)) continue;
                 noteSprite.Parent = this;
                 noteSprite.Note = path.TargetNote;
                 noteSprite.GlobalPosition = path.EndPosition;
                 var targetNoteDirection = (DirectionObject) path.TargetNote.Direction;
                 noteSprite.Rotation = GetNoteRotation(targetNoteDirection);
                 noteSprite.GetNode<Node2D>("Side").Visible = targetNoteDirection.HasSide();
-                noteSprite.ZIndex = zInd--;
+                noteSprite.ZIndex = _zInd--;
+                GetNode("Notes").AddChild(noteSprite);
+            }
+        }
+
+        private void PlaceApproachingNotes()
+        {
+            while (_approachingPathIndex < _mapObject.Paths.Count &&
+                   _mapObject.Paths[_approachingPathIndex].StartTime - Time <= NoteNode.FadeInTime)
+            {
+                var path = _mapObject.Paths[_approachingPathIndex++];
+                if (!(_noteSpriteScene.Instance() is NoteNode noteSprite)) continue;
+                noteSprite.Parent = this;
+                noteSprite.Note = path.TargetNote;
+                noteSprite.GlobalPosition = path.EndPosition;
+                var targetNoteDirection = (DirectionObject) path.TargetNote.Direction;
+                noteSprite.Rotation = GetNoteRotation(targetNoteDirection);
+                noteSprite.GetNode<Node2D>("Side").Visible = targetNoteDirection.HasSide();
+                noteSprite.ZIndex = _zInd--;
                 GetNode("Notes").AddChild(noteSprite);
             }
         }
