@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Resources/tete-a-tete.mp3" type="AudioStream" id=1]
 [ext_resource path="res://Default_BGA.webm" type="VideoStream" id=2]
@@ -8,16 +8,32 @@
 [ext_resource path="res://Scripts/Play.cs" type="Script" id=6]
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scripts/Player.cs" type="Script" id=8]
-[ext_resource path="res://Scripts/background_brightness.gd" type="Script" id=9]
+[ext_resource path="res://Scripts/BackgroundMask.cs" type="Script" id=9]
 [ext_resource path="res://Scripts/Map/Map.cs" type="Script" id=10]
 [ext_resource path="res://Scripts/FPS.cs" type="Script" id=11]
 [ext_resource path="res://Scripts/Gameplay/InputProcessor.cs" type="Script" id=12]
 [ext_resource path="res://Scripts/Gameplay/InputRetriever.cs" type="Script" id=13]
 
+[sub_resource type="Animation" id=1]
+resource_name = "Fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.768627 ) ]
+}
+
 [node name="Root" type="Node2D"]
 process_priority = -3
 script = ExtResource( 6 )
-_mapName = "Test"
+_mapIndex = 1
+_mapName = "Oniyuri"
 
 [node name="InputRetriever" type="Node" parent="."]
 process_priority = -2
@@ -55,7 +71,6 @@ __meta__ = {
 }
 
 [node name="Mask" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
-modulate = Color( 1, 1, 1, 0.768627 )
 margin_left = -0.612183
 margin_right = 1023.39
 margin_bottom = 600.0
@@ -66,7 +81,9 @@ __meta__ = {
 "_editor_description_": "Use this to set the brightness of the background"
 }
 
-[node name="Tween" type="Tween" parent="ParallaxBackground/ParallaxLayer/Mask"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBackground/ParallaxLayer/Mask"]
+autoplay = "Fade"
+anims/Fade = SubResource( 1 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
 
