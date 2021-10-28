@@ -11,7 +11,7 @@ namespace Quadrecep.Gameplay
 
         private const int MaxScore = 1000000;
 
-        public readonly List<ValidJudgement> ValidJudgements = new List<ValidJudgement>();
+        public readonly List<ValidJudgement> ValidJudgements = new();
         private float _baseMarvelousScore;
 
         private int _validInputCount;

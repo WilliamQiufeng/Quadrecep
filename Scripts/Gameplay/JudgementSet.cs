@@ -4,7 +4,7 @@ namespace Quadrecep.Gameplay
 {
     public class JudgementSet
     {
-        public static readonly JudgementSet Default = new JudgementSet
+        public static readonly JudgementSet Default = new()
         {
             Set = new float[] {20, 30, 50, 70, 110}
         };

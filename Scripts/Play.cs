@@ -10,17 +10,17 @@ namespace Quadrecep
 {
     public class Play : Node2D
     {
-        private global::Quadrecep.Map.Map _map;
         private readonly PackedScene _noteSpriteScene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
-        private int _zInd;
         private int _approachingPathIndex;
-
-        [Export(PropertyHint.Range, "0,10,1")] public int MapIndex;
-
-        [Export] public string MapFile;
+        private Map.Map _map;
         private MapObject _mapObject;
         private int _pathIndex;
+        private int _zInd;
         public bool Finished;
+
+        [Export] public string MapFile;
+
+        [Export(PropertyHint.Range, "0,10,1")] public int MapIndex;
 
         public float Time;
 
@@ -148,7 +148,7 @@ namespace Quadrecep
             audioPlayer.Stream = LoadAudio(Global.RelativeToMap(MapFile, _map.MapSet.AudioPath));
             audioPlayer.Play();
         }
-        
+
         public static AudioStream LoadAudio(string audioPath)
         {
             var audioFile = new File();
@@ -174,6 +174,7 @@ namespace Quadrecep
                 oggStream.Data = buffer;
                 return oggStream;
             }
+
             throw new NotImplementedException();
         }
 

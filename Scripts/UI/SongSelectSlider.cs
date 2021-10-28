@@ -6,6 +6,7 @@ namespace Quadrecep.UI
     {
         public readonly string ContainingDirectory = $"user://{Map.Map.MapDirectory}";
         public PackedScene Play;
+
         public override void _Ready()
         {
             Play = ResourceLoader.Load<PackedScene>("res://Scenes/Play.tscn");
@@ -24,6 +25,7 @@ namespace Quadrecep.UI
                     element.PlayScene = Play;
                     GetNode<HBoxContainer>("ScrollContainer/HBoxContainer").AddChild(element);
                 }
+
                 fileName = dir.GetNext();
             }
         }

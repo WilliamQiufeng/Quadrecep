@@ -6,8 +6,8 @@ namespace Quadrecep.Map
 {
     public class Map : Node
     {
-        public MapSetObject MapSet;
         public const string MapDirectory = "Maps";
+        public MapSetObject MapSet;
 
         public Map()
         {
@@ -65,9 +65,15 @@ namespace Quadrecep.Map
             return MapSet.Maps[index];
         }
 
-        public void ReadMap() => MapSet = Global.ReadMap(MapFile);
+        public void ReadMap()
+        {
+            MapSet = Global.ReadMap(MapFile);
+        }
 
-        public void SaveMap() => Global.SaveMap(MapSet, MapFile);
+        public void SaveMap()
+        {
+            Global.SaveMap(MapSet, MapFile);
+        }
 
         public override void _Ready()
         {

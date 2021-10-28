@@ -8,12 +8,12 @@ namespace Quadrecep.Gameplay
     public class InputProcessor : Node
     {
         private readonly Queue<InputEvent>[] _expectedInputs =
-            {new Queue<InputEvent>(), new Queue<InputEvent>(), new Queue<InputEvent>(), new Queue<InputEvent>()};
+            {new(), new(), new(), new()};
 
-        public readonly JudgementCounter Counter = new JudgementCounter();
+        public readonly JudgementCounter Counter = new();
 
         public readonly Queue<InputEvent>[] Inputs =
-            {new Queue<InputEvent>(), new Queue<InputEvent>(), new Queue<InputEvent>(), new Queue<InputEvent>()};
+            {new(), new(), new(), new()};
 
         public JudgementSet JudgementSet = JudgementSet.Default;
 
