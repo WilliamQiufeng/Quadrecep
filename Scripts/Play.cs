@@ -146,50 +146,47 @@ namespace Quadrecep
 
         private void LoadAudio()
         {
+            var audioPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+            audioPlayer.Stream = LoadAudio(Global.RelativeToMap(MapFile, _map.MapSet.AudioPath));
+            audioPlayer.Play();
+        }
+        
+        public static AudioStream LoadAudio(string audioPath)
+        {
             var audioFile = new File();
-            audioFile.Open(MapPath(_map.MapSet.AudioPath), File.ModeFlags.Read);
+            audioFile.Open(audioPath, File.ModeFlags.Read);
             var buffer = audioFile.GetBuffer((int) audioFile.GetLen());
-            if (_map.MapSet.AudioPath.EndsWith(".mp3"))
+            if (audioPath.EndsWith(".mp3"))
             {
                 var mp3Stream = new AudioStreamMP3();
                 mp3Stream.Data = buffer;
-                _stream = mp3Stream;
+                return mp3Stream;
             }
-            else if (_map.MapSet.AudioPath.EndsWith(".wav"))
+
+            if (audioPath.EndsWith(".wav"))
             {
                 var wavStream = new AudioStreamSample();
                 wavStream.Data = buffer;
-                _stream = wavStream;
+                return wavStream;
             }
-            else if (_map.MapSet.AudioPath.EndsWith(".ogg"))
+
+            if (audioPath.EndsWith(".ogg"))
             {
                 var oggStream = new AudioStreamOGGVorbis();
                 oggStream.Data = buffer;
-                _stream = oggStream;
+                return oggStream;
             }
-
-            var audioPlayer = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
-            audioPlayer.Stream = _stream;
-            audioPlayer.Play();
+            throw new NotImplementedException();
         }
 
 
         private void LoadBackground()
         {
-            var img = new Image();
-            var imgPath = MapPath(_map.MapSet.BackgroundPath);
+            var imgPath = Global.RelativeToMap(MapFile, _map.MapSet.BackgroundPath);
             GD.Print($"Loading background from {imgPath}");
-            img.Load(imgPath);
-            _backgroundTexture = new ImageTexture();
-            _backgroundTexture.CreateFromImage(img);
             var bg = (TextureRect) GetNode(new NodePath("ParallaxBackground/ParallaxLayer/Background"));
-            bg.Texture = _backgroundTexture;
+            bg.Texture = Global.LoadImage(imgPath);
             bg.Visible = true;
-        }
-
-        private string MapPath(string mapRelativePath)
-        {
-            return $"user://{_map.MapFile}/{mapRelativePath}";
         }
 
         //  // Called every frame. 'delta' is the elapsed time since the previous frame.
