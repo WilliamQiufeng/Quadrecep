@@ -6,7 +6,6 @@ using CommandLine;
 using Quadrecep.Map;
 using Quaver.API.Maps;
 using Quaver.API.Maps.Structures;
-using YamlDotNet.Core;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using Parser = CommandLine.Parser;
@@ -24,27 +23,26 @@ namespace Qua2Qbm
 
         static void RunOptions(Options opts)
         {
-            //handle options
-            var qua = Qua.Parse(opts.InputFile);
-            var resMap = new MapObject
-            {
-                DifficultyName = qua.DifficultyName,
-                StartTime = qua.TimingPoints[0].StartTime,
-                Notes = ConvertNotes(qua.HitObjects)
-            };
+            var globQua = Qua.Parse(Directory.GetFiles(opts.InputFile).First(file => file.EndsWith(".qua")));
+            var maps = Directory.GetFiles(opts.InputFile).Where(file => file.EndsWith(".qua"))
+                .Select(mapFile => Qua.Parse(mapFile)).Select(qua => new MapObject
+                {
+                    DifficultyName = qua.DifficultyName, StartTime = qua.TimingPoints[0].StartTime,
+                    Notes = ConvertNotes(qua.HitObjects)
+                }).ToList();
             var resMapSet = new MapSetObject
             {
-                Name = qua.Title,
-                Artist = qua.Artist,
-                Creator = qua.Creator,
-                Description = qua.Description,
-                AudioPath = qua.AudioFile,
-                BackgroundPath = qua.BackgroundFile,
-                PreviewTime = qua.SongPreviewTime,
-                Maps = new List<MapObject> {resMap},
+                Name = globQua.Title,
+                Artist = globQua.Artist,
+                Creator = globQua.Creator,
+                Description = globQua.Description,
+                AudioPath = globQua.AudioFile,
+                BackgroundPath = globQua.BackgroundFile,
+                PreviewTime = globQua.SongPreviewTime,
+                Maps = maps,
             };
             SaveMap(resMapSet, opts.OutputFile);
-            Console.WriteLine(qua.Title);
+            Console.WriteLine(globQua.Title);
         }
 
         private static void SaveMap(MapSetObject mapSet, string outputFile)
@@ -82,6 +80,7 @@ namespace Qua2Qbm
                 var note = new NoteObject(lastTime, length, new DirectionObject(keys));
                 notes.Add(note);
             }
+
             Console.WriteLine($"Final: {notes.LastOrDefault()}");
 
             return notes;
