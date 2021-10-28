@@ -10,21 +10,18 @@ namespace Quadrecep
 {
     public class Play : Node2D
     {
-        private ImageTexture _backgroundTexture;
-        private global::Map _map;
+        private global::Quadrecep.Map.Map _map;
         private readonly PackedScene _noteSpriteScene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
         private int _zInd;
         private int _approachingPathIndex;
 
-        [Export(PropertyHint.Range, "0,10,1")] private int _mapIndex;
+        [Export(PropertyHint.Range, "0,10,1")] public int MapIndex;
 
-        [Export] private string _mapName;
+        [Export] public string MapFile;
         private MapObject _mapObject;
         private int _pathIndex;
-        private AudioStream _stream;
         public bool Finished;
 
-        public string MapFile;
         public float Time;
 
         public Path CurrentPath => _mapObject.Paths[_pathIndex];
@@ -44,9 +41,9 @@ namespace Quadrecep
 
         private void LoadMap()
         {
-            _map = new global::Map(_mapName);
+            _map = new Map.Map(MapFile);
             _map.ReadMap();
-            _mapObject = _map.GetMap(_mapIndex);
+            _mapObject = _map.GetMap(MapIndex);
             _mapObject.BuildPaths();
             _zInd = _mapObject.Paths.Count;
             GetNode<InputProcessor>("Player/InputProcessor").FeedNotes(_mapObject.Notes);
@@ -109,7 +106,7 @@ namespace Quadrecep
             // var mapContainer = GetNode<CanvasLayer>("Map");
             foreach (var path in _mapObject.Paths.Where(path => path.TargetNote != null))
             {
-                if (!(_noteSpriteScene.Instance() is NoteNode noteSprite)) continue;
+                if (_noteSpriteScene.Instance() is not NoteNode noteSprite) continue;
                 noteSprite.Parent = this;
                 noteSprite.Note = path.TargetNote;
                 noteSprite.GlobalPosition = path.EndPosition;
@@ -126,8 +123,9 @@ namespace Quadrecep
             while (_approachingPathIndex < _mapObject.Paths.Count &&
                    _mapObject.Paths[_approachingPathIndex].StartTime - Time <= NoteNode.FadeInTime)
             {
+                if (_noteSpriteScene.Instance() is not NoteNode noteSprite) continue;
                 var path = _mapObject.Paths[_approachingPathIndex++];
-                if (!(_noteSpriteScene.Instance() is NoteNode noteSprite)) continue;
+                if (path.TargetNote == null) continue;
                 noteSprite.Parent = this;
                 noteSprite.Note = path.TargetNote;
                 noteSprite.GlobalPosition = path.EndPosition;
