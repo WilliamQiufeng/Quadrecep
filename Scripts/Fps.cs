@@ -2,7 +2,7 @@ using Godot;
 
 namespace Quadrecep
 {
-    public class FPS : Label
+    public class Fps : Label
     {
         // Declare member variables here. Examples:
         // private int a = 2;
