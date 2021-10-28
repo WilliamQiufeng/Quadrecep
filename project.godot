@@ -28,7 +28,7 @@ _global_script_class_icons={
 
 config/name="Quadrecep"
 config/description="Quad receptor lol"
-run/main_scene="res://Scenes/Main.tscn"
+run/main_scene="res://Scenes/SongSelect.tscn"
 config/icon="res://icon.png"
 
 [autoload]

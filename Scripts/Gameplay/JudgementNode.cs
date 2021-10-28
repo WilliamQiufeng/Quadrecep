@@ -14,11 +14,6 @@ namespace Quadrecep.Gameplay
             animationPlayer.Play("Pop");
         }
 
-        public override void _Process(float delta)
-        {
-            base._Process(delta);
-        }
-
         public void _OnAnimationFinished(string n)
         {
             QueueFree();

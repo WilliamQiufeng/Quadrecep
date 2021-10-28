@@ -10,7 +10,7 @@
 [ext_resource path="res://Scripts/Player.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/BackgroundMask.cs" type="Script" id=9]
 [ext_resource path="res://Scripts/Map/Map.cs" type="Script" id=10]
-[ext_resource path="res://Scripts/FPS.cs" type="Script" id=11]
+[ext_resource path="res://Scripts/Fps.cs" type="Script" id=11]
 [ext_resource path="res://Scripts/Gameplay/InputProcessor.cs" type="Script" id=12]
 [ext_resource path="res://Scripts/Gameplay/InputRetriever.cs" type="Script" id=13]
 
@@ -121,7 +121,7 @@ __meta__ = {
 "_edit_use_anchors_": true
 }
 
-[node name="FPS" type="Label" parent="HUD"]
+[node name="Fps" type="Label" parent="HUD"]
 process_priority = 1
 anchor_top = 1.0
 anchor_bottom = 1.01667

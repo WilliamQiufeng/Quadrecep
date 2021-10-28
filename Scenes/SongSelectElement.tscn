@@ -1,0 +1,141 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=2]
+[ext_resource path="res://Textures/Play.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/UI/SongSelectElement.cs" type="Script" id=4]
+[ext_resource path="res://Textures/Mask.png" type="Texture" id=5]
+
+[node name="SongSelectElement" type="Control"]
+margin_right = 300.0
+margin_bottom = 425.0
+rect_min_size = Vector2( 300, 425 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="."]
+anchor_top = 0.8
+anchor_right = 1.0
+anchor_bottom = 0.8
+margin_top = -35.0
+margin_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 300, 25 )
+custom_fonts/font = ExtResource( 1 )
+text = "Name"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Artist" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.739784
+anchor_right = 0.5
+anchor_bottom = 0.756398
+margin_left = -75.0
+margin_top = 25.0
+margin_right = 225.0
+margin_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 300, 25 )
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 1 )
+text = "Artist"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Author" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.748091
+anchor_right = 0.5
+anchor_bottom = 0.748091
+margin_left = -75.0
+margin_top = 32.0612
+margin_right = 225.0
+margin_bottom = 62.0612
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 300, 25 )
+rect_scale = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 1 )
+text = "Author"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Difficulty" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.748091
+anchor_right = 0.5
+anchor_bottom = 0.748091
+margin_left = -150.0
+margin_top = 47.0612
+margin_right = 150.0
+margin_bottom = 77.0612
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 300, 25 )
+custom_fonts/font = ExtResource( 1 )
+text = "Default"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Preview" type="TextureRect" parent="."]
+margin_right = 300.0
+margin_bottom = 300.0
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Play" type="TextureButton" parent="Preview"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -50.0
+margin_top = -50.0
+margin_right = 46.0
+margin_bottom = 46.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_scale = Vector2( 0.5, 0.5 )
+texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Player" type="AudioStreamPlayer" parent="."]
+bus = "Music"
+
+[node name="Mask" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.768627 )
+margin_right = 300.0
+margin_bottom = 425.0
+rect_min_size = Vector2( 300, 425 )
+mouse_filter = 2
+input_pass_on_modal_close_click = false
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="Preview/Play" to="." method="_OnPlayPressed"]

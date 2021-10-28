@@ -1,9 +1,6 @@
 using System.Collections.Generic;
 using Godot;
 using Quadrecep.Database;
-using Quadrecep.Map;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace Quadrecep.Map
 {
@@ -12,14 +9,14 @@ namespace Quadrecep.Map
         public MapSetObject MapSet;
         public const string MapDirectory = "Maps";
 
-    public Map()
-    {
-    }
+        public Map()
+        {
+        }
 
-    public Map(string mapFile = default)
-    {
-        MapFile = mapFile;
-    }
+        public Map(string mapFile = default)
+        {
+            MapFile = mapFile;
+        }
 
         [Export(PropertyHint.File, "*.qbm")] public string MapFile { get; set; } = "Test";
 
@@ -72,10 +69,10 @@ namespace Quadrecep.Map
 
         public void SaveMap() => Global.SaveMap(MapSet, MapFile);
 
-    public override void _Ready()
-    {
-        GD.Print("Hi");
-    }
+        public override void _Ready()
+        {
+            GD.Print("Hi");
+        }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
 //  public override void _Process(float delta)
