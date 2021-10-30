@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using CommandLine;
 using Quadrecep.Map;
@@ -41,18 +42,38 @@ namespace Qua2Qbm
                 PreviewTime = globQua.SongPreviewTime,
                 Maps = maps,
             };
-            SaveMap(resMapSet, opts.OutputFile);
             Console.WriteLine(globQua.Title);
+            var zip = ZipFile.Open(opts.OutputFile, ZipArchiveMode.Create);
+            var qbmFile = zip.CreateEntry("MapSet.qbm");
+            var qbmFileWriter = new StreamWriter(qbmFile.Open());
+            SaveMap(resMapSet, qbmFileWriter);
+            foreach (var file in Directory.GetFiles(opts.InputFile).Where(file => !file.EndsWith(".qua")))
+            {
+                var fileName = new FileInfo(file).Name;
+                var entry = zip.CreateEntry(fileName);
+                WriteZipEntry(entry, file);
+                Console.WriteLine($"{fileName}: {file}");
+            }
+            zip.Dispose();
         }
 
-        private static void SaveMap(MapSetObject mapSet, string outputFile)
+        private static void SaveMap(MapSetObject mapSet, TextWriter outputFile)
         {
             var serializer = new SerializerBuilder()
                 .WithNamingConvention(PascalCaseNamingConvention.Instance)
                 .Build();
-            var streamWriter = new StreamWriter(outputFile);
-            serializer.Serialize(streamWriter, mapSet);
-            streamWriter.Close();
+            serializer.Serialize(outputFile, mapSet);
+            outputFile.Close();
+        }
+
+        private static void WriteZipEntry(ZipArchiveEntry entry, string path)
+        {
+            var writer = new BinaryWriter(entry.Open());
+            var binaryReader = new BinaryReader(File.Open(path, FileMode.Open));
+            var buffer = new byte[binaryReader.BaseStream.Length];
+            binaryReader.Read(buffer);
+            writer.Write(buffer);
+            writer.Close();
         }
 
         private static List<NoteObject> ConvertNotes(List<HitObjectInfo> hitObjects)
