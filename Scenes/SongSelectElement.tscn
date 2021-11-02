@@ -10,6 +10,7 @@
 margin_right = 300.0
 margin_bottom = 425.0
 rect_min_size = Vector2( 300, 425 )
+focus_mode = 1
 script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -80,9 +81,9 @@ anchor_top = 0.748091
 anchor_right = 0.5
 anchor_bottom = 0.748091
 margin_left = -150.0
-margin_top = 47.0612
+margin_top = 62.0613
 margin_right = 150.0
-margin_bottom = 77.0612
+margin_bottom = 92.0614
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 300, 25 )
@@ -138,4 +139,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Tween" type="Tween" parent="Mask"]
+
+[connection signal="focus_entered" from="." to="." method="_OnFocusEnter"]
+[connection signal="focus_exited" from="." to="." method="_OnFocusExit"]
 [connection signal="pressed" from="Preview/Play" to="." method="_OnPlayPressed"]

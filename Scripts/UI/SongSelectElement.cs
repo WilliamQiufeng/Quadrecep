@@ -21,6 +21,7 @@ namespace Quadrecep.UI
             GetNode<Label>("Difficulty").Text = _map.Maps[DifficultyIndex].DifficultyName;
             GetNode<AudioStreamPlayer>("Player").Stream =
                 Play.LoadAudio(Global.RelativeToMap(MapFile, _map.AudioPath));
+            // GrabFocus();
         }
 
         public void _OnPlayPressed()
@@ -30,6 +31,21 @@ namespace Quadrecep.UI
             play.MapFile = MapFile;
             GetTree().Root.AddChild(play);
             GetParent().GetParent().GetParent().GetParent().QueueFree();
+        }
+
+        public void _OnFocusEnter()
+        {
+            var tween = GetNode<Tween>("Mask/Tween");
+            tween.InterpolateProperty(tween.GetParent(), "modulate", new Color(1,1,1,0.765625F), new Color(1,1,1,0), 0.3f,
+                Tween.TransitionType.Linear, Tween.EaseType.In);
+            tween.Start();
+        }
+        public void _OnFocusExit()
+        {
+            var tween = GetNode<Tween>("Mask/Tween");
+            tween.InterpolateProperty(tween.GetParent(), "modulate", new Color(1,1,1,0), new Color(1,1,1,0.765625F), 0.3f,
+                Tween.TransitionType.Linear, Tween.EaseType.In);
+            tween.Start();
         }
     }
 }

@@ -21,17 +21,18 @@ margin_right = 492.0
 margin_bottom = 235.0
 grow_horizontal = 2
 rect_min_size = Vector2( 1004, 450 )
+follow_focus = true
 scroll_vertical_enabled = false
 __meta__ = {
 "_edit_use_anchors_": true
 }
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
-margin_right = 1024.0
-margin_bottom = 450.0
+margin_right = 1004.0
+margin_bottom = 425.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 1024, 450 )
+rect_min_size = Vector2( 1004, 425 )
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
