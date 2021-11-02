@@ -41,6 +41,7 @@ namespace Quadrecep
 
         private void LoadMap()
         {
+            GD.Print($"Loading {MapFile}");
             _map = new Map.Map(MapFile);
             _map.ReadMap();
             _mapObject = _map.GetMap(MapIndex);

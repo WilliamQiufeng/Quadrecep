@@ -9,6 +9,9 @@ namespace Quadrecep.UI
         public int DifficultyIndex;
         public string MapFile;
         public PackedScene PlayScene;
+        private static readonly Color UnfocusedColor = new(1, 1, 1, 0.765625F);
+        private static readonly Color FocusedColor = new(1, 1, 1, 0);
+        private const float FocusDuration = 0.2f;
 
         public override void _Ready()
         {
@@ -24,8 +27,20 @@ namespace Quadrecep.UI
             // GrabFocus();
         }
 
+        public override void _Process(float delta)
+        {
+            if (HasFocus() && Input.IsActionPressed("ui_play")) PlayMap();
+        }
+
         public void _OnPlayPressed()
         {
+            if (!HasFocus()) return;
+            PlayMap();
+        }
+
+        private void PlayMap()
+        {
+            GD.Print($"Play: {MapFile}");
             GetNode<AudioStreamPlayer>("Player").Stop();
             var play = PlayScene.Instance<Play>();
             play.MapFile = MapFile;
@@ -36,14 +51,15 @@ namespace Quadrecep.UI
         public void _OnFocusEnter()
         {
             var tween = GetNode<Tween>("Mask/Tween");
-            tween.InterpolateProperty(tween.GetParent(), "modulate", new Color(1,1,1,0.765625F), new Color(1,1,1,0), 0.3f,
+            tween.InterpolateProperty(tween.GetParent(), "modulate", UnfocusedColor, FocusedColor, FocusDuration,
                 Tween.TransitionType.Linear, Tween.EaseType.In);
             tween.Start();
         }
+
         public void _OnFocusExit()
         {
             var tween = GetNode<Tween>("Mask/Tween");
-            tween.InterpolateProperty(tween.GetParent(), "modulate", new Color(1,1,1,0), new Color(1,1,1,0.765625F), 0.3f,
+            tween.InterpolateProperty(tween.GetParent(), "modulate", FocusedColor, UnfocusedColor, FocusDuration,
                 Tween.TransitionType.Linear, Tween.EaseType.In);
             tween.Start();
         }

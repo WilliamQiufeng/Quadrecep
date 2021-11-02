@@ -117,6 +117,8 @@ margin_bottom = 46.0
 grow_horizontal = 0
 grow_vertical = 0
 rect_scale = Vector2( 0.5, 0.5 )
+focus_mode = 0
+enabled_focus_mode = 0
 texture_normal = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
