@@ -125,7 +125,10 @@ __meta__ = {
 }
 
 [node name="Player" type="AudioStreamPlayer" parent="."]
+volume_db = -6.0
 bus = "Music"
+
+[node name="Tween" type="Tween" parent="Player"]
 
 [node name="Mask" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0.768627 )
@@ -146,3 +149,4 @@ __meta__ = {
 [connection signal="focus_entered" from="." to="." method="_OnFocusEnter"]
 [connection signal="focus_exited" from="." to="." method="_OnFocusExit"]
 [connection signal="pressed" from="Preview/Play" to="." method="_OnPlayPressed"]
+[connection signal="tween_completed" from="Player/Tween" to="." method="_OnTweenComplete"]

@@ -5,6 +5,7 @@
 [node name="SongSelectSlider" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+focus_mode = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": true
@@ -33,6 +34,7 @@ margin_bottom = 425.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_min_size = Vector2( 1004, 425 )
+focus_mode = 2
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
