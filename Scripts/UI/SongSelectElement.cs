@@ -8,6 +8,8 @@ namespace Quadrecep.UI
         private const float FocusDuration = 0.2f;
         private static readonly Color UnfocusedColor = new(1, 1, 1, 0.75F);
         private static readonly Color FocusedColor = new(1, 1, 1, 0);
+
+        public static PackedScene Scene;
         private MapSetObject _map;
         public int DifficultyIndex;
         public string MapFile;
@@ -15,7 +17,6 @@ namespace Quadrecep.UI
 
         public override void _Ready()
         {
-            
             _map = Global.ReadMap(MapFile);
             GetNode<TextureRect>("Preview").Texture =
                 Global.LoadImage(Global.RelativeToMap(MapFile, _map.BackgroundPath));
@@ -63,7 +64,5 @@ namespace Quadrecep.UI
                 Tween.TransitionType.Linear, Tween.EaseType.In);
             tween.Start();
         }
-
-        public static PackedScene Scene;
     }
 }

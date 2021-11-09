@@ -4,6 +4,7 @@ namespace Quadrecep.Gameplay
 {
     public class JudgementNode : Node2D
     {
+        public static PackedScene Scene;
         public Judgement Judgement;
 
         public override void _Ready()
@@ -20,7 +21,5 @@ namespace Quadrecep.Gameplay
         {
             QueueFree();
         }
-
-        public static PackedScene Scene;
     }
 }

@@ -10,6 +10,12 @@ namespace Quadrecep
 {
     public class Play : Node2D
     {
+        //  // Called every frame. 'delta' is the elapsed time since the previous frame.
+//  public override void _Process(float delta)
+//  {
+//      
+//  }
+        public static PackedScene Scene;
         private int _approachingPathIndex;
         private Map.Map _map;
         private MapObject _mapObject;
@@ -187,11 +193,5 @@ namespace Quadrecep
             bg.Texture = Global.LoadImage(imgPath);
             bg.Visible = true;
         }
-
-        //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
     }
 }
