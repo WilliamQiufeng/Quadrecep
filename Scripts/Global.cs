@@ -33,9 +33,10 @@ namespace Quadrecep
             return texture;
         }
 
-        public static string RelativeToMap(string mapFile, string path = "")
+        public static string RelativeToMap(string mapFile, string path = "", bool absolutePath = false)
         {
-            return $"user://{Map.Map.MapDirectory}/{mapFile}/{path}";
+            var root = absolutePath ? OS.GetUserDataDir() : "user://";
+            return $"{root}//{Map.Map.MapDirectory}/{mapFile}/{path}";
         }
 
         public static MapSetObject ReadMap(string mapFile)

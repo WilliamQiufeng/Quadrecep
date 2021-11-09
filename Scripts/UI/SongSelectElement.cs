@@ -40,7 +40,6 @@ namespace Quadrecep.UI
 
         private void PlayMap()
         {
-            GD.Print($"Play: {MapFile}");
             GetNode<AudioStreamPlayer>("Player").Stop();
             var play = PlayScene.Instance<Play>();
             play.MapFile = MapFile;
