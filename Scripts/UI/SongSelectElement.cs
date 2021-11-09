@@ -5,13 +5,13 @@ namespace Quadrecep.UI
 {
     public class SongSelectElement : Control
     {
+        private const float FocusDuration = 0.2f;
+        private static readonly Color UnfocusedColor = new(1, 1, 1, 0.765625F);
+        private static readonly Color FocusedColor = new(1, 1, 1, 0);
         private MapSetObject _map;
         public int DifficultyIndex;
         public string MapFile;
         public PackedScene PlayScene;
-        private static readonly Color UnfocusedColor = new(1, 1, 1, 0.765625F);
-        private static readonly Color FocusedColor = new(1, 1, 1, 0);
-        private const float FocusDuration = 0.2f;
 
         public override void _Ready()
         {

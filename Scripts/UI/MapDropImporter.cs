@@ -7,10 +7,7 @@ namespace Quadrecep.UI
     {
         public override void OnFileDrop(string[] files, int screen)
         {
-            foreach (var file in files)
-            {
-                ImportMap(file);
-            }
+            foreach (var file in files) ImportMap(file);
         }
 
         public static void ImportMap(string file)

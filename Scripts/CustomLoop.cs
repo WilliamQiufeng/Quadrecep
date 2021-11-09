@@ -6,7 +6,6 @@ namespace Quadrecep
     {
         public override void _DropFiles(string[] files, int fromScreen)
         {
-            
         }
     }
 }

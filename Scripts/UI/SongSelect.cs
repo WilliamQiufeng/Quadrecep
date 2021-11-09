@@ -4,6 +4,5 @@ namespace Quadrecep.UI
 {
     public class SongSelect : Control
     {
-        
     }
 }
