@@ -20,5 +20,7 @@ namespace Quadrecep.Gameplay
         {
             QueueFree();
         }
+
+        public static PackedScene Scene;
     }
 }

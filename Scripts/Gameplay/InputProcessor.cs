@@ -94,8 +94,7 @@ namespace Quadrecep.Gameplay
         private void PlaceJudgementFeedback(InputEvent input, Judgement judgement)
         {
             if (input.Note == null) return;
-            var judgementScene = GD.Load<PackedScene>("res://Scenes/Judgement.tscn");
-            var judgementNode = judgementScene.Instance<JudgementNode>();
+            var judgementNode = JudgementNode.Scene.Instance<JudgementNode>();
             judgementNode.GlobalPosition = input.Note.BindNode.GlobalPosition;
             judgementNode.Judgement = judgement;
             GetNode<CanvasLayer>("../../JudgementFeedbacks").AddChild(judgementNode);

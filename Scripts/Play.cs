@@ -10,7 +10,6 @@ namespace Quadrecep
 {
     public class Play : Node2D
     {
-        private readonly PackedScene _noteSpriteScene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
         private int _approachingPathIndex;
         private Map.Map _map;
         private MapObject _mapObject;
@@ -107,7 +106,7 @@ namespace Quadrecep
             // var mapContainer = GetNode<CanvasLayer>("Map");
             foreach (var path in _mapObject.Paths.Where(path => path.TargetNote != null))
             {
-                if (_noteSpriteScene.Instance() is not NoteNode noteSprite) continue;
+                if (NoteNode.Scene.Instance() is not NoteNode noteSprite) continue;
                 noteSprite.Parent = this;
                 noteSprite.Note = path.TargetNote;
                 noteSprite.GlobalPosition = path.EndPosition;
@@ -124,7 +123,7 @@ namespace Quadrecep
             while (_approachingPathIndex < _mapObject.Paths.Count &&
                    _mapObject.Paths[_approachingPathIndex].StartTime - Time <= NoteNode.FadeInTime)
             {
-                if (_noteSpriteScene.Instance() is not NoteNode noteSprite) continue;
+                if (NoteNode.Scene.Instance() is not NoteNode noteSprite) continue;
                 var path = _mapObject.Paths[_approachingPathIndex++];
                 if (path.TargetNote == null) continue;
                 noteSprite.Parent = this;

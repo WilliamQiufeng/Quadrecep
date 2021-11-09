@@ -15,6 +15,8 @@ namespace Quadrecep
         /// </summary>
         public const float FadeLength = 750;
 
+        public static PackedScene Scene;
+
         private bool _finished;
 
         private LogTransition _transition;

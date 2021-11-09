@@ -1,6 +1,8 @@
 using Godot;
 using Quadrecep.Database;
+using Quadrecep.Gameplay;
 using Quadrecep.Map;
+using Quadrecep.UI;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -17,6 +19,14 @@ namespace Quadrecep
         {
             DatabaseHandler.Initialize();
             OS.VsyncEnabled = false;
+            LoadPackedScenes();
+        }
+
+        private static void LoadPackedScenes()
+        {
+            SongSelectElement.Scene = GD.Load<PackedScene>("res://Scenes/SongSelectElement.tscn");
+            NoteNode.Scene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
+            JudgementNode.Scene = GD.Load<PackedScene>("res://Scenes/Judgement.tscn");
         }
 
         // Called every frame. 'delta' is the elapsed time since the previous frame.
