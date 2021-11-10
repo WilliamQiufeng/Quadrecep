@@ -5,17 +5,21 @@ namespace Quadrecep.UI
     public class SongSelectSlider : Control
     {
         public readonly Directory ContainingDirectory = new();
-        private int _mapIndex;
+        private int _mapIndex = -1;
 
         public int MapIndex
         {
             get => _mapIndex;
             set
             {
+                if (_mapIndex == value) return;
                 _mapIndex = value;
                 UpdateElementFocus();
+                GetParent<SongSelect>().ChangeBackgroundTexture();
             }
         }
+
+        public SongSelectElement FocusedElement => HBoxContainer.GetChildren()[MapIndex] as SongSelectElement;
 
         private HBoxContainer HBoxContainer => GetNode<HBoxContainer>("ScrollContainer/HBoxContainer");
 
@@ -70,7 +74,8 @@ namespace Quadrecep.UI
 
         private void UpdateElementFocus()
         {
-            ((Control) HBoxContainer.GetChildren()[MapIndex]).GrabFocus();
+            FocusedElement.GrabFocus();
         }
+
     }
 }

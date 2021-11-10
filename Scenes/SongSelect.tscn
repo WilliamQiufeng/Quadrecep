@@ -18,8 +18,10 @@ __meta__ = {
 [node name="Node" type="Node" parent="."]
 script = ExtResource( 5 )
 
+[node name="BackgroundTransition" type="Tween" parent="."]
+
 [node name="BlurredBackground" type="TextureRect" parent="."]
-self_modulate = Color( 1, 1, 1, 0.501961 )
+modulate = Color( 1, 1, 1, 0.768627 )
 margin_right = 40.0
 margin_bottom = 40.0
 rect_min_size = Vector2( 1024, 600 )
@@ -29,10 +31,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Blur" type="ColorRect" parent="BlurredBackground"]
+[node name="BlurredBackground2" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 1024, 600 )
+texture = ExtResource( 7 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="ColorRect" parent="."]
 material = ExtResource( 3 )
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 1024.0
+margin_bottom = 600.0
 rect_min_size = Vector2( 1024, 600 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -60,4 +73,5 @@ margin_top = 300.0
 margin_right = 512.0
 margin_bottom = 300.0
 
+[connection signal="tween_all_completed" from="BackgroundTransition" to="." method="_OnTweenAllComplete"]
 [connection signal="pressed" from="CreateMap" to="CreateMap" method="_OnCreateMapPressed"]
