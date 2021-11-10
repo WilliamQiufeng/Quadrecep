@@ -19,9 +19,9 @@ namespace Quadrecep.UI
             var blurredBackground2 = GetNode<TextureRect>("BlurredBackground2");
             blurredBackground2.Texture = Slider.FocusedElement.GetNode<TextureRect>("Preview").Texture;
             tween.InterpolateProperty(blurredBackground, "modulate", InitialColor, FinalColor,
-                0.5f);
+                SongSelectElement.FocusDuration);
             tween.InterpolateProperty(blurredBackground2, "modulate", FinalColor, InitialColor,
-                0.5f);
+                SongSelectElement.FocusDuration);
             tween.Start();
         }
 
@@ -30,10 +30,18 @@ namespace Quadrecep.UI
             GD.Print("Complete");
             var blurredBackground = GetNode<TextureRect>("BlurredBackground");
             var blurredBackground2 = GetNode<TextureRect>("BlurredBackground2");
-            (blurredBackground.Texture, blurredBackground2.Texture) =
-                (blurredBackground2.Texture, blurredBackground.Texture);
+            SwapTexture(blurredBackground, blurredBackground2);
             blurredBackground.Modulate = InitialColor;
             blurredBackground2.Modulate = FinalColor;
+        }
+
+        private static void SwapTexture(TextureRect texture1, TextureRect texture2)
+        {
+            (texture1.Texture, texture2.Texture) = (texture2.Texture, texture1.Texture);
+        }
+        private static void SwapModulate(CanvasItem texture1, CanvasItem texture2)
+        {
+            (texture1.Modulate, texture2.Modulate) = (texture2.Modulate, texture1.Modulate);
         }
     }
 }

@@ -5,12 +5,12 @@ namespace Quadrecep.UI
 {
     public class SongSelectElement : Control
     {
-        private const float FocusDuration = 0.2f;
+        public const float FocusDuration = 0.2f;
         private static readonly Color UnfocusedColor = new(1, 1, 1, 0.75F);
         private static readonly Color FocusedColor = new(1, 1, 1, 0);
 
         public static PackedScene Scene;
-        public int _difficultyIndex;
+        private int _difficultyIndex;
         private MapSetObject _map;
         public int Index;
         public string MapFile;
