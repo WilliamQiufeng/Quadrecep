@@ -1,18 +1,15 @@
 using Godot;
 
-
 namespace Quadrecep.UI
 {
     public class SongSelect : Control
     {
-        
         public static readonly Color InitialColor = new(1, 1, 1, 0.75f);
         public static readonly Color FinalColor = new(1, 1, 1, 0);
         public SongSelectSlider Slider => GetNode<SongSelectSlider>("SongSelectSlider");
 
         public override void _Ready()
         {
-            
         }
 
         public void ChangeBackgroundTexture()
@@ -27,7 +24,7 @@ namespace Quadrecep.UI
                 0.5f);
             tween.Start();
         }
-        
+
         public void _OnTweenAllComplete()
         {
             GD.Print("Complete");

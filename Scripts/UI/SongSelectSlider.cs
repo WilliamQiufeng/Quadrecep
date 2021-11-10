@@ -76,6 +76,5 @@ namespace Quadrecep.UI
         {
             FocusedElement.GrabFocus();
         }
-
     }
 }
