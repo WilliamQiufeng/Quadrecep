@@ -10,6 +10,7 @@ namespace Quadrecep
 {
     public class Global : Node
     {
+        public static readonly Directory MapContainingDirectory = new();
         // Declare member variables here. Examples:
         // private int a = 2;
         // private string b = "text";
@@ -72,6 +73,16 @@ namespace Quadrecep
             save.Open(RelativeToMap(mapFile, "MapSet.qbm"), File.ModeFlags.Write);
             save.StoreString(yaml);
             save.Close();
+        }
+
+        public static void SwapTexture(TextureRect texture1, TextureRect texture2)
+        {
+            (texture1.Texture, texture2.Texture) = (texture2.Texture, texture1.Texture);
+        }
+
+        private static void SwapModulate(CanvasItem texture1, CanvasItem texture2)
+        {
+            (texture1.Modulate, texture2.Modulate) = (texture2.Modulate, texture1.Modulate);
         }
     }
 }

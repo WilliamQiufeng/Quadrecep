@@ -30,18 +30,9 @@ namespace Quadrecep.UI
             GD.Print("Complete");
             var blurredBackground = GetNode<TextureRect>("BlurredBackground");
             var blurredBackground2 = GetNode<TextureRect>("BlurredBackground2");
-            SwapTexture(blurredBackground, blurredBackground2);
+            Global.SwapTexture(blurredBackground, blurredBackground2);
             blurredBackground.Modulate = InitialColor;
             blurredBackground2.Modulate = FinalColor;
-        }
-
-        private static void SwapTexture(TextureRect texture1, TextureRect texture2)
-        {
-            (texture1.Texture, texture2.Texture) = (texture2.Texture, texture1.Texture);
-        }
-        private static void SwapModulate(CanvasItem texture1, CanvasItem texture2)
-        {
-            (texture1.Modulate, texture2.Modulate) = (texture2.Modulate, texture1.Modulate);
         }
     }
 }

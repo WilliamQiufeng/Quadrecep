@@ -4,8 +4,7 @@ namespace Quadrecep.UI
 {
     public class SongSelectSlider : Control
     {
-        public readonly Directory ContainingDirectory = new();
-        private int _mapIndex = -1;
+        private int _mapIndex;
 
         public int MapIndex
         {
@@ -14,8 +13,7 @@ namespace Quadrecep.UI
             {
                 if (_mapIndex == value) return;
                 _mapIndex = value;
-                UpdateElementFocus();
-                GetParent<SongSelect>().ChangeBackgroundTexture();
+                RefreshFocusChild();
             }
         }
 
@@ -23,26 +21,35 @@ namespace Quadrecep.UI
 
         private HBoxContainer HBoxContainer => GetNode<HBoxContainer>("ScrollContainer/HBoxContainer");
 
-        public int Count => HBoxContainer.GetChildren().Count;
+        public int ChildrenCount => HBoxContainer.GetChildren().Count;
+
+        private void RefreshFocusChild()
+        {
+            UpdateElementFocus();
+            GetParent<SongSelect>().ChangeBackgroundTexture();
+        }
 
         public override void _Ready()
         {
-            ContainingDirectory.Open($"user://{Map.Map.MapDirectory}");
-            LoadElements(ContainingDirectory);
-            MapIndex = 0;
+            Global.MapContainingDirectory.Open($"user://{Map.Map.MapDirectory}");
+            LoadElements(Global.MapContainingDirectory);
+            RefreshFocusChild();
         }
 
         public void RefreshElements()
         {
             ClearChildren();
-            LoadElements(ContainingDirectory);
-            MapIndex = 0;
+            LoadElements(Global.MapContainingDirectory);
+            RefreshFocusChild();
         }
 
         private void ClearChildren()
         {
             foreach (Node child in HBoxContainer.GetChildren())
+            {
+                HBoxContainer.RemoveChild(child);
                 child.QueueFree();
+            }
         }
 
         private void LoadElements(Directory dir)
@@ -57,7 +64,7 @@ namespace Quadrecep.UI
                     GD.Print(fileName);
                     element.MapFile = fileName;
                     element.PlayScene = Play.Scene;
-                    element.Index = Count;
+                    element.Index = ChildrenCount;
                     HBoxContainer.AddChild(element);
                 }
 
@@ -68,8 +75,8 @@ namespace Quadrecep.UI
         public override void _Process(float delta)
         {
             // if (!HasFocus()) return;
-            if (Input.IsActionJustPressed("ui_left")) MapIndex = MapIndex - 1 < 0 ? Count - 1 : MapIndex - 1;
-            if (Input.IsActionJustPressed("ui_right")) MapIndex = (MapIndex + 1) % Count;
+            if (Input.IsActionJustPressed("ui_left")) MapIndex = MapIndex - 1 < 0 ? ChildrenCount - 1 : MapIndex - 1;
+            if (Input.IsActionJustPressed("ui_right")) MapIndex = (MapIndex + 1) % ChildrenCount;
         }
 
         private void UpdateElementFocus()
