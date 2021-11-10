@@ -43,7 +43,7 @@ namespace Qua2Qbm
                 Maps = maps,
             };
             Console.WriteLine(globQua.Title);
-            var zip = ZipFile.Open(opts.OutputFile, ZipArchiveMode.Create);
+            var zip = ZipFile.Open($"{opts.OutputFile}/{globQua.Title}.qms", ZipArchiveMode.Create);
             var qbmFile = zip.CreateEntry("MapSet.qbm");
             var qbmFileWriter = new StreamWriter(qbmFile.Open());
             SaveMap(resMapSet, qbmFileWriter);
