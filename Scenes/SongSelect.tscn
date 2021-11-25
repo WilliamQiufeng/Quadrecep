@@ -15,7 +15,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Node" type="Node" parent="."]
+[node name="FileDropHandler" type="Node" parent="."]
 script = ExtResource( 5 )
 
 [node name="BackgroundTransition" type="Tween" parent="."]
