@@ -38,7 +38,7 @@ namespace Quadrecep.UI
             GetNode<Label>("Artist").Text = _map.Artist;
             DifficultyIndex = 0;
             GetNode<AudioStreamPlayer>("Player").Stream =
-                Play.LoadAudio(Global.RelativeToMap(MapFile, _map.AudioPath));
+                APlay.LoadAudio(Global.RelativeToMap(MapFile, _map.AudioPath));
             // GrabFocus();
         }
 
@@ -60,7 +60,7 @@ namespace Quadrecep.UI
         private void PlayMap()
         {
             GetNode<AudioStreamPlayer>("Player").Stop();
-            var play = PlayScene.Instance<Play>();
+            var play = PlayScene.Instance<APlay>();
             play.MapFile = MapFile;
             play.MapIndex = DifficultyIndex;
             GetTree().Root.AddChild(play);

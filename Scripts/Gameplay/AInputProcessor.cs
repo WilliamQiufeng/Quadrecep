@@ -7,16 +7,16 @@ namespace Quadrecep.Gameplay
 {
     public abstract class AInputProcessor : Node
     {
-        public int InputTracks => ExpectedInputs.Count;
-        public virtual float Time => 0;
+        public readonly JudgementCounter Counter = new();
 
         protected readonly List<Queue<InputEvent>> ExpectedInputs = new();
 
-        public readonly JudgementCounter Counter = new();
-
         public readonly List<Queue<InputEvent>> Inputs = new();
+        public APlay APlayParent;
 
         public JudgementSet JudgementSet = JudgementSet.Default;
+        public int InputTracks => ExpectedInputs.Count;
+        public virtual float Time => 0;
 
         public int ValidInputCount => ExpectedInputs.Sum(x => x.Count(inp => inp.CountAsInput));
 

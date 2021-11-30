@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 using Quadrecep.Map;
 
@@ -7,7 +6,7 @@ namespace Quadrecep.Gameplay
 {
     public class InputProcessor : AInputProcessor
     {
-        public override float Time => GetNode<Play>("../..").Time;
+        public override float Time => APlayParent.Time;
 
         public override void _Ready()
         {
@@ -20,12 +19,11 @@ namespace Quadrecep.Gameplay
             var judgementNode = JudgementNode.Scene.Instance<JudgementNode>();
             judgementNode.GlobalPosition = input.Note.BindNode.GlobalPosition;
             judgementNode.Judgement = judgement;
-            GetNode<CanvasLayer>("../../JudgementFeedbacks").AddChild(judgementNode);
+            APlayParent.GetNode<CanvasLayer>("JudgementFeedbacks").AddChild(judgementNode);
         }
 
         public override void FeedNotes(List<NoteObject> notes)
         {
-            
             foreach (var note in notes)
             {
                 DirectionObject dir = note.Direction;

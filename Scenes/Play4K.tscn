@@ -1,0 +1,165 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Resources/tete-a-tete.mp3" type="AudioStream" id=1]
+[ext_resource path="res://Scripts/Play4K.cs" type="Script" id=2]
+[ext_resource path="res://font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=4]
+[ext_resource path="res://Textures/Mask.png" type="Texture" id=5]
+[ext_resource path="res://Scripts/BackgroundMask.cs" type="Script" id=9]
+[ext_resource path="res://Scripts/Fps.cs" type="Script" id=11]
+[ext_resource path="res://Scripts/Gameplay/InputProcessor.cs" type="Script" id=12]
+[ext_resource path="res://Scripts/Gameplay/InputRetriever.cs" type="Script" id=13]
+[ext_resource path="res://Shaders/Blur.tres" type="Material" id=15]
+
+[sub_resource type="Animation" id=1]
+resource_name = "Fade"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.768627 ) ]
+}
+
+[node name="Root" type="Node2D"]
+process_priority = -3
+script = ExtResource( 2 )
+MapFile = "Test"
+
+[node name="InputRetriever" type="Node" parent="."]
+process_priority = -2
+script = ExtResource( 13 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 1 )
+bus = "Music"
+
+[node name="Background" type="TextureRect" parent="."]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 4 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Blur" type="ColorRect" parent="."]
+material = ExtResource( 15 )
+margin_right = 1024.0
+margin_bottom = 600.0
+rect_min_size = Vector2( 1024, 600 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mask" type="TextureRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+texture = ExtResource( 5 )
+script = ExtResource( 9 )
+__meta__ = {
+"_edit_use_anchors_": false,
+"_editor_description_": "Use this to set the brightness of the background"
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Mask"]
+autoplay = "Fade"
+anims/Fade = SubResource( 1 )
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="Name" type="Label" parent="HUD"]
+anchor_left = -0.00055027
+anchor_right = 0.99945
+margin_left = -0.612183
+margin_right = -0.612183
+margin_bottom = 30.0
+rect_pivot_offset = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 3 )
+text = "Name"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Combo" type="Label" parent="HUD"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -50.0
+margin_top = 70.0
+margin_right = 50.0
+margin_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+custom_fonts/font = ExtResource( 3 )
+text = "0"
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Fps" type="Label" parent="HUD"]
+process_priority = 1
+anchor_top = 1.0
+anchor_bottom = 1.01667
+margin_left = 10.0
+margin_top = -30.0
+margin_right = 150.0
+margin_bottom = -10.0
+rect_scale = Vector2( 0.75, 0.75 )
+rect_pivot_offset = Vector2( 0.5, 0.5 )
+custom_fonts/font = ExtResource( 3 )
+text = "  60 FPS"
+valign = 2
+autowrap = true
+script = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Score" type="Label" parent="HUD"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -110.0
+margin_top = 10.0
+margin_right = -110.0
+custom_fonts/font = ExtResource( 3 )
+text = "0000000"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Accuracy" type="Label" parent="HUD"]
+anchor_left = 0.999701
+anchor_right = 0.999701
+margin_left = -100.0
+margin_top = 50.0
+margin_right = -10.0
+custom_fonts/font = ExtResource( 3 )
+text = "00.00%"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="InputProcessor" type="Node" parent="."]
+script = ExtResource( 12 )
+
+[node name="Notes" type="CanvasLayer" parent="."]
+layer = -1
+follow_viewport_enable = true
+
+[node name="JudgementFeedbacks" type="CanvasLayer" parent="."]
+layer = 0
+follow_viewport_enable = true

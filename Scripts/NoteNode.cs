@@ -22,7 +22,7 @@ namespace Quadrecep
         private LogTransition _transition;
         public DirectionObject InputLeft;
         public NoteObject Note;
-        public Play Parent;
+        public APlay Parent;
 
         public override void _Ready()
         {

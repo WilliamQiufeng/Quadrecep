@@ -53,7 +53,9 @@ namespace Quadrecep.Gameplay
 
         public float GetPercentageAccuracy()
         {
-            return Mathf.Clamp(ValidJudgements.Sum(x => JudgementPercentage.Percentages[(int) x.Judgement]) / ValidJudgements.Count, 0, 100);
+            return Mathf.Clamp(
+                ValidJudgements.Sum(x => JudgementPercentage.Percentages[(int) x.Judgement]) / ValidJudgements.Count, 0,
+                100);
         }
 
         public float GetStandardDeviance()
