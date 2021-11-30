@@ -53,20 +53,19 @@ namespace Quadrecep.Gameplay
 
         public float GetPercentageAccuracy()
         {
-            return Mathf.Clamp(
-                ValidJudgements.Sum(x => JudgementPercentage.Percentages[(int) x.Judgement]) / ValidJudgements.Count, 0,
+            return ValidJudgements.Count == 0 ? 0 : Mathf.Clamp(
+                ValidJudgements.Average(x => JudgementPercentage.Percentages[(int) x.Judgement]), 0,
                 100);
         }
 
         public float GetStandardDeviance()
         {
-            return (float) Math.Sqrt(ValidJudgements.Sum(x => Mathf.Pow(x.TimeDifference, 2)) /
-                                     ValidJudgements.Count);
+            return ValidJudgements.Count == 0 ? 0 : (float) Math.Sqrt(ValidJudgements.Average(x => Mathf.Pow(x.TimeDifference, 2)));
         }
 
         public float GetMean()
         {
-            return ValidJudgements.Sum(x => x.TimeDifference) / ValidJudgements.Count;
+            return ValidJudgements.Count == 0 ? 0 : ValidJudgements.Average(x => x.TimeDifference);
         }
     }
 }
