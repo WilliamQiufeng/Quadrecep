@@ -1,5 +1,3 @@
-using System;
-
 namespace Quadrecep.Gameplay
 {
     public class JudgementPercentage

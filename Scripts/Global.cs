@@ -1,7 +1,6 @@
 using Godot;
 using Quadrecep.Database;
 using Quadrecep.GameMode.Navigate;
-using Quadrecep.Gameplay;
 using Quadrecep.Map;
 using Quadrecep.UI;
 using YamlDotNet.Serialization;

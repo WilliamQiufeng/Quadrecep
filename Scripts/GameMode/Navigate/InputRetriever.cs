@@ -1,6 +1,3 @@
-using Godot;
-using Quadrecep.GameMode;
-
 namespace Quadrecep.Gameplay
 {
     public class InputRetriever : AInputRetriever

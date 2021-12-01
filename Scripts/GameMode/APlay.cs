@@ -7,7 +7,6 @@ namespace Quadrecep.GameMode
 {
     public abstract class APlay : Node2D
     {
-        protected int ZInd;
         public bool Finished;
         protected Map.Map Map;
 
@@ -17,6 +16,7 @@ namespace Quadrecep.GameMode
         protected MapObject MapObject;
 
         public float Time;
+        protected int ZInd;
         protected virtual string BackgroundNodePath => "ParallaxBackground/ParallaxLayer/Background";
 
         public TextureRect Background => GetNode<TextureRect>(BackgroundNodePath);

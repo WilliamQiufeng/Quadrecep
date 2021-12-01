@@ -8,7 +8,6 @@ namespace Quadrecep.GameMode.Navigate
 {
     public class InputProcessor : AInputProcessor
     {
-
         public override void _Ready()
         {
             InitTracks(4);
