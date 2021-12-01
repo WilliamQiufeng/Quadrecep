@@ -38,7 +38,7 @@ namespace Quadrecep.GameMode
             }
         }
 
-        public override void _Process(float delta)
+        public override void _PhysicsProcess(float delta)
         {
             ProcessInputs();
             for (var i = 0; i < InputTracks; i++) RemoveMissed(i, Time);
