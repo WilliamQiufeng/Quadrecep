@@ -18,7 +18,7 @@ namespace Quadrecep.GameMode.Navigate
         {
             if (input.Note == null) return;
             var judgementNode = JudgementNode.Scene.Instance<JudgementNode>();
-            judgementNode.GlobalPosition = input.Note.BindNode.GlobalPosition;
+            judgementNode.GlobalPosition = input.Note.BindNode?.GlobalPosition ?? new Vector2();
             judgementNode.Judgement = judgement;
             APlayParent.GetNode<CanvasLayer>("JudgementFeedbacks").AddChild(judgementNode);
         }
