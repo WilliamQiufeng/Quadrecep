@@ -1,4 +1,5 @@
 using Godot;
+using Quadrecep.GameMode;
 
 namespace Quadrecep.Gameplay
 {

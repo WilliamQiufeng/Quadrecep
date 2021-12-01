@@ -1,6 +1,7 @@
 using Godot;
+using Quadrecep.Gameplay;
 
-namespace Quadrecep.Gameplay
+namespace Quadrecep.GameMode.Navigate
 {
     public class JudgementNode : Node2D
     {

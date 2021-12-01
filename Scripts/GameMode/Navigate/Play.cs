@@ -3,7 +3,7 @@ using Quadrecep.Map;
 using static Godot.Vector2;
 using Path = Quadrecep.Map.Path;
 
-namespace Quadrecep
+namespace Quadrecep.GameMode.Navigate
 {
     public class Play : APlay
     {

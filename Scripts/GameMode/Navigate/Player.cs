@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Quadrecep
+namespace Quadrecep.GameMode.Navigate
 {
     public class Player : Control
     {

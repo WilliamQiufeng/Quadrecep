@@ -1,22 +1,22 @@
 [gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Resources/tete-a-tete.mp3" type="AudioStream" id=1]
-[ext_resource path="res://Scripts/Play4K.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/GameMode/Keys/Play4K.cs" type="Script" id=2]
 [ext_resource path="res://font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=4]
 [ext_resource path="res://Textures/Mask.png" type="Texture" id=5]
-[ext_resource path="res://Textures/Gamemodes/Keys/Receptors/receptor-up-3.png" type="Texture" id=6]
-[ext_resource path="res://Textures/Gamemodes/Keys/Stage/stage-right-border.png" type="Texture" id=7]
-[ext_resource path="res://Textures/Gamemodes/Keys/Stage/stage-left-border.png" type="Texture" id=8]
+[ext_resource path="res://Textures/GameModes/Keys/Receptors/receptor-up-3.png" type="Texture" id=6]
+[ext_resource path="res://Textures/GameModes/Keys/Stage/stage-right-border.png" type="Texture" id=7]
+[ext_resource path="res://Textures/GameModes/Keys/Stage/stage-left-border.png" type="Texture" id=8]
 [ext_resource path="res://Scripts/BackgroundMask.cs" type="Script" id=9]
-[ext_resource path="res://Textures/Gamemodes/Keys/Receptors/receptor-up-1.png" type="Texture" id=10]
+[ext_resource path="res://Textures/GameModes/Keys/Receptors/receptor-up-1.png" type="Texture" id=10]
 [ext_resource path="res://Scripts/Fps.cs" type="Script" id=11]
-[ext_resource path="res://Scripts/Gameplay/InputProcessor.cs" type="Script" id=12]
+[ext_resource path="res://Scripts/GameMode/Navigate/InputProcessor.cs" type="Script" id=12]
 [ext_resource path="res://Scripts/Gameplay/InputRetriever.cs" type="Script" id=13]
-[ext_resource path="res://Textures/Gamemodes/Keys/Receptors/receptor-up-4.png" type="Texture" id=14]
+[ext_resource path="res://Textures/GameModes/Keys/Receptors/receptor-up-4.png" type="Texture" id=14]
 [ext_resource path="res://Shaders/Blur.tres" type="Material" id=15]
-[ext_resource path="res://Textures/Gamemodes/Keys/Receptors/receptor-up-2.png" type="Texture" id=16]
-[ext_resource path="res://Textures/Gamemodes/Keys/Stage/stage-bgmask.png" type="Texture" id=17]
+[ext_resource path="res://Textures/GameModes/Keys/Receptors/receptor-up-2.png" type="Texture" id=16]
+[ext_resource path="res://Textures/GameModes/Keys/Stage/stage-bgmask.png" type="Texture" id=17]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade"
@@ -37,6 +37,7 @@ tracks/0/keys = {
 process_priority = -3
 script = ExtResource( 2 )
 MapFile = "Test"
+MapIndex = null
 
 [node name="InputRetriever" type="Node" parent="."]
 process_priority = -2

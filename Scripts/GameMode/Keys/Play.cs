@@ -1,4 +1,4 @@
-namespace Quadrecep
+namespace Quadrecep.GameMode.Keys
 {
     public class Play4K : APlay
     {

@@ -1,3 +1,4 @@
+using Quadrecep.GameMode.Navigate;
 using YamlDotNet.Serialization;
 
 namespace Quadrecep.Map

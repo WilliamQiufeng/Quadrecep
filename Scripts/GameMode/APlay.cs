@@ -3,7 +3,7 @@ using Godot;
 using Quadrecep.Gameplay;
 using Quadrecep.Map;
 
-namespace Quadrecep
+namespace Quadrecep.GameMode
 {
     public abstract class APlay : Node2D
     {

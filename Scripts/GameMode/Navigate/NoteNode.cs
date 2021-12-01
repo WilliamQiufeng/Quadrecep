@@ -1,7 +1,7 @@
 using Godot;
 using Quadrecep.Map;
 
-namespace Quadrecep
+namespace Quadrecep.GameMode.Navigate
 {
     public class NoteNode : Node2D
     {

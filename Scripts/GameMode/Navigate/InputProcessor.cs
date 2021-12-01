@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using Godot;
+using Quadrecep.Gameplay;
 using Quadrecep.Map;
+using InputEvent = Quadrecep.Gameplay.InputEvent;
 
-namespace Quadrecep.Gameplay
+namespace Quadrecep.GameMode.Navigate
 {
     public class InputProcessor : AInputProcessor
     {

@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Quadrecep.Gameplay;
 using Quadrecep.Map;
+using InputEvent = Quadrecep.Gameplay.InputEvent;
 
-namespace Quadrecep.Gameplay
+namespace Quadrecep.GameMode
 {
     public abstract class AInputProcessor : Node
     {
@@ -85,7 +87,7 @@ namespace Quadrecep.Gameplay
         private InputEvent DequeueLatestInputEvent(int key)
         {
             var latestInputEvent = ExpectedInputs[key].Dequeue();
-            if (latestInputEvent.Note != null) latestInputEvent.Note.BindNode.InputLeft[key] = 0;
+            if (latestInputEvent.Note?.BindNode != null) latestInputEvent.Note.BindNode.InputLeft[key] = 0;
             return latestInputEvent;
         }
 
