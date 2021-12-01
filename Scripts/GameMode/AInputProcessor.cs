@@ -18,7 +18,7 @@ namespace Quadrecep.GameMode
 
         public JudgementSet JudgementSet = JudgementSet.Default;
         public int InputTracks => ExpectedInputs.Count;
-        public virtual float Time => 0;
+        protected virtual float Time => APlayParent.Time;
 
         public int ValidInputCount => ExpectedInputs.Sum(x => x.Count(inp => inp.CountAsInput));
 

@@ -8,7 +8,6 @@ namespace Quadrecep.GameMode.Navigate
 {
     public class InputProcessor : AInputProcessor
     {
-        public override float Time => APlayParent.Time;
 
         public override void _Ready()
         {
