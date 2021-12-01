@@ -12,7 +12,7 @@
 [ext_resource path="res://Scripts/Map/Map.cs" type="Script" id=10]
 [ext_resource path="res://Scripts/Fps.cs" type="Script" id=11]
 [ext_resource path="res://Scripts/GameMode/Navigate/InputProcessor.cs" type="Script" id=12]
-[ext_resource path="res://Scripts/Gameplay/InputRetriever.cs" type="Script" id=13]
+[ext_resource path="res://Scripts/GameMode/Navigate/InputRetriever.cs" type="Script" id=13]
 [ext_resource path="res://Scenes/Line.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Shaders/Blur.tres" type="Material" id=15]
 
