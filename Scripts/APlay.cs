@@ -7,7 +7,7 @@ namespace Quadrecep
 {
     public abstract class APlay : Node2D
     {
-        private int _zInd;
+        protected int ZInd;
         public bool Finished;
         protected Map.Map Map;
 
@@ -56,7 +56,7 @@ namespace Quadrecep
             Map.ReadMap();
             MapObject = Map.GetMap(MapIndex);
             MapObject.BuildPaths();
-            _zInd = MapObject.Paths.Count;
+            ZInd = MapObject.Paths.Count;
             InputProcessor.FeedNotes(MapObject.Notes);
         }
 

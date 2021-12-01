@@ -11,7 +11,6 @@ namespace Quadrecep
 
         private int _approachingPathIndex;
         private int _pathIndex;
-        private int _zInd;
 
         public Path CurrentPath => MapObject.Paths[_pathIndex];
 
@@ -59,7 +58,7 @@ namespace Quadrecep
                 var targetNoteDirection = (DirectionObject) path.TargetNote.Direction;
                 noteSprite.Rotation = GetNoteRotation(targetNoteDirection);
                 noteSprite.GetNode<Node2D>("Side").Visible = targetNoteDirection.HasSide();
-                noteSprite.ZIndex = _zInd--;
+                noteSprite.ZIndex = ZInd--;
                 GetNode("Notes").AddChild(noteSprite);
             }
         }

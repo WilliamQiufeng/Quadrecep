@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ArrowConnector.png-6bfdefbb8e6357fcdd141e2ef71beeea.stex"
+path="res://.import/note-holdend-2.png-ae590e643f11f42214f6343483ef9f46.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/ArrowConnector.png"
-dest_files=[ "res://.import/ArrowConnector.png-6bfdefbb8e6357fcdd141e2ef71beeea.stex" ]
+source_file="res://Textures/Gamemodes/Keys/HitObjects/note-holdend-2.png"
+dest_files=[ "res://.import/note-holdend-2.png-ae590e643f11f42214f6343483ef9f46.stex" ]
 
 [params]
 

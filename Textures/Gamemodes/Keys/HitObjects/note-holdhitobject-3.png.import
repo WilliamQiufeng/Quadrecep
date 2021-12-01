@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SideArrow.png-86e58db5cef0a447d427b6361e80d440.stex"
+path="res://.import/note-holdhitobject-3.png-e8cca2e43e6e35b8f115c2102e5d5413.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/SideArrow.png"
-dest_files=[ "res://.import/SideArrow.png-86e58db5cef0a447d427b6361e80d440.stex" ]
+source_file="res://Textures/Gamemodes/Keys/HitObjects/note-holdhitobject-3.png"
+dest_files=[ "res://.import/note-holdhitobject-3.png-e8cca2e43e6e35b8f115c2102e5d5413.stex" ]
 
 [params]
 

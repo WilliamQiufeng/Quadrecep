@@ -1,15 +1,22 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Resources/tete-a-tete.mp3" type="AudioStream" id=1]
 [ext_resource path="res://Scripts/Play4K.cs" type="Script" id=2]
 [ext_resource path="res://font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=4]
 [ext_resource path="res://Textures/Mask.png" type="Texture" id=5]
+[ext_resource path="res://Textures/Gamemodes/Keys/Receptors/receptor-up-3.png" type="Texture" id=6]
+[ext_resource path="res://Textures/Gamemodes/Keys/Stage/stage-right-border.png" type="Texture" id=7]
+[ext_resource path="res://Textures/Gamemodes/Keys/Stage/stage-left-border.png" type="Texture" id=8]
 [ext_resource path="res://Scripts/BackgroundMask.cs" type="Script" id=9]
+[ext_resource path="res://Textures/Gamemodes/Keys/Receptors/receptor-up-1.png" type="Texture" id=10]
 [ext_resource path="res://Scripts/Fps.cs" type="Script" id=11]
 [ext_resource path="res://Scripts/Gameplay/InputProcessor.cs" type="Script" id=12]
 [ext_resource path="res://Scripts/Gameplay/InputRetriever.cs" type="Script" id=13]
+[ext_resource path="res://Textures/Gamemodes/Keys/Receptors/receptor-up-4.png" type="Texture" id=14]
 [ext_resource path="res://Shaders/Blur.tres" type="Material" id=15]
+[ext_resource path="res://Textures/Gamemodes/Keys/Receptors/receptor-up-2.png" type="Texture" id=16]
+[ext_resource path="res://Textures/Gamemodes/Keys/Stage/stage-bgmask.png" type="Texture" id=17]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade"
@@ -77,13 +84,13 @@ anims/Fade = SubResource( 1 )
 [node name="Name" type="Label" parent="HUD"]
 anchor_left = -0.00055027
 anchor_right = 0.99945
-margin_left = -0.612183
-margin_right = -0.612183
+margin_left = 30.0
+margin_top = 10.0
+margin_right = 0.563538
 margin_bottom = 30.0
 rect_pivot_offset = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 3 )
 text = "Name"
-align = 1
 valign = 1
 autowrap = true
 __meta__ = {
@@ -91,12 +98,10 @@ __meta__ = {
 }
 
 [node name="Combo" type="Label" parent="HUD"]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -50.0
-margin_top = 70.0
-margin_right = 50.0
-margin_bottom = 15.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_bottom = 30.0
 grow_horizontal = 2
 grow_vertical = 2
 custom_fonts/font = ExtResource( 3 )
@@ -155,6 +160,51 @@ __meta__ = {
 
 [node name="InputProcessor" type="Node" parent="."]
 script = ExtResource( 12 )
+
+[node name="Playfield" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="Cover" type="Sprite" parent="Playfield"]
+position = Vector2( 512, 300 )
+scale = Vector2( 0.75, 0.5 )
+texture = ExtResource( 17 )
+
+[node name="BorderL" type="Sprite" parent="Playfield/Cover"]
+position = Vector2( -210, 0 )
+scale = Vector2( 1, 0.781 )
+texture = ExtResource( 8 )
+
+[node name="BorderR" type="Sprite" parent="Playfield/Cover"]
+position = Vector2( 210, 0 )
+scale = Vector2( 1, 0.781 )
+texture = ExtResource( 7 )
+
+[node name="Receptors" type="Node2D" parent="Playfield/Cover"]
+position = Vector2( 0, 439 )
+scale = Vector2( 1.33333, 2 )
+
+[node name="R1" type="Sprite" parent="Playfield/Cover/Receptors"]
+position = Vector2( -150, 0 )
+scale = Vector2( 0.293, 0.293 )
+texture = ExtResource( 10 )
+centered = false
+
+[node name="R2" type="Sprite" parent="Playfield/Cover/Receptors"]
+position = Vector2( -74.992, 0 )
+scale = Vector2( 0.293, 0.293 )
+texture = ExtResource( 16 )
+centered = false
+
+[node name="R3" type="Sprite" parent="Playfield/Cover/Receptors"]
+scale = Vector2( 0.293, 0.293 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="R4" type="Sprite" parent="Playfield/Cover/Receptors"]
+position = Vector2( 75.008, 0 )
+scale = Vector2( 0.293, 0.293 )
+texture = ExtResource( 14 )
+centered = false
 
 [node name="Notes" type="CanvasLayer" parent="."]
 layer = -1

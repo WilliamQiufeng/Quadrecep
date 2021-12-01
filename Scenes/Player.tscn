@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Textures/Player.png" type="Texture" id=1]
+[ext_resource path="res://Textures/Gamemodes/Navigate/Player.png" type="Texture" id=1]
 
 [node name="PlayerContainer" type="Control"]
 margin_left = -32.0
