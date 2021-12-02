@@ -14,7 +14,7 @@ namespace Quadrecep
         }
 
 //  // Called every frame. 'delta' is the elapsed time since the previous frame.
-        public override void _Process(float delta)
+        public override void _PhysicsProcess(float delta)
         {
             var fps = ((int) Engine.GetFramesPerSecond()).ToString().PadLeft(4);
             Text = $"{fps} FPS";
