@@ -16,6 +16,10 @@ namespace Quadrecep.GameMode
         protected MapObject MapObject;
 
         public float Time;
+
+        public float DynamicTime => (float) (AudioStreamPlayer.GetPlaybackPosition() +
+            AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000;
+
         protected int ZInd;
         protected virtual string BackgroundNodePath => "ParallaxBackground/ParallaxLayer/Background";
 
@@ -78,8 +82,7 @@ namespace Quadrecep.GameMode
         {
             if (Finished) return;
             // From https://docs.godotengine.org/en/stable/tutorials/audio/sync_with_audio.html
-            Time = (float) (AudioStreamPlayer.GetPlaybackPosition() +
-                AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000;
+            Time = DynamicTime;
         }
 
         protected virtual void LoadAudio()

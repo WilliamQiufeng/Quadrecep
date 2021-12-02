@@ -18,7 +18,6 @@ namespace Quadrecep.GameMode
 
         public JudgementSet JudgementSet = JudgementSet.Default;
         public int InputTracks => ExpectedInputs.Count;
-        protected virtual float Time => APlayParent.Time;
 
         public int ValidInputCount => ExpectedInputs.Sum(x => x.Count(inp => inp.CountAsInput));
 
@@ -41,7 +40,7 @@ namespace Quadrecep.GameMode
         public override void _PhysicsProcess(float delta)
         {
             ProcessInputs();
-            for (var i = 0; i < InputTracks; i++) RemoveMissed(i, Time);
+            for (var i = 0; i < InputTracks; i++) RemoveMissed(i, APlayParent.DynamicTime);
         }
 
         /// <summary>
