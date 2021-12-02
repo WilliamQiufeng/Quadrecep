@@ -46,11 +46,16 @@ namespace Quadrecep.GameMode
             GetNode<Label>("HUD/Name").Text = Map.MapSet.Name;
             LoadBackground();
             LoadAudio();
+            AfterReady();
         }
 
         protected virtual void SetParents()
         {
             InputRetriever.APlayParent = InputProcessor.APlayParent = this;
+        }
+
+        protected virtual void AfterReady()
+        {
         }
 
         protected virtual void LoadMap()
