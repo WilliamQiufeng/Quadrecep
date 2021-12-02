@@ -1,10 +1,12 @@
 using Godot;
 using Quadrecep.Database;
+using Quadrecep.GameMode.Keys;
 using Quadrecep.GameMode.Navigate;
 using Quadrecep.Map;
 using Quadrecep.UI;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using Play = Quadrecep.GameMode.Navigate.Play;
 
 namespace Quadrecep
 {
@@ -36,8 +38,17 @@ namespace Quadrecep
         {
         }
 
-        public static Texture LoadImage(string imgPath)
+        public static Texture LoadImage(string imgPath, string fallback = "")
         {
+
+
+            if (imgPath.StartsWith("res://"))
+            {
+                if (!ResourceLoader.Exists(imgPath))
+                    return fallback == "" ? null : LoadImage(fallback);
+                return ResourceLoader.Load(imgPath) as Texture;
+            }
+
             var img = new Image();
             img.Load(imgPath);
             var texture = new ImageTexture();
