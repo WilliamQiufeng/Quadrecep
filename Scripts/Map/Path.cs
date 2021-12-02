@@ -5,7 +5,7 @@ namespace Quadrecep.Map
 {
     public class Path
     {
-        private const float BaseSV = 500;
+        public static float BaseSV = 500;
         private static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
 
         private Vector2 _k, _p;
@@ -24,9 +24,9 @@ namespace Quadrecep.Map
         public NoteObject TargetNote;
 
         public Path(float factor, float startTime, float endTime, DirectionObject direction, Vector2 startPosition,
-            NoteObject targetNote, float speed = BaseSV)
+            NoteObject targetNote)
         {
-            Speed = speed * factor;
+            Speed = BaseSV * factor;
             StartTime = startTime;
             EndTime = endTime;
             Direction = direction;

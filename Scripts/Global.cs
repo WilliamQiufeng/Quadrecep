@@ -6,6 +6,7 @@ using Quadrecep.Map;
 using Quadrecep.UI;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using Path = Quadrecep.Map.Path;
 using Play = Quadrecep.GameMode.Navigate.Play;
 
 namespace Quadrecep
@@ -20,8 +21,12 @@ namespace Quadrecep
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
-            DatabaseHandler.Initialize();
-            OS.VsyncEnabled = false;
+            Config.Initialize();
+            // DatabaseHandler.Initialize();
+            OS.VsyncEnabled = Config.VsyncEnabled;
+            OS.WindowFullscreen = Config.WindowFullscreen;
+            OS.WindowBorderless = Config.WindowBorderless;
+            Path.BaseSV = Config.ScrollSpeed;
             LoadPackedScenes();
             LoadTextures();
         }

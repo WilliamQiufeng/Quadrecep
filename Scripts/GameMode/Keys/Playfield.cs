@@ -21,7 +21,7 @@ namespace Quadrecep.GameMode.Keys
         {
             _receptorX = new float[Parent.InputRetriever.Keys];
             // 0.167F: 2 / 3 / 4 = 1 / 6, 2 / 3 for a 4K playfield
-            Cover.Scale = new Vector2(Parent.InputRetriever.Keys / 6f,
+            Cover.Scale = new Vector2(Parent.InputRetriever.Keys * Config.PlayfieldWidthPerKey,
                 RealCoverHeight / Cover.Texture.GetHeight());
             BorderL.Scale = new Vector2(1, RealCoverHeight / BorderL.Texture.GetHeight() / Cover.Scale.y);
             BorderL.Position = new Vector2(Cover.Texture.GetWidth() / -2f - BorderL.Texture.GetWidth() / 2f, 0);

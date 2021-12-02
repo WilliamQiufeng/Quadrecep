@@ -18,9 +18,8 @@ namespace Quadrecep.GameMode.Navigate
 
         protected override void AfterReady()
         {
-            for (var i = 0; i < MapObject.Paths.Count; i++)
+            foreach (var path in MapObject.Paths)
             {
-                var path = MapObject.Paths[i];
                 if (path.TargetNote == null) continue;
                 var noteSprite = NoteNode.Scene.Instance<NoteNode>();
                 noteSprite.Parent = this;
