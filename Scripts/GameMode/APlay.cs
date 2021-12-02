@@ -32,7 +32,7 @@ namespace Quadrecep.GameMode
         public AInputProcessor InputProcessor => GetNode<AInputProcessor>(InputProcessorPath);
 
         protected virtual string InputRetrieverPath => "InputRetriever";
-        public InputRetriever InputRetriever => GetNode<InputRetriever>(InputRetrieverPath);
+        public AInputRetriever InputRetriever => GetNode<AInputRetriever>(InputRetrieverPath);
 
         // Declare member variables here. Examples:
         // private int a = 2;
