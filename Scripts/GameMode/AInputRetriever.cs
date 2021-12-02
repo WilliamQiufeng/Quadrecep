@@ -6,7 +6,12 @@ namespace Quadrecep.Gameplay
     public abstract class AInputRetriever : Node
     {
         public APlay APlayParent { get; set; }
-        public virtual int Keys => 0;
+        public virtual int Keys
+        {
+            get => 0;
+            set => throw new System.NotImplementedException();
+        }
+
         public virtual string InputName => "";
 
         public override void _Input(Godot.InputEvent @event)
