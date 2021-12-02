@@ -1,22 +1,16 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Resources/tete-a-tete.mp3" type="AudioStream" id=1]
 [ext_resource path="res://Scripts/GameMode/Keys/Play.cs" type="Script" id=2]
 [ext_resource path="res://font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=4]
 [ext_resource path="res://Textures/Mask.png" type="Texture" id=5]
-[ext_resource path="res://Textures/GameModes/Keys/Receptors/receptor-up-3.png" type="Texture" id=6]
-[ext_resource path="res://Textures/GameModes/Keys/Stage/stage-right-border.png" type="Texture" id=7]
-[ext_resource path="res://Textures/GameModes/Keys/Stage/stage-left-border.png" type="Texture" id=8]
+[ext_resource path="res://Scenes/KeysPlayfield.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scripts/GameMode/Keys/InputRetriever.cs" type="Script" id=7]
 [ext_resource path="res://Scripts/BackgroundMask.cs" type="Script" id=9]
-[ext_resource path="res://Textures/GameModes/Keys/Receptors/receptor-up-1.png" type="Texture" id=10]
 [ext_resource path="res://Scripts/Fps.cs" type="Script" id=11]
 [ext_resource path="res://Scripts/GameMode/Navigate/InputProcessor.cs" type="Script" id=12]
-[ext_resource path="res://Scripts/GameMode/Navigate/InputRetriever.cs" type="Script" id=13]
-[ext_resource path="res://Textures/GameModes/Keys/Receptors/receptor-up-4.png" type="Texture" id=14]
 [ext_resource path="res://Shaders/Blur.tres" type="Material" id=15]
-[ext_resource path="res://Textures/GameModes/Keys/Receptors/receptor-up-2.png" type="Texture" id=16]
-[ext_resource path="res://Textures/GameModes/Keys/Stage/stage-bgmask.png" type="Texture" id=17]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade"
@@ -40,7 +34,7 @@ MapFile = "Test"
 
 [node name="InputRetriever" type="Node" parent="."]
 process_priority = -2
-script = ExtResource( 13 )
+script = ExtResource( 7 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
@@ -161,46 +155,7 @@ __meta__ = {
 [node name="InputProcessor" type="Node" parent="."]
 script = ExtResource( 12 )
 
-[node name="Playfield" type="CanvasLayer" parent="."]
-layer = 0
-
-[node name="Cover" type="Sprite" parent="Playfield"]
-position = Vector2( 512, 300 )
-scale = Vector2( 0.667, 0.5 )
-texture = ExtResource( 17 )
-
-[node name="BorderL" type="Sprite" parent="Playfield/Cover"]
-position = Vector2( -210, 0 )
-scale = Vector2( 1, 0.781 )
-texture = ExtResource( 8 )
-
-[node name="BorderR" type="Sprite" parent="Playfield/Cover"]
-position = Vector2( 210, 0 )
-scale = Vector2( 1, 0.781 )
-texture = ExtResource( 7 )
-
-[node name="Receptors" type="Node2D" parent="Playfield/Cover"]
-position = Vector2( -200, 462 )
-scale = Vector2( 0.391, 0.5 )
-
-[node name="R1" type="Sprite" parent="Playfield/Cover/Receptors"]
-texture = ExtResource( 10 )
-centered = false
-
-[node name="R2" type="Sprite" parent="Playfield/Cover/Receptors"]
-position = Vector2( 256, 0 )
-texture = ExtResource( 16 )
-centered = false
-
-[node name="R3" type="Sprite" parent="Playfield/Cover/Receptors"]
-position = Vector2( 512, 0 )
-texture = ExtResource( 6 )
-centered = false
-
-[node name="R4" type="Sprite" parent="Playfield/Cover/Receptors"]
-position = Vector2( 768, 0 )
-texture = ExtResource( 14 )
-centered = false
+[node name="Playfield" parent="." instance=ExtResource( 6 )]
 
 [node name="Notes" type="CanvasLayer" parent="."]
 layer = -1

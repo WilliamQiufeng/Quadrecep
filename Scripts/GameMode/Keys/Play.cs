@@ -4,5 +4,20 @@ namespace Quadrecep.GameMode.Keys
     {
         protected override string BackgroundNodePath => "Background";
         protected override string InputProcessorPath => "InputProcessor";
+
+        protected string PlayfieldPath => "Playfield";
+        public Playfield Playfield => GetNode<Playfield>(PlayfieldPath);
+
+        protected override void SetParents()
+        {
+            base.SetParents();
+            Playfield.Parent = this;
+        }
+
+        protected override void AfterReady()
+        {
+            base.AfterReady();
+            Playfield.InitField();
+        }
     }
 }

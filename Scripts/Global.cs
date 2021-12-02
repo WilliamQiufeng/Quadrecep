@@ -31,6 +31,7 @@ namespace Quadrecep
             SongSelectElement.Scene = GD.Load<PackedScene>("res://Scenes/SongSelectElement.tscn");
             NoteNode.Scene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
             JudgementNode.Scene = GD.Load<PackedScene>("res://Scenes/Judgement.tscn");
+            Receptor.Scene = GD.Load<PackedScene>("res://Scenes/Receptor.tscn");
         }
 
         // Called every frame. 'delta' is the elapsed time since the previous frame.
