@@ -23,6 +23,7 @@ namespace Quadrecep
             DatabaseHandler.Initialize();
             OS.VsyncEnabled = false;
             LoadPackedScenes();
+            LoadTextures();
         }
 
         private static void LoadPackedScenes()
@@ -32,6 +33,11 @@ namespace Quadrecep
             NoteNode.Scene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
             JudgementNode.Scene = GD.Load<PackedScene>("res://Scenes/Judgement.tscn");
             Receptor.Scene = GD.Load<PackedScene>("res://Scenes/Receptor.tscn");
+        }
+
+        private static void LoadTextures()
+        {
+            JudgementNode.LoadTextures();
         }
 
         // Called every frame. 'delta' is the elapsed time since the previous frame.

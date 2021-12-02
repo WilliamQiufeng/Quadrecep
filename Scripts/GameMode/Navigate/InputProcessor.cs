@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 using Quadrecep.Gameplay;
 using Quadrecep.Map;
@@ -8,6 +9,8 @@ namespace Quadrecep.GameMode.Navigate
 {
     public class InputProcessor : AInputProcessor
     {
+        private readonly Queue<JudgementNode> _judgementNodePool = new();
+
         public override void _Ready()
         {
             InitTracks(4);
@@ -16,9 +19,9 @@ namespace Quadrecep.GameMode.Navigate
         protected override void PlaceJudgementFeedback(InputEvent input, Judgement judgement)
         {
             if (input.Note == null) return;
-            var judgementNode = JudgementNode.Scene.Instance<JudgementNode>();
+            var judgementNode = _judgementNodePool.Dequeue();
             judgementNode.GlobalPosition = input.Note.BindNode?.GlobalPosition ?? new Vector2();
-            judgementNode.Judgement = judgement;
+            judgementNode.SetJudgement(judgement);
             APlayParent.GetNode<CanvasLayer>("JudgementFeedbacks").AddChild(judgementNode);
         }
 
@@ -48,6 +51,14 @@ namespace Quadrecep.GameMode.Navigate
             }
 
             Counter.ValidInputCount = ValidInputCount;
+            InitJudgementNodePool();
+        }
+
+        protected virtual void InitJudgementNodePool()
+        {
+            _judgementNodePool.Clear();
+            for (var i = 0; i < ExpectedInputs.Sum(x => x.Count); i++)
+                _judgementNodePool.Enqueue(JudgementNode.Scene.Instance<JudgementNode>());
         }
     }
 }
