@@ -9,10 +9,10 @@ namespace Quadrecep.GameMode.Navigate
     public class Play : APlay
     {
         public static PackedScene Scene;
+        private readonly Queue<NoteNode> _nodePool = new();
 
         private int _approachingPathIndex;
         private int _pathIndex;
-        private Queue<NoteNode> _nodePool = new();
 
         public Path CurrentPath => MapObject.Paths[_pathIndex];
 

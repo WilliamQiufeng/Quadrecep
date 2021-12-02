@@ -5,17 +5,17 @@ namespace Quadrecep.GameMode.Keys
 {
     public class Playfield : CanvasLayer
     {
-        public Play Parent;
         public const float RealCoverHeight = 600;
+
+        private Vector2 _receptorSize = new(256, 277);
+        private Vector2 _receptorsSize;
+        private float[] _receptorX;
+        public Play Parent;
         private Sprite BorderL => Cover.GetNode<Sprite>("BorderL");
         private Sprite BorderR => Cover.GetNode<Sprite>("BorderR");
         public Sprite Cover => GetNode<Sprite>("Main/Cover");
 
         private Sprite Receptors => GetNode<Sprite>("Main/Receptors");
-
-        private Vector2 _receptorSize = new(256, 277);
-        private Vector2 _receptorsSize;
-        private float[] _receptorX;
 
         public void InitField()
         {
@@ -57,9 +57,7 @@ namespace Quadrecep.GameMode.Keys
             _receptorSize.y = _receptorsSize.y;
 
             foreach (Receptor receptor in Receptors.GetChildren())
-            {
                 receptor.Position = new Vector2(receptor.Position.x, _receptorSize.y - receptor.MaxSize().y);
-            }
         }
     }
 }

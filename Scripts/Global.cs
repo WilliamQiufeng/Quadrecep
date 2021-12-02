@@ -41,8 +41,6 @@ namespace Quadrecep
 
         public static Texture LoadImage(string imgPath, string fallback = "")
         {
-
-
             if (imgPath.StartsWith("res://"))
             {
                 if (!ResourceLoader.Exists(imgPath))

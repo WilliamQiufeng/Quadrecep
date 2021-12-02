@@ -1,4 +1,4 @@
-namespace Quadrecep.Gameplay
+namespace Quadrecep.GameMode.Navigate
 {
     public class InputRetriever : AInputRetriever
     {

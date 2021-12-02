@@ -1,5 +1,3 @@
-using Quadrecep.Gameplay;
-
 namespace Quadrecep.GameMode.Keys
 {
     public class InputRetriever : AInputRetriever
