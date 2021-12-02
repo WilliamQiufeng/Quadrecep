@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Textures/GameModes/Keys/Stage/stage-left-border.png" type="Texture" id=4]
+[ext_resource path="res://Textures/GameModes/Keys/Stage/stage-right-border.png" type="Texture" id=6]
+[ext_resource path="res://Textures/GameModes/Keys/Stage/stage-bgmask.png" type="Texture" id=7]
+[ext_resource path="res://Textures/Gamemodes/Keys/HitObjects/note-hitobject-1.png" type="Texture" id=8]
+[ext_resource path="res://Scripts/GameMode/Keys/Playfield.cs" type="Script" id=9]
+
+[node name="Playfield" type="CanvasLayer"]
+layer = 0
+script = ExtResource( 9 )
+
+[node name="Main" type="Node2D" parent="."]
+position = Vector2( 512, 300 )
+
+[node name="Cover" type="Sprite" parent="Main"]
+scale = Vector2( 0.667, 0.5 )
+texture = ExtResource( 7 )
+
+[node name="BorderL" type="Sprite" parent="Main/Cover"]
+position = Vector2( -210, 0 )
+scale = Vector2( 1, 0.781 )
+texture = ExtResource( 4 )
+
+[node name="BorderR" type="Sprite" parent="Main/Cover"]
+position = Vector2( 210, 0 )
+scale = Vector2( 1, 0.781 )
+texture = ExtResource( 6 )
+
+[node name="Notes" type="Node2D" parent="Main/Cover"]
+position = Vector2( -200, -600 )
+
+[node name="Sprite" type="Sprite" parent="Main/Cover/Notes"]
+position = Vector2( 0, 1012 )
+scale = Vector2( 0.391, 0.5 )
+texture = ExtResource( 8 )
+centered = false
+
+[node name="Receptors" type="Sprite" parent="Main"]
+position = Vector2( -133.333, 231 )
+scale = Vector2( 0.261, 0.25 )
