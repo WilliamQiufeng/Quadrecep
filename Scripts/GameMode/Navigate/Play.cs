@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using Quadrecep.Map;
 using static Godot.Vector2;
@@ -11,9 +12,27 @@ namespace Quadrecep.GameMode.Navigate
 
         private int _approachingPathIndex;
         private int _pathIndex;
+        private Queue<NoteNode> _nodePool = new();
 
         public Path CurrentPath => MapObject.Paths[_pathIndex];
 
+        protected override void AfterReady()
+        {
+            for (var i = 0; i < MapObject.Paths.Count; i++)
+            {
+                var path = MapObject.Paths[i];
+                if (path.TargetNote == null) continue;
+                var noteSprite = NoteNode.Scene.Instance<NoteNode>();
+                noteSprite.Parent = this;
+                noteSprite.Note = path.TargetNote;
+                noteSprite.GlobalPosition = path.EndPosition;
+                var targetNoteDirection = (DirectionObject) path.TargetNote.Direction;
+                noteSprite.Rotation = GetNoteRotation(targetNoteDirection);
+                noteSprite.GetNode<Node2D>("Side").Visible = targetNoteDirection.HasSide();
+                noteSprite.ZIndex = ZInd--;
+                _nodePool.Enqueue(noteSprite);
+            }
+        }
 
         public override void _Process(float delta)
         {
@@ -49,16 +68,9 @@ namespace Quadrecep.GameMode.Navigate
             while (_approachingPathIndex < MapObject.Paths.Count &&
                    MapObject.Paths[_approachingPathIndex].StartTime - Time <= NoteNode.FadeInTime)
             {
-                if (NoteNode.Scene.Instance() is not NoteNode noteSprite) continue;
                 var path = MapObject.Paths[_approachingPathIndex++];
                 if (path.TargetNote == null) continue;
-                noteSprite.Parent = this;
-                noteSprite.Note = path.TargetNote;
-                noteSprite.GlobalPosition = path.EndPosition;
-                var targetNoteDirection = (DirectionObject) path.TargetNote.Direction;
-                noteSprite.Rotation = GetNoteRotation(targetNoteDirection);
-                noteSprite.GetNode<Node2D>("Side").Visible = targetNoteDirection.HasSide();
-                noteSprite.ZIndex = ZInd--;
+                var noteSprite = _nodePool.Dequeue();
                 GetNode("Notes").AddChild(noteSprite);
             }
         }
