@@ -80,7 +80,7 @@ namespace Quadrecep.GameMode
             GetNode<Label>("HUD/Accuracy").Text =
                 $"{Math.Round(InputProcessor.Counter.GetPercentageAccuracy() * 100, 2):00.00}%";
             GetNode<Label>("HUD/Combo").Text = $"{InputProcessor.Counter.Combo}";
-            GetNode<Label>("HUD/Score").Text = $"{(int) InputProcessor.Counter.Score:0000000}";
+            GetNode<Label>("HUD/Score").Text = $"{(int) InputProcessor.Counter.Score, 8:0000000}";
         }
 
         protected virtual void UpdateTime()
