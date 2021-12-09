@@ -1,15 +1,15 @@
 using Godot;
-using Path = Quadrecep.Map.Path;
+using Quadrecep.GameMode.Navigate;
 
 namespace Quadrecep
 {
     public class Config
     {
-        public static ConfigFile File { get; } = new();
         public const string ConfigPath = "user://config.cfg";
         private const string GameplaySection = "Gameplay";
         private const string VideoSection = "Video";
         private const string ScrollSpeedSection = "ScrollSpeed";
+        public static ConfigFile File { get; } = new();
 
         public static float NavigateScrollSpeed
         {
@@ -17,7 +17,7 @@ namespace Quadrecep
             set
             {
                 Set(ScrollSpeedSection, nameof(NavigateScrollSpeed), value);
-                Path.BaseSV = value;
+                Play.BaseSV = value;
             }
         }
 

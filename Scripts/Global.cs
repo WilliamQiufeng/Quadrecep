@@ -1,5 +1,4 @@
 using Godot;
-using Quadrecep.Database;
 using Quadrecep.GameMode.Keys;
 using Quadrecep.GameMode.Navigate;
 using Quadrecep.Map;
@@ -7,13 +6,14 @@ using Quadrecep.UI;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using NoteNode = Quadrecep.GameMode.Navigate.NoteNode;
-using Path = Quadrecep.Map.Path;
 using Play = Quadrecep.GameMode.Navigate.Play;
 
 namespace Quadrecep
 {
     public class Global : Node
     {
+        public const string TexturesPath = "res://Textures";
+
         public static readonly Directory MapContainingDirectory = new();
         // Declare member variables here. Examples:
         // private int a = 2;
@@ -27,7 +27,7 @@ namespace Quadrecep
             OS.VsyncEnabled = Config.VsyncEnabled;
             OS.WindowFullscreen = Config.WindowFullscreen;
             OS.WindowBorderless = Config.WindowBorderless;
-            Path.BaseSV = Config.NavigateScrollSpeed;
+            Play.BaseSV = Config.NavigateScrollSpeed;
             LoadPackedScenes();
             LoadTextures();
         }
@@ -109,7 +109,5 @@ namespace Quadrecep
         {
             (texture1.Modulate, texture2.Modulate) = (texture2.Modulate, texture1.Modulate);
         }
-
-        public const string TexturesPath = "res://Textures";
     }
 }
