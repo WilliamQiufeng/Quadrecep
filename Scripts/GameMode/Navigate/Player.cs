@@ -18,7 +18,7 @@ namespace Quadrecep.GameMode.Navigate
         {
             var play = GetNode<Play>("../..");
             if (play.Finished) return;
-            RectPosition = play.CurrentPath.GetPosition(play.Time);
+            RectPosition = play.CurrentPath[play.Time];
             // GetNode<Camera2D>("../../Camera2D").Offset = RectPosition;
         }
     }

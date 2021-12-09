@@ -33,7 +33,7 @@ namespace Quadrecep.Map
             StartPosition = startPosition;
             TargetNote = targetNote;
             CalculateConstants();
-            EndPosition = GetPosition(EndTime);
+            EndPosition = this[EndTime];
         }
 
         public float Factor => Speed / BaseSV;
@@ -67,7 +67,16 @@ namespace Quadrecep.Map
         /// <returns>The player's position at the given time</returns>
         public Vector2 GetPosition(float time)
         {
-            return (_p + _k * time).Round();
+            return _p + _k * time;
+        }
+        public Vector2 GetPositionRounded(float time)
+        {
+            return GetPosition(time).Round();
+        }
+
+        public float GetTime(Vector2 position)
+        {
+            return ((position - _p) / _k).DistanceTo(Vector2.Zero);
         }
 
         /// <summary>
@@ -80,6 +89,9 @@ namespace Quadrecep.Map
             _k = Direction.NetDirection * c * Speed / 1000;
             _p = StartPosition - _k * StartTime;
         }
+        
+        public Vector2 this[float time, bool round = false] => round ? GetPositionRounded(time) : GetPosition(time);
+        public float this[Vector2 position] => GetTime(position);
 
 
         public override string ToString()
