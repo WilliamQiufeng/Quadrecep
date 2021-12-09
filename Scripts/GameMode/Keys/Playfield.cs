@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace Quadrecep.GameMode.Keys
@@ -9,8 +10,10 @@ namespace Quadrecep.GameMode.Keys
 
         private Vector2 _receptorSize = new(256, 277);
         private Vector2 _receptorsSize;
-        public float[] ReceptorX;
+
+        public List<NoteNode> NoteNodes;
         public Play Parent;
+        public float[] ReceptorX;
         protected float PlayfieldNoteTopY => -RealCoverHeight * 4 + _receptorsSize.y;
         private Sprite BorderL => Cover.GetNode<Sprite>("BorderL");
         private Sprite BorderR => Cover.GetNode<Sprite>("BorderR");
@@ -18,7 +21,18 @@ namespace Quadrecep.GameMode.Keys
 
         private Sprite Receptors => GetNode<Sprite>("Main/Receptors");
 
-        private Node2D Notes => GetNode<Node2D>("Main/Receptors/Notes");
+        public Node2D Notes => GetNode<Node2D>("Main/Receptors/Notes");
+
+        public override void _Process(float delta)
+        {
+            for (var i = 0; i < NoteNodes.Count; i++)
+            {
+                NoteNodes[i].CheckVisible();
+                if (!NoteNodes[i].Finished) continue;
+                NoteNodes.RemoveAt(i);
+                i--;
+            }
+        }
 
         public void InitField()
         {
