@@ -9,13 +9,14 @@ namespace Quadrecep
         public const string ConfigPath = "user://config.cfg";
         private const string GameplaySection = "Gameplay";
         private const string VideoSection = "Video";
+        private const string ScrollSpeedSection = "ScrollSpeed";
 
-        public static float ScrollSpeed
+        public static float NavigateScrollSpeed
         {
-            get => GetOrSet(GameplaySection, nameof(ScrollSpeed), 500f);
+            get => GetOrSet(GameplaySection, nameof(NavigateScrollSpeed), 500f);
             set
             {
-                Set(GameplaySection, nameof(ScrollSpeed), value);
+                Set(ScrollSpeedSection, nameof(NavigateScrollSpeed), value);
                 Path.BaseSV = value;
             }
         }

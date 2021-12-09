@@ -26,7 +26,7 @@ namespace Quadrecep
             OS.VsyncEnabled = Config.VsyncEnabled;
             OS.WindowFullscreen = Config.WindowFullscreen;
             OS.WindowBorderless = Config.WindowBorderless;
-            Path.BaseSV = Config.ScrollSpeed;
+            Path.BaseSV = Config.NavigateScrollSpeed;
             LoadPackedScenes();
             LoadTextures();
         }
