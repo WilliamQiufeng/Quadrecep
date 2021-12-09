@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Godot;
+using Quadrecep.GameMode.Navigate;
 using YamlDotNet.Serialization;
+using Path = Quadrecep.Gameplay.Path;
 
 namespace Quadrecep.Map
 {
@@ -46,7 +48,7 @@ namespace Quadrecep.Map
                     svIndex++)
                 {
                     ref var endTime = ref ScrollVelocities[svIndex].Time;
-                    var path = new Path(lastSVFactor, slicedStartTime, endTime, direction,
+                    var path = new Path(Play.BaseSV, lastSVFactor, slicedStartTime, endTime, direction,
                         currentPosition, null);
                     if (!slicedStartTime.Equals(endTime)) Paths.Add(path);
                     lastSVFactor = ScrollVelocities[svIndex].Factor;
@@ -56,7 +58,7 @@ namespace Quadrecep.Map
 
                 // Add final path where the next note is `note`.
                 // If there isn't any SVs between, the start time will be lastNoteStartTime
-                Paths.Add(new Path(lastSVFactor, slicedStartTime, note.StartTime, direction,
+                Paths.Add(new Path(Play.BaseSV, lastSVFactor, slicedStartTime, note.StartTime, direction,
                     currentPosition, note));
 
                 lastNoteStartTime = note.StartTime;

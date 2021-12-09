@@ -2,13 +2,15 @@ using System.Collections.Generic;
 using Godot;
 using Quadrecep.Map;
 using static Godot.Vector2;
-using Path = Quadrecep.Map.Path;
+using Path = Quadrecep.Gameplay.Path;
 
 namespace Quadrecep.GameMode.Navigate
 {
     public class Play : APlay
     {
         public static PackedScene Scene;
+
+        public static float BaseSV = 500;
         private readonly Queue<NoteNode> _nodePool = new();
 
         private int _approachingPathIndex;

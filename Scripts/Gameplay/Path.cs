@@ -1,15 +1,17 @@
 using System;
 using Godot;
+using Quadrecep.Map;
 
-namespace Quadrecep.Map
+namespace Quadrecep.Gameplay
 {
     public class Path
     {
-        public static float BaseSV = 500;
         private static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
 
+        public readonly float Factor;
+
         private Vector2 _k, _p;
-        public DirectionObject Direction;
+        public Vector2 Direction;
 
         /// <summary>
         ///     Number of pixels the player goes in one second.
@@ -23,10 +25,11 @@ namespace Quadrecep.Map
         public float StartTime, EndTime;
         public NoteObject TargetNote;
 
-        public Path(float factor, float startTime, float endTime, DirectionObject direction, Vector2 startPosition,
+        public Path(float sv, float factor, float startTime, float endTime, Vector2 direction, Vector2 startPosition,
             NoteObject targetNote)
         {
-            Speed = BaseSV * factor;
+            Factor = factor;
+            Speed = sv * Factor;
             StartTime = startTime;
             EndTime = endTime;
             Direction = direction;
@@ -36,7 +39,8 @@ namespace Quadrecep.Map
             EndPosition = this[EndTime];
         }
 
-        public float Factor => Speed / BaseSV;
+        public Vector2 this[float time, bool round = false] => round ? GetPositionRounded(time) : GetPosition(time);
+        public float this[Vector2 position] => GetTime(position);
 
         /// The following explains how to deduce where the player is accurately.
         /// 
@@ -69,6 +73,7 @@ namespace Quadrecep.Map
         {
             return _p + _k * time;
         }
+
         public Vector2 GetPositionRounded(float time)
         {
             return GetPosition(time).Round();
@@ -85,13 +90,10 @@ namespace Quadrecep.Map
         /// </summary>
         public void CalculateConstants()
         {
-            var c = Direction.NetDirection == Vector2.One ? SqrtHalf : 1;
-            _k = Direction.NetDirection * c * Speed / 1000;
+            var c = Direction == Vector2.One ? SqrtHalf : 1;
+            _k = Direction * c * Speed / 1000;
             _p = StartPosition - _k * StartTime;
         }
-        
-        public Vector2 this[float time, bool round = false] => round ? GetPositionRounded(time) : GetPosition(time);
-        public float this[Vector2 position] => GetTime(position);
 
 
         public override string ToString()
