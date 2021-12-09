@@ -19,6 +19,7 @@ namespace Quadrecep.GameMode
         protected virtual void EnqueueInputs(AInputProcessor processor, float time, InputEvent @event,
             string actionName, int key)
         {
+            if (!InputMap.HasAction(actionName)) return;
             if (@event.IsActionPressed(actionName))
                 processor.Inputs[key].Enqueue(new Gameplay.InputEvent(time, key, false));
             if (@event.IsActionReleased(actionName))
