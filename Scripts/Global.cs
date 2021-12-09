@@ -6,6 +6,7 @@ using Quadrecep.Map;
 using Quadrecep.UI;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using NoteNode = Quadrecep.GameMode.Navigate.NoteNode;
 using Path = Quadrecep.Map.Path;
 using Play = Quadrecep.GameMode.Navigate.Play;
 
@@ -38,11 +39,14 @@ namespace Quadrecep
             NoteNode.Scene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
             JudgementNode.Scene = GD.Load<PackedScene>("res://Scenes/Judgement.tscn");
             Receptor.Scene = GD.Load<PackedScene>("res://Scenes/Receptor.tscn");
+            GameMode.Keys.NoteNode.Scene = GD.Load<PackedScene>("res://Scenes/KeysNote.tscn");
         }
 
         private static void LoadTextures()
         {
             JudgementNode.LoadTextures();
+            GameMode.Keys.NoteNode.LoadTextures(4);
+            GameMode.Keys.NoteNode.LoadTextures(7);
         }
 
         // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -105,5 +109,7 @@ namespace Quadrecep
         {
             (texture1.Modulate, texture2.Modulate) = (texture2.Modulate, texture1.Modulate);
         }
+
+        public const string TexturesPath = "res://Textures";
     }
 }
