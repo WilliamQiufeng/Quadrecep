@@ -29,6 +29,7 @@ namespace Quadrecep.GameMode.Navigate
             _transition = new LogTransition(Note.StartTime - FadeInTime, FadeLength);
             Note.BindNode = this;
             InputLeft = new DirectionObject(Note.Direction);
+            UpdateVisibility();
         }
 
         public override void _Process(float delta)
@@ -39,6 +40,11 @@ namespace Quadrecep.GameMode.Navigate
                 FadeOut();
             }
 
+            UpdateVisibility();
+        }
+
+        private void UpdateVisibility()
+        {
             Modulate = GetAlphaModulate();
             Visible = Modulate.a > 0;
         }
