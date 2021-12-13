@@ -1,7 +1,6 @@
-using Quadrecep.GameMode.Navigate;
 using YamlDotNet.Serialization;
 
-namespace Quadrecep.Map
+namespace Quadrecep.GameMode.Navigate.Map
 {
     public class NoteObject
     {
