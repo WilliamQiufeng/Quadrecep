@@ -68,10 +68,7 @@ namespace Quadrecep.UI
         private void PlayMap()
         {
             GetNode<AudioStreamPlayer>("Player").Stop();
-            var play = PlayScene.Instance<APlay>();
-            play.MapFile = MapFile;
-            play.MapIndex = DifficultyIndex;
-            GetTree().Root.AddChild(play);
+            GetTree().Root.AddChild(_maps[DifficultyIndex].InitScene());
             GetParent().GetParent().GetParent().GetParent().QueueFree();
         }
 

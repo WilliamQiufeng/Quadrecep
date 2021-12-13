@@ -3,7 +3,7 @@ using Godot;
 using Quadrecep.Database;
 using Quadrecep.Map;
 
-namespace Quadrecep.GameMode.Navigate.Map
+namespace Quadrecep.GameMode.Keys.Map
 {
     public class Map : Node
     {
@@ -58,14 +58,9 @@ namespace Quadrecep.GameMode.Navigate.Map
             return new NoteObject(startTime, length, direction);
         }
 
-        public MapObject GetMap(string mapFile)
-        {
-            return Quadrecep.Map.MapHandler.GetMapHandler(MapFile, mapFile).GetMap<MapObject>();
-        }
-
         public MapObject GetMap(int index)
         {
-            return GetMap(MapSet.Maps[index]);
+            return Quadrecep.Map.MapHandler.GetMapHandler(MapFile, MapSet.Maps[index]).GetMap<MapObject>();
         }
 
         public void ReadMap()

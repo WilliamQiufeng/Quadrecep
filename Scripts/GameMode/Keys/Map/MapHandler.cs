@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Quadrecep.GameMode.Navigate.Map
+namespace Quadrecep.GameMode.Keys.Map
 {
     public class MapHandler : Quadrecep.Map.MapHandler
     {
@@ -12,25 +12,15 @@ namespace Quadrecep.GameMode.Navigate.Map
         private MapObject _mapObject;
         public override string DifficultyName => _mapObject.DifficultyName;
         public override string GameModeShortName => GameModeInfo.ShortName;
-        private string _mapFile;
 
         public override void ReadMap(string file)
         {
-            _mapFile = file;
             _mapObject = Global.DeserializeFromFile<MapObject>(MapSetPath, file);
         }
 
         public override T GetMap<T>() where T : class
         {
             return _mapObject as T;
-        }
-
-        public override Node InitScene()
-        {
-            var scene = Play.Scene.Instance<Play>();
-            scene.MapSetFile = MapSetPath;
-            scene.MapFile = _mapFile;
-            return scene;
         }
     }
 }

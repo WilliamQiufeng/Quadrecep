@@ -1,16 +1,16 @@
 [gd_scene load_steps=13 format=2]
 
-[ext_resource path="res://Resources/tete-a-tete.mp3" type="AudioStream" id=1]
-[ext_resource path="res://Scripts/GameMode/Keys/Play.cs" type="Script" id=2]
-[ext_resource path="res://font.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=4]
-[ext_resource path="res://Textures/Mask.png" type="Texture" id=5]
-[ext_resource path="res://Scenes/KeysPlayfield.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scripts/GameMode/Keys/InputRetriever.cs" type="Script" id=7]
+[ext_resource path="res://Textures/Mask.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/GameMode/Keys/InputRetriever.cs" type="Script" id=2]
+[ext_resource path="res://Scenes/KeysPlayfield.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Shaders/Blur.tres" type="Material" id=4]
+[ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=5]
+[ext_resource path="res://font.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Scripts/GameMode/Navigate/InputProcessor.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/Fps.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/BackgroundMask.cs" type="Script" id=9]
-[ext_resource path="res://Scripts/Fps.cs" type="Script" id=11]
-[ext_resource path="res://Scripts/GameMode/Navigate/InputProcessor.cs" type="Script" id=12]
-[ext_resource path="res://Shaders/Blur.tres" type="Material" id=15]
+[ext_resource path="res://Resources/tete-a-tete.mp3" type="AudioStream" id=10]
+[ext_resource path="res://Scripts/GameMode/Keys/Play.cs" type="Script" id=11]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Fade"
@@ -29,29 +29,29 @@ tracks/0/keys = {
 
 [node name="Root" type="Node2D"]
 process_priority = -3
-script = ExtResource( 2 )
+script = ExtResource( 11 )
 MapFile = "Test"
 
 [node name="InputRetriever" type="Node" parent="."]
 process_priority = -2
-script = ExtResource( 7 )
+script = ExtResource( 2 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
+stream = ExtResource( 10 )
 bus = "Music"
 
 [node name="Background" type="TextureRect" parent="."]
 visible = false
 margin_right = 1024.0
 margin_bottom = 600.0
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 expand = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Blur" type="ColorRect" parent="."]
-material = ExtResource( 15 )
+material = ExtResource( 4 )
 margin_right = 1024.0
 margin_bottom = 600.0
 rect_min_size = Vector2( 1024, 600 )
@@ -62,7 +62,7 @@ __meta__ = {
 [node name="Mask" type="TextureRect" parent="."]
 margin_right = 1024.0
 margin_bottom = 600.0
-texture = ExtResource( 5 )
+texture = ExtResource( 1 )
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false,
@@ -83,7 +83,7 @@ margin_top = 15.0
 margin_right = 0.563538
 margin_bottom = 35.0
 rect_pivot_offset = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 6 )
 text = "Name"
 autowrap = true
 __meta__ = {
@@ -98,7 +98,7 @@ margin_top = -10.0
 margin_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 6 )
 text = "0"
 align = 1
 valign = 1
@@ -117,11 +117,11 @@ margin_right = 150.0
 margin_bottom = -10.0
 rect_scale = Vector2( 0.75, 0.75 )
 rect_pivot_offset = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 6 )
 text = "  60 FPS"
 valign = 2
 autowrap = true
-script = ExtResource( 11 )
+script = ExtResource( 8 )
 __meta__ = {
 "_edit_use_anchors_": true
 }
@@ -132,7 +132,7 @@ anchor_right = 1.0
 margin_left = -129.0
 margin_top = 10.0
 margin_right = -110.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 6 )
 text = " 0000000"
 align = 2
 __meta__ = {
@@ -145,7 +145,7 @@ anchor_right = 0.999701
 margin_left = -100.0
 margin_top = 50.0
 margin_right = -10.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 6 )
 text = "00.00%"
 align = 2
 __meta__ = {
@@ -153,9 +153,9 @@ __meta__ = {
 }
 
 [node name="InputProcessor" type="Node" parent="."]
-script = ExtResource( 12 )
+script = ExtResource( 7 )
 
-[node name="Playfield" parent="." instance=ExtResource( 6 )]
+[node name="Playfield" parent="." instance=ExtResource( 3 )]
 
 [node name="Notes" type="CanvasLayer" parent="."]
 layer = -1

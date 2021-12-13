@@ -8,9 +8,9 @@ namespace Quadrecep.GameMode
     {
         public bool Finished;
 
-        [Export] public string MapFile;
+        [Export] public string MapSetFile;
 
-        [Export(PropertyHint.Range, "0,10,1")] public int MapIndex;
+        [Export] public string MapFile;
 
         public float Time;
 
@@ -57,7 +57,7 @@ namespace Quadrecep.GameMode
 
         protected virtual void LoadMap()
         {
-            GD.Print($"Loading {MapFile}");
+            GD.Print($"Loading {MapSetFile}");
             ReadMap();
             FeedNotes();
         }
@@ -87,7 +87,7 @@ namespace Quadrecep.GameMode
 
         protected virtual void LoadAudio()
         {
-            AudioStreamPlayer.Stream = LoadAudio(Global.RelativeToMap(MapFile, AudioPath));
+            AudioStreamPlayer.Stream = LoadAudio(Global.RelativeToMap(MapSetFile, AudioPath));
             AudioStreamPlayer.Play();
         }
 
@@ -123,7 +123,7 @@ namespace Quadrecep.GameMode
 
         protected virtual void LoadBackground()
         {
-            var imgPath = Global.RelativeToMap(MapFile, BackgroundPath);
+            var imgPath = Global.RelativeToMap(MapSetFile, BackgroundPath);
             GD.Print($"Loading background from {imgPath}");
             Background.Texture = Global.LoadImage(imgPath);
             Background.Visible = true;

@@ -6,6 +6,7 @@ using System.Linq;
 using CommandLine;
 using Quadrecep.GameMode.Navigate.Map;
 using Quadrecep.Map;
+using Quaver.API.Enums;
 using Quaver.API.Maps;
 using Quaver.API.Maps.Structures;
 using YamlDotNet.Serialization;
@@ -27,7 +28,7 @@ namespace Qua2Qbm
         {
             var globQua = Qua.Parse(Directory.GetFiles(opts.InputFile).First(file => file.EndsWith(".qua")));
             var maps = Directory.GetFiles(opts.InputFile).Where(file => file.EndsWith(".qua"))
-                .Select(mapFile => Qua.Parse(mapFile)).Select(qua => new MapObject
+                .Select(mapFile => Qua.Parse(mapFile)).Where(qua => qua.Mode == GameMode.Keys4).Select(qua => new MapObject
                 {
                     DifficultyName = qua.DifficultyName, StartTime = qua.TimingPoints[0].StartTime,
                     Notes = ConvertNotes(qua.HitObjects),

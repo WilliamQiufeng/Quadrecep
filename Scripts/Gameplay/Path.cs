@@ -2,16 +2,15 @@ using System;
 using System.Linq;
 using Godot;
 using Quadrecep.GameMode.Navigate.Map;
+using YamlDotNet.Serialization;
 
 namespace Quadrecep.Gameplay
 {
     public class Path
     {
-        private static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
-
         public readonly float Factor;
 
-        private Vector2 _k, _p;
+        [YamlIgnore] private Vector2 _k, _p;
         public Vector2 Direction;
 
         /// <summary>
@@ -19,18 +18,19 @@ namespace Quadrecep.Gameplay
         ///     For directions not parallel to x or y axis, if the player travels
         ///     from (0, 0) to (x, y) in one second, the speed should be sqrt(x^2+y^2)
         /// </summary>
-        public float Speed;
+        [YamlIgnore] public float Speed;
 
-        public Vector2 StartPosition, EndPosition;
+        public Vector2 StartPosition;
+        [YamlIgnore] public Vector2 EndPosition;
 
         public float StartTime, EndTime;
-        public NoteObject TargetNote;
+        [YamlIgnore] public NoteObject TargetNote;
 
         public Path(float sv, float factor, float startTime, float endTime, Vector2 direction, Vector2 startPosition,
             NoteObject targetNote)
         {
             Factor = factor;
-            Speed = sv * Factor;
+            SV = sv;
             StartTime = startTime;
             EndTime = endTime;
             Direction = direction;
@@ -40,9 +40,13 @@ namespace Quadrecep.Gameplay
             EndPosition = this[EndTime];
         }
 
-        public float SV => Speed / Factor;
-        public bool NotMoving => Direction == Vector2.Zero;
-        public bool IsInstant => StartTime == EndTime;
+        public Path()
+        {
+        }
+
+        public float SV;
+        [YamlIgnore] public bool NotMoving;
+        [YamlIgnore] public bool IsInstant;
 
         public Vector2 this[float time, bool round = false] => round ? GetPositionRounded(time) : GetPosition(time);
         public float this[Vector2 position] => GetTime(position);
@@ -106,10 +110,14 @@ namespace Quadrecep.Gameplay
         /// </summary>
         public void CalculateConstants()
         {
+            Speed = SV * Factor;
             var c = (float) Math.Sqrt(1d / (Direction.x * Direction.x + Direction.y * Direction.y));
             if (float.IsInfinity(c)) c = 0;
             _k = Direction * c * Speed / 1000;
             _p = StartPosition - _k * StartTime;
+            NotMoving = Direction == Vector2.Zero;
+            IsInstant = StartTime == EndTime;
+            SV = Speed / Factor;
         }
 
 

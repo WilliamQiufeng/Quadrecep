@@ -39,6 +39,7 @@ namespace Quadrecep
         private static void LoadPackedScenes()
         {
             Play.Scene = GD.Load<PackedScene>("res://Scenes/Play.tscn");
+            GameMode.Keys.Play.Scene = GD.Load<PackedScene>("res://Scenes/PlayKeys.tscn");
             SongSelectElement.Scene = GD.Load<PackedScene>("res://Scenes/SongSelectElement.tscn");
             NoteNode.Scene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
             JudgementNode.Scene = GD.Load<PackedScene>("res://Scenes/Judgement.tscn");

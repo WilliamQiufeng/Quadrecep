@@ -52,9 +52,9 @@ namespace Quadrecep.GameMode.Navigate
         protected override void ReadMap()
         {
             base.ReadMap();
-            Map = new Map.Map(MapFile);
+            Map = new Map.Map(MapSetFile);
             Map.ReadMap();
-            MapObject = Map.GetMap(MapIndex);
+            MapObject = Map.GetMap(MapFile);
             MapObject.BuildPaths();
             ZInd = MapObject.Paths.Count;
         }
