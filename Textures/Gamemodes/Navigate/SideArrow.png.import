@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SideArrow.png-b6f75556c1727bf0f92248decb5dd442.stex"
+path="res://.import/SideArrow.png-48ec3271604b66ae5d222955a4ce4e06.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Navigate/SideArrow.png"
-dest_files=[ "res://.import/SideArrow.png-b6f75556c1727bf0f92248decb5dd442.stex" ]
+source_file="res://Textures/GameModes/Navigate/SideArrow.png"
+dest_files=[ "res://.import/SideArrow.png-48ec3271604b66ae5d222955a4ce4e06.stex" ]
 
 [params]
 

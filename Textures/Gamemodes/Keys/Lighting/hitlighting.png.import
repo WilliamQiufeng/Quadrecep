@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/hitlighting.png-936a26c6a3f9f200d949e50190d62fb7.stex"
+path="res://.import/hitlighting.png-3da7110d0bd5329552ce8c3f68472e90.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Keys/Lighting/hitlighting.png"
-dest_files=[ "res://.import/hitlighting.png-936a26c6a3f9f200d949e50190d62fb7.stex" ]
+source_file="res://Textures/GameModes/Keys/Lighting/hitlighting.png"
+dest_files=[ "res://.import/hitlighting.png-3da7110d0bd5329552ce8c3f68472e90.stex" ]
 
 [params]
 

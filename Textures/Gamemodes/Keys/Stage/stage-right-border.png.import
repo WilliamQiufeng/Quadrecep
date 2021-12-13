@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stage-right-border.png-6dfaf99d85323324a2be18f7c893dedc.stex"
+path="res://.import/stage-right-border.png-fc0ddc27551328c373e246b85920024e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Keys/Stage/stage-right-border.png"
-dest_files=[ "res://.import/stage-right-border.png-6dfaf99d85323324a2be18f7c893dedc.stex" ]
+source_file="res://Textures/GameModes/Keys/Stage/stage-right-border.png"
+dest_files=[ "res://.import/stage-right-border.png-fc0ddc27551328c373e246b85920024e.stex" ]
 
 [params]
 

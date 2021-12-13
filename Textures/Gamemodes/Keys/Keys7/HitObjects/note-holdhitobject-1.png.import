@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/note-holdhitobject-1.png-f86f73cacbd0d74cd588ba27d57b54b1.stex"
+path="res://.import/note-holdhitobject-1.png-d9c8d99b2964adb8ec3ed20c5c05405a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Keys/Keys7/HitObjects/note-holdhitobject-1.png"
-dest_files=[ "res://.import/note-holdhitobject-1.png-f86f73cacbd0d74cd588ba27d57b54b1.stex" ]
+source_file="res://Textures/GameModes/Keys/Keys7/HitObjects/note-holdhitobject-1.png"
+dest_files=[ "res://.import/note-holdhitobject-1.png-d9c8d99b2964adb8ec3ed20c5c05405a.stex" ]
 
 [params]
 

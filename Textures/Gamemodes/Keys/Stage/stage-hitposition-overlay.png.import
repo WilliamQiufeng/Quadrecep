@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stage-hitposition-overlay.png-1221653d90f6bc592723d8bf89ad1c6f.stex"
+path="res://.import/stage-hitposition-overlay.png-cab8e89f6ca0757ab58b9ba83a5efa32.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Keys/Stage/stage-hitposition-overlay.png"
-dest_files=[ "res://.import/stage-hitposition-overlay.png-1221653d90f6bc592723d8bf89ad1c6f.stex" ]
+source_file="res://Textures/GameModes/Keys/Stage/stage-hitposition-overlay.png"
+dest_files=[ "res://.import/stage-hitposition-overlay.png-cab8e89f6ca0757ab58b9ba83a5efa32.stex" ]
 
 [params]
 

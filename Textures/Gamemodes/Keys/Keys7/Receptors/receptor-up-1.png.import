@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/receptor-up-1.png-6d923bfb498d3d7a66ea6cae07859ce3.stex"
+path="res://.import/receptor-up-1.png-6fa9224843f674770f5a80fd275408d1.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Keys/Keys7/Receptors/receptor-up-1.png"
-dest_files=[ "res://.import/receptor-up-1.png-6d923bfb498d3d7a66ea6cae07859ce3.stex" ]
+source_file="res://Textures/GameModes/Keys/Keys7/Receptors/receptor-up-1.png"
+dest_files=[ "res://.import/receptor-up-1.png-6fa9224843f674770f5a80fd275408d1.stex" ]
 
 [params]
 

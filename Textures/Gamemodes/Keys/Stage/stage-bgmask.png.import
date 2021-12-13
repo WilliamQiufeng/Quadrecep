@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stage-bgmask.png-43b28fe18d20aab17d6b49435d3287a4.stex"
+path="res://.import/stage-bgmask.png-ef33f55526d34aef02913403f0fb61dd.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Keys/Stage/stage-bgmask.png"
-dest_files=[ "res://.import/stage-bgmask.png-43b28fe18d20aab17d6b49435d3287a4.stex" ]
+source_file="res://Textures/GameModes/Keys/Stage/stage-bgmask.png"
+dest_files=[ "res://.import/stage-bgmask.png-ef33f55526d34aef02913403f0fb61dd.stex" ]
 
 [params]
 

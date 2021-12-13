@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/column-lighting.png-25f748451817e9cdc4baab9ad71f67e5.stex"
+path="res://.import/column-lighting.png-73518c34fa74d6901f353df41bd08065.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Keys/Lighting/column-lighting.png"
-dest_files=[ "res://.import/column-lighting.png-25f748451817e9cdc4baab9ad71f67e5.stex" ]
+source_file="res://Textures/GameModes/Keys/Lighting/column-lighting.png"
+dest_files=[ "res://.import/column-lighting.png-73518c34fa74d6901f353df41bd08065.stex" ]
 
 [params]
 

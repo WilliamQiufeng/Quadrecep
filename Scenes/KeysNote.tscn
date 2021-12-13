@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Textures/Gamemodes/Keys/Keys4/HitObjects/note-hitobject-1.png" type="Texture" id=1]
+[ext_resource path="res://Textures/GameModes/Keys/Keys4/HitObjects/note-hitobject-1.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/GameMode/Keys/NoteNode.cs" type="Script" id=2]
 
 [node name="Note" type="Sprite"]

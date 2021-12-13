@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stage-timingbar.png-636b8579b818dc1cdb639b661e06b825.stex"
+path="res://.import/stage-timingbar.png-d15fcfeee814a02b9c63caa28f74cd10.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Keys/Stage/stage-timingbar.png"
-dest_files=[ "res://.import/stage-timingbar.png-636b8579b818dc1cdb639b661e06b825.stex" ]
+source_file="res://Textures/GameModes/Keys/Stage/stage-timingbar.png"
+dest_files=[ "res://.import/stage-timingbar.png-d15fcfeee814a02b9c63caa28f74cd10.stex" ]
 
 [params]
 

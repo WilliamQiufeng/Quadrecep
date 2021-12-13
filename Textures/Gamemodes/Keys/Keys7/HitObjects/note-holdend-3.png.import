@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/note-holdend-3.png-15727ce55ada5d83455de9dc13806967.stex"
+path="res://.import/note-holdend-3.png-b5ee3a2e7b0a075f08c11876cf10e381.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Keys/Keys7/HitObjects/note-holdend-3.png"
-dest_files=[ "res://.import/note-holdend-3.png-15727ce55ada5d83455de9dc13806967.stex" ]
+source_file="res://Textures/GameModes/Keys/Keys7/HitObjects/note-holdend-3.png"
+dest_files=[ "res://.import/note-holdend-3.png-b5ee3a2e7b0a075f08c11876cf10e381.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ArrowConnector.png-26f915e717f3f77aa59e3aba1ca36a49.stex"
+path="res://.import/ArrowConnector.png-e007453fe43eaeb401ccebf9f71f1f16.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Navigate/ArrowConnector.png"
-dest_files=[ "res://.import/ArrowConnector.png-26f915e717f3f77aa59e3aba1ca36a49.stex" ]
+source_file="res://Textures/GameModes/Navigate/ArrowConnector.png"
+dest_files=[ "res://.import/ArrowConnector.png-e007453fe43eaeb401ccebf9f71f1f16.stex" ]
 
 [params]
 

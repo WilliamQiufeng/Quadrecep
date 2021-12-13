@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/EndArrowNew.png-b4f927489ba76dd26245338e683a375a.stex"
+path="res://.import/EndArrowNew.png-6eb2986bd9468f83609206f61e58900b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Navigate/EndArrowNew.png"
-dest_files=[ "res://.import/EndArrowNew.png-b4f927489ba76dd26245338e683a375a.stex" ]
+source_file="res://Textures/GameModes/Navigate/EndArrowNew.png"
+dest_files=[ "res://.import/EndArrowNew.png-6eb2986bd9468f83609206f61e58900b.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/holdlighting.png-5fc76d06637646aa9e2ba8c1c755c61e.stex"
+path="res://.import/holdlighting.png-bbafd7bd6e78a1c1dbc6da183905cf54.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Keys/Lighting/holdlighting.png"
-dest_files=[ "res://.import/holdlighting.png-5fc76d06637646aa9e2ba8c1c755c61e.stex" ]
+source_file="res://Textures/GameModes/Keys/Lighting/holdlighting.png"
+dest_files=[ "res://.import/holdlighting.png-bbafd7bd6e78a1c1dbc6da183905cf54.stex" ]
 
 [params]
 

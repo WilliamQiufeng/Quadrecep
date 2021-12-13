@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Path.png-1843f711fd2000fe135a6a7fbea9ff7a.stex"
+path="res://.import/Path.png-469d52f5d4ecfa6b7bc61c77e089eb2a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Textures/Gamemodes/Navigate/Path.png"
-dest_files=[ "res://.import/Path.png-1843f711fd2000fe135a6a7fbea9ff7a.stex" ]
+source_file="res://Textures/GameModes/Navigate/Path.png"
+dest_files=[ "res://.import/Path.png-469d52f5d4ecfa6b7bc61c77e089eb2a.stex" ]
 
 [params]
 
