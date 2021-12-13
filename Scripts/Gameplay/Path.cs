@@ -11,6 +11,8 @@ namespace Quadrecep.Gameplay
 
         public readonly float Factor;
         public float SV => Speed / Factor;
+        public bool NotMoving => Direction == Vector2.Zero;
+        public bool IsInstant => StartTime == EndTime;
 
         private Vector2 _k, _p;
         public Vector2 Direction;
@@ -121,13 +123,15 @@ namespace Quadrecep.Gameplay
             var intersections = GeometryHelper
                 .IntersectionWithRegion(path.StartPosition, path.EndPosition, regionPos1, regionPos2)
                 .Select(x => new {pos = x, time = path[x]}).ToList();
+            if (path.NotMoving && GeometryHelper.InsideRegion(path.StartPosition, regionPos1, regionPos2)) return path;
             if (intersections.Count <= 1) return null;
             var startTime = intersections.Min(x => x.time);
             var endTime = intersections.Max(x => x.time);
             if (!path.WithinTime(startTime)) startTime = path.StartTime;
             if (!path.WithinTime(endTime)) endTime = path.EndTime;
-            return new Path(path.SV, path.Factor, startTime, endTime, path.Direction,
+            var cutPath = new Path(path.SV, path.Factor, startTime, endTime, path.Direction,
                 path[startTime], path.TargetNote);
+            return cutPath.IsInstant ? null : cutPath;
         }
     }
 }

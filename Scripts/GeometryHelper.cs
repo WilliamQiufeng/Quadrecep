@@ -6,15 +6,24 @@ namespace Quadrecep
 {
     public static class GeometryHelper
     {
-        public static IEnumerable<Vector2> IntersectionWithRegion(Vector2 linePos1, Vector2 linePos2, Vector2 regionPos1, Vector2 regionPos2)
+        public static bool InsideRegion(Vector2 point, Vector2 regionPos1, Vector2 regionPos2)
+        {
+            return regionPos1.x <= point.x && point.x <= regionPos2.x &&
+                   regionPos1.y <= point.y && point.y <= regionPos2.y;
+        }
+
+        public static IEnumerable<Vector2> IntersectionWithRegion(Vector2 linePos1, Vector2 linePos2,
+            Vector2 regionPos1, Vector2 regionPos2)
         {
             var res = IntersectionWithVerticalBorders(linePos1, linePos2, regionPos1, regionPos2);
-            res.AddRange(IntersectionWithVerticalBorders(linePos1.Exchange(), linePos2.Exchange(), regionPos1.Exchange(),
-                       regionPos2.Exchange()).Select(x => x.Exchange()));
+            res.AddRange(IntersectionWithVerticalBorders(linePos1.Exchange(), linePos2.Exchange(),
+                regionPos1.Exchange(),
+                regionPos2.Exchange()).Select(x => x.Exchange()));
             return res;
         }
 
-        private static List<Vector2> IntersectionWithVerticalBorders(Vector2 linePos1, Vector2 linePos2, Vector2 regionPos1,
+        private static List<Vector2> IntersectionWithVerticalBorders(Vector2 linePos1, Vector2 linePos2,
+            Vector2 regionPos1,
             Vector2 regionPos2)
         {
             var res = new List<Vector2>();
