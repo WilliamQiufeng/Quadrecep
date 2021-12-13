@@ -83,7 +83,8 @@ namespace Quadrecep.Gameplay
 
         public float GetTime(Vector2 position)
         {
-            return ((position - _p) / _k).x;
+            var time = (position - _p) / _k;
+            return float.IsNaN(time.x) ? float.IsNaN(time.y) ? 0 : time.y : time.x;
         }
 
         public bool WithinTime(float time)
