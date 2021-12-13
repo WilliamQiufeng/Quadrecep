@@ -29,7 +29,9 @@ namespace Qua2Qbm
                 .Select(mapFile => Qua.Parse(mapFile)).Select(qua => new MapObject
                 {
                     DifficultyName = qua.DifficultyName, StartTime = qua.TimingPoints[0].StartTime,
-                    Notes = ConvertNotes(qua.HitObjects)
+                    Notes = ConvertNotes(qua.HitObjects),
+                    ScrollVelocities = qua.SliderVelocities.Select(x => new ScrollVelocity(x.StartTime, x.Multiplier)).ToList(),
+                    TimingPoints = qua.TimingPoints.Select(x => new TimingPoint(x.StartTime, x.Bpm, (int)x.Signature)).ToList(),
                 }).ToList();
             var resMapSet = new MapSetObject
             {

@@ -9,9 +9,10 @@ namespace Quadrecep.Map
     public class MapObject
     {
         public string DifficultyName { get; set; } = "None";
-        public float StartTime { get; set; } = 0;
+        public float StartTime { get; set; }
         public List<NoteObject> Notes { get; set; } = new();
         public List<ScrollVelocity> ScrollVelocities { get; set; } = new();
+        public List<TimingPoint> TimingPoints { get; set; } = new();
         [YamlIgnore] public List<Path> Paths { get; set; } = new();
 
         public void AddNote(NoteObject note)
