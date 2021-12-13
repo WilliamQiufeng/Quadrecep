@@ -1,20 +1,19 @@
 using System.Collections.Generic;
 using Godot;
 using Quadrecep.Database;
-using Quadrecep.Map;
 
-namespace Quadrecep.GameMode.Keys.Map
+namespace Quadrecep.Map
 {
-    public class Map : Node
+    public class AMapSet<T> : Node where T : class
     {
         public const string MapDirectory = "Maps";
-        public MapSetObject MapSet;
+        public MapSetObject MapSetObject;
 
-        public Map()
+        public AMapSet()
         {
         }
 
-        public Map(string mapFile = default)
+        public AMapSet(string mapFile = default)
         {
             MapFile = mapFile;
         }
@@ -29,7 +28,7 @@ namespace Quadrecep.GameMode.Keys.Map
         public bool CreateMap(string name, bool force = false)
         {
             MapFile = name;
-            MapSet = new MapSetObject
+            MapSetObject = new MapSetObject
             {
                 Name = name,
                 Maps = new List<string>(new[]
@@ -39,38 +38,38 @@ namespace Quadrecep.GameMode.Keys.Map
             };
             var record = new MapRecord
             {
-                Name = MapSet.Name,
-                Artist = MapSet.Artist,
-                AudioPath = MapSet.AudioPath,
-                BackgroundPath = MapSet.BackgroundPath,
-                Creator = MapSet.Creator
+                Name = MapSetObject.Name,
+                Artist = MapSetObject.Artist,
+                AudioPath = MapSetObject.AudioPath,
+                BackgroundPath = MapSetObject.BackgroundPath,
+                Creator = MapSetObject.Creator
             };
             if (DatabaseHandler.Connection.Table<MapRecord>().Count(x => x.Name == record.Name) != 0 && !force)
                 return false;
             DatabaseHandler.Connection.Insert(record);
-            MapSet.LocalId = record.Id;
+            MapSetObject.LocalId = record.Id;
             SaveMap();
             return true;
         }
 
-        public NoteObject CreateNote(float startTime, float length, int direction)
+        public T GetMap(string mapFile)
         {
-            return new NoteObject(startTime, length, direction);
+            return MapHandler.GetMapHandler(MapFile, mapFile).GetMap<T>();
         }
 
-        public MapObject GetMap(int index)
+        public T GetMap(int index)
         {
-            return Quadrecep.Map.MapHandler.GetMapHandler(MapFile, MapSet.Maps[index]).GetMap<MapObject>();
+            return GetMap(MapSetObject.Maps[index]);
         }
 
         public void ReadMap()
         {
-            MapSet = Global.DeserializeFromFile<MapSetObject>(MapFile, "MapSet.qbm");
+            MapSetObject = Global.DeserializeFromFile<MapSetObject>(MapFile, "MapSet.qbm");
         }
 
         public void SaveMap()
         {
-            Global.SaveMap(MapSet, MapFile);
+            Global.SaveMap(MapSetObject, MapFile);
         }
 
         public override void _Ready()

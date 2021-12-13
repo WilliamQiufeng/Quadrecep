@@ -78,7 +78,7 @@ namespace Quadrecep
         public static string RelativeToMap(string mapFile, string path = "", bool absolutePath = false)
         {
             var root = absolutePath ? OS.GetUserDataDir() : "user://";
-            return $"{root}//{GameMode.Navigate.Map.Map.MapDirectory}/{mapFile}/{path}";
+            return $"{root}//{GameMode.Navigate.Map.MapSet.MapDirectory}/{mapFile}/{path}";
         }
 
 

@@ -1,4 +1,5 @@
 using Godot;
+using Quadrecep.GameMode.Keys.Map;
 
 namespace Quadrecep.GameMode.Keys
 {
@@ -7,9 +8,19 @@ namespace Quadrecep.GameMode.Keys
         protected override string BackgroundNodePath => "Background";
         protected override string InputProcessorPath => "InputProcessor";
         public static PackedScene Scene;
+        protected MapObject MapObject;
+        protected MapSet MapSet;
 
         protected string PlayfieldPath => "Playfield";
         public Playfield Playfield => GetNode<Playfield>(PlayfieldPath);
+
+        protected override void ReadMap()
+        {
+            base.ReadMap();
+            MapSet = new MapSet(MapSetFile);
+            MapSet.ReadMap();
+            MapObject = MapSet.GetMap(MapFile);
+        }
 
         protected override void SetParents()
         {

@@ -32,7 +32,7 @@ namespace Quadrecep.UI
 
         public override void _Ready()
         {
-            Global.MapContainingDirectory.Open($"user://{GameMode.Navigate.Map.Map.MapDirectory}");
+            Global.MapContainingDirectory.Open($"user://{Map.AMapSet<object>.MapDirectory}");
             LoadElements(Global.MapContainingDirectory);
             RefreshFocusChild();
         }

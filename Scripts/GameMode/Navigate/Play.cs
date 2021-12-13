@@ -13,7 +13,7 @@ namespace Quadrecep.GameMode.Navigate
 
         public static float BaseSV = 500;
         private readonly Queue<NoteNode> _nodePool = new();
-        protected Map.Map Map;
+        protected MapSet MapSet;
         protected MapObject MapObject;
 
         private int _approachingPathIndex;
@@ -21,12 +21,12 @@ namespace Quadrecep.GameMode.Navigate
 
         public Path CurrentPath => MapObject.Paths[_pathIndex];
 
-        protected override string BackgroundPath => Map.MapSet.BackgroundPath;
-        protected override string AudioPath => Map.MapSet.AudioPath;
+        protected override string BackgroundPath => MapSet.MapSetObject.BackgroundPath;
+        protected override string AudioPath => MapSet.MapSetObject.AudioPath;
 
         protected override void AfterReady()
         {            
-            GetNode<Label>("HUD/Name").Text = Map.MapSet.Name;
+            GetNode<Label>("HUD/Name").Text = MapSet.MapSetObject.Name;
             foreach (var path in MapObject.Paths)
             {
                 if (path.TargetNote == null) continue;
@@ -52,9 +52,9 @@ namespace Quadrecep.GameMode.Navigate
         protected override void ReadMap()
         {
             base.ReadMap();
-            Map = new Map.Map(MapSetFile);
-            Map.ReadMap();
-            MapObject = Map.GetMap(MapFile);
+            MapSet = new MapSet(MapSetFile);
+            MapSet.ReadMap();
+            MapObject = MapSet.GetMap(MapFile);
             MapObject.BuildPaths();
             ZInd = MapObject.Paths.Count;
         }
