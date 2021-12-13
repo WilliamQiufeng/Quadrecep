@@ -126,7 +126,7 @@ namespace Quadrecep.Gameplay
             if (!path.WithinTime(startTime)) startTime = path.StartTime;
             if (!path.WithinTime(endTime)) endTime = path.EndTime;
             return new Path(path.SV, path.Factor, startTime, endTime, path.Direction,
-                path[startTime], null);
+                path[startTime], path.TargetNote);
         }
     }
 }

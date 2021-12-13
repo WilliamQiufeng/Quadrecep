@@ -13,6 +13,9 @@ namespace UnitTests
         }
 
         [TestCase(500, 1, 0, 3000, 1, 1, -130, 100, true)]
+        [TestCase(500, 1, 0, 3000, 1, 1, 300, 400, true)]
+        [TestCase(500, 1, 0, 100, 1, 1, 300, 400, true)]
+        [TestCase(500, 1, 0, 1000, 1, 0.5f, -100, 400, true)]
         public void Test1(float sv, float factor, float st, float et, float dx, float dy, float sx, float sy, bool res)
         {
             var path = new Path(sv, factor, st, et, new(dx, dy), new(sx, sy), null);
