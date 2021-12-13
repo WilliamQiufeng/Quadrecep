@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Godot;
 using Quadrecep.Map;
 
@@ -101,6 +102,18 @@ namespace Quadrecep.Gameplay
         {
             return
                 $"[Path: {nameof(Speed)}: {Speed}, {nameof(StartTime)}: {StartTime}, {nameof(EndTime)}: {EndTime}, {nameof(Direction)}: {Direction}, {nameof(StartPosition)}: {StartPosition}, {nameof(EndPosition)}: {EndPosition}, {nameof(TargetNote)}: {TargetNote}]";
+        }
+
+        public static Path CutVisiblePath(Path path, Vector2 regionPos1, Vector2 regionPos2)
+        {
+            var intersections = GeometryHelper
+                .IntersectionWithRegion(path.StartPosition, path.EndPosition, regionPos1, regionPos2)
+                .Select(x => new {pos = x, time = path[x]}).ToList();
+            if (intersections.Count <= 1) return null;
+            var startTime = intersections.Min(x => x.time);
+            var endTime = intersections.Max(x => x.time);
+            return new Path(path.SV, path.Factor, startTime, endTime, path.Direction,
+                path[startTime], null);
         }
     }
 }
