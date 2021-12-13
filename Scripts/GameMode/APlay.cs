@@ -7,12 +7,10 @@ namespace Quadrecep.GameMode
     public abstract class APlay : Node2D
     {
         public bool Finished;
-        protected Map.Map Map;
 
         [Export] public string MapFile;
 
         [Export(PropertyHint.Range, "0,10,1")] public int MapIndex;
-        protected MapObject MapObject;
 
         public float Time;
 
@@ -43,7 +41,6 @@ namespace Quadrecep.GameMode
         {
             SetParents();
             LoadMap();
-            GetNode<Label>("HUD/Name").Text = Map.MapSet.Name;
             LoadBackground();
             LoadAudio();
             AfterReady();
@@ -61,13 +58,11 @@ namespace Quadrecep.GameMode
         protected virtual void LoadMap()
         {
             GD.Print($"Loading {MapFile}");
-            Map = new Map.Map(MapFile);
-            Map.ReadMap();
-            MapObject = Map.GetMap(MapIndex);
-            MapObject.BuildPaths();
-            ZInd = MapObject.Paths.Count;
-            InputProcessor.FeedNotes(MapObject.Notes);
+            ReadMap();
+            FeedNotes();
         }
+        protected virtual void ReadMap() {}
+        protected virtual void FeedNotes() {}
 
         public override void _Process(float delta)
         {
@@ -92,7 +87,7 @@ namespace Quadrecep.GameMode
 
         protected virtual void LoadAudio()
         {
-            AudioStreamPlayer.Stream = LoadAudio(Global.RelativeToMap(MapFile, Map.MapSet.AudioPath));
+            AudioStreamPlayer.Stream = LoadAudio(Global.RelativeToMap(MapFile, AudioPath));
             AudioStreamPlayer.Play();
         }
 
@@ -128,10 +123,13 @@ namespace Quadrecep.GameMode
 
         protected virtual void LoadBackground()
         {
-            var imgPath = Global.RelativeToMap(MapFile, Map.MapSet.BackgroundPath);
+            var imgPath = Global.RelativeToMap(MapFile, BackgroundPath);
             GD.Print($"Loading background from {imgPath}");
             Background.Texture = Global.LoadImage(imgPath);
             Background.Visible = true;
         }
+
+        protected virtual string BackgroundPath => "";
+        protected virtual string AudioPath => "";
     }
 }
