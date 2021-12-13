@@ -86,6 +86,16 @@ namespace Quadrecep.Gameplay
             return ((position - _p) / _k).x;
         }
 
+        public bool WithinTime(float time)
+        {
+            return StartTime <= time && time <= EndTime;
+        }
+
+        public bool WithinTime(Vector2 position)
+        {
+            return WithinTime(this[position]);
+        }
+
         /// <summary>
         ///     Calculates constants (K, P) used for <see cref="GetPosition" />.
         ///     See comments above.
@@ -114,6 +124,8 @@ namespace Quadrecep.Gameplay
             if (intersections.Count <= 1) return null;
             var startTime = intersections.Min(x => x.time);
             var endTime = intersections.Max(x => x.time);
+            if (!path.WithinTime(startTime)) startTime = path.StartTime;
+            if (!path.WithinTime(endTime)) endTime = path.EndTime;
             return new Path(path.SV, path.Factor, startTime, endTime, path.Direction,
                 path[startTime], null);
         }

@@ -11,9 +11,11 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Remove="Qua2Qbm\**" />
+        <Compile Remove="UnitTests\**" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Remove="Qua2Qbm\**" />
+        <EmbeddedResource Remove="UnitTests\**" />
     </ItemGroup>
     <ItemGroup>
         <Content Include=".gitignore" />

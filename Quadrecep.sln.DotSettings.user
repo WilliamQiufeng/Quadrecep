@@ -4,6 +4,11 @@
   &lt;Assembly Path="/Users/mac/Documents/GodotProjects/New Game Project/packages/NUnit.3.5.0/lib/net45/nunit.framework.dll" /&gt;
   &lt;Assembly Path="/Users/mac/Documents/GodotProjects/New Game Project/packages/NUnit.3.13.2/lib/net45/nunit.framework.dll" /&gt;
 &lt;/AssemblyExplorer&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=1224cf5a_002D5e7e_002D49f6_002D9f6d_002D81bd9e2da91b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="Tests" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::EC4BE060-B733-49CE-9248-B4B457310658::net5.0::UnitTests.Tests&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=2ed6cab7_002De20a_002D41ee_002Da943_002Db1dde48b56fe/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PositionTest(1,0,1000,4,0,0,null,1000,0,-300) #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::558A8140-0CEA-4626-9AB5-707CE7D6606D::.NETFramework,Version=v4.8::QuadrecepTests.PathTests.PositionTest(1,0,1000,4,0,0,null,1000,0,-300)&lt;/TestId&gt;
@@ -12,6 +17,11 @@
 	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=be5bb8e9_002D1a84_002D4f48_002D8ca8_002Ddd4b3a2f0b35/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="PositionTest(1,0,1000,4,0,0,null,1000,0,-300)" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;TestAncestor&gt;
     &lt;TestId&gt;NUnit3x::558A8140-0CEA-4626-9AB5-707CE7D6606D::.NETFramework,Version=v4.8::QuadrecepTests.PathTests.PositionTest(1,0,1000,4,0,0,null,1000,0,-300)&lt;/TestId&gt;
+  &lt;/TestAncestor&gt;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=d493266a_002D1dd8_002D4e3b_002Db14e_002D4d3effba9250/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Test1" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;TestAncestor&gt;
+    &lt;TestId&gt;NUnit3x::EC4BE060-B733-49CE-9248-B4B457310658::net5.0::UnitTests.Tests.Test1&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
 &lt;/SessionState&gt;</s:String>
 	<s:Boolean x:Key="/Default/UserDictionary/Words/=Quadrecep/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

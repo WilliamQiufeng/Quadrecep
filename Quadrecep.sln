@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qua2Qbm", "Qua2Qbm\Qua2Qbm.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quaver.API", "Qua2Qbm\Quaver.API\Quaver.API\Quaver.API.csproj", "{EE5C70CA-D2BA-40CA-B352-307802650D73}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{EC4BE060-B733-49CE-9248-B4B457310658}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 	Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,11 @@ Global
 		{EE5C70CA-D2BA-40CA-B352-307802650D73}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
 		{EE5C70CA-D2BA-40CA-B352-307802650D73}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
 		{EE5C70CA-D2BA-40CA-B352-307802650D73}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
+		{EC4BE060-B733-49CE-9248-B4B457310658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC4BE060-B733-49CE-9248-B4B457310658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC4BE060-B733-49CE-9248-B4B457310658}.ExportDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC4BE060-B733-49CE-9248-B4B457310658}.ExportDebug|Any CPU.Build.0 = Debug|Any CPU
+		{EC4BE060-B733-49CE-9248-B4B457310658}.ExportRelease|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC4BE060-B733-49CE-9248-B4B457310658}.ExportRelease|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal
