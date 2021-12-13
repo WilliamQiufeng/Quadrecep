@@ -9,6 +9,7 @@ namespace Quadrecep.Gameplay
         private static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
 
         public readonly float Factor;
+        public float SV => Speed / Factor;
 
         private Vector2 _k, _p;
         public Vector2 Direction;
@@ -81,7 +82,7 @@ namespace Quadrecep.Gameplay
 
         public float GetTime(Vector2 position)
         {
-            return ((position - _p) / _k).DistanceTo(Vector2.Zero);
+            return ((position - _p) / _k).x;
         }
 
         /// <summary>

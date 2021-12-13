@@ -37,9 +37,17 @@ namespace Quadrecep.GameMode.Keys
         public void GenerateVisiblePaths(Vector2 regionPos1, Vector2 regionPos2)
         {
             _visiblePaths.Clear();
-            foreach (var path in Paths.Where(path =>
-                GeometryHelper.WillPassRegion(path.StartPosition, path.EndPosition, regionPos1, regionPos2)))
-                _visiblePaths.Enqueue(path);
+            foreach (var path in Paths)
+            {
+                var intersections = GeometryHelper
+                    .IntersectionWithRegion(path.StartPosition, path.EndPosition, regionPos1, regionPos2)
+                    .Select(x => new {pos = x, time = path[x]}).ToList();
+                if (intersections.Count <= 1) continue;
+                var startTime = intersections.Min(x => x.time);
+                var endTime = intersections.Max(x => x.time);
+                _visiblePaths.Enqueue(new Path(path.SV, path.Factor, startTime, endTime, path.Direction,
+                    path[startTime], null));
+            }
         }
 
         public void CheckVisible()
