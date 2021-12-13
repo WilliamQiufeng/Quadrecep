@@ -104,7 +104,6 @@ namespace Quadrecep.Gameplay
         {
             var c = (float) Math.Sqrt(1d / (Direction.x * Direction.x + Direction.y * Direction.y));
             if (float.IsInfinity(c)) c = 0;
-            GD.Print($"{c}, {Direction}");
             _k = Direction * c * Speed / 1000;
             _p = StartPosition - _k * StartTime;
         }
