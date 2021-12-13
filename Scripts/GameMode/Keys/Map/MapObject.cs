@@ -13,7 +13,6 @@ namespace Quadrecep.GameMode.Keys.Map
         public List<NoteObject> Notes { get; set; } = new();
         public List<ScrollVelocity> ScrollVelocities { get; set; } = new();
         public List<TimingPoint> TimingPoints { get; set; } = new();
-        [YamlIgnore] public List<Path> Paths { get; set; } = new();
 
         public void AddNote(NoteObject note)
         {
@@ -42,7 +41,7 @@ namespace Quadrecep.GameMode.Keys.Map
         public override string ToString()
         {
             return
-                $"[Map: {nameof(DifficultyName)}: {DifficultyName}, {nameof(StartTime)}: {StartTime}, {nameof(Notes)}: {Notes}, {nameof(ScrollVelocities)}: {ScrollVelocities}, {nameof(Paths)}: {Paths}]";
+                $"[Map: {nameof(DifficultyName)}: {DifficultyName}, {nameof(StartTime)}: {StartTime}, {nameof(Notes)}: {Notes}, {nameof(ScrollVelocities)}: {ScrollVelocities}]";
         }
     }
 }
