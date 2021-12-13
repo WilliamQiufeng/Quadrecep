@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 using Quadrecep.GameMode;
 using Quadrecep.Map;
@@ -12,7 +13,8 @@ namespace Quadrecep.UI
 
         public static PackedScene Scene;
         private int _difficultyIndex;
-        private MapSetObject _map;
+        private MapSetObject _mapSet;
+        private List<MapHandler> _maps = new();
         public int Index;
         public string MapFile;
         public PackedScene PlayScene;
@@ -23,23 +25,28 @@ namespace Quadrecep.UI
             set
             {
                 _difficultyIndex = value;
-                GetNode<Label>("Difficulty").Text = _map.Maps[DifficultyIndex].DifficultyName;
+                GetNode<Label>("Difficulty").Text = _maps[DifficultyIndex].DifficultyName;
+                GetNode<Label>("Difficulty/GameMode").Text = _maps[DifficultyIndex].GameModeShortName;
             }
         }
 
-        public int Count => _map.Maps.Count;
+        public int Count => _mapSet.Maps.Count;
 
         public override void _Ready()
         {
-            _map = Global.ReadMap(MapFile);
+            _mapSet = Global.DeserializeFromFile<MapSetObject>(MapFile, "MapSet.qbm");
             GetNode<TextureRect>("Preview").Texture =
-                Global.LoadImage(Global.RelativeToMap(MapFile, _map.BackgroundPath));
-            GetNode<Label>("Name").Text = _map.Name;
-            GetNode<Label>("Author").Text = _map.Creator;
-            GetNode<Label>("Artist").Text = _map.Artist;
-            DifficultyIndex = 0;
+                Global.LoadImage(Global.RelativeToMap(MapFile, _mapSet.BackgroundPath));
+            GetNode<Label>("Name").Text = _mapSet.Name;
+            GetNode<Label>("Author").Text = _mapSet.Creator;
+            GetNode<Label>("Artist").Text = _mapSet.Artist;
             GetNode<AudioStreamPlayer>("Player").Stream =
-                APlay.LoadAudio(Global.RelativeToMap(MapFile, _map.AudioPath));
+                APlay.LoadAudio(Global.RelativeToMap(MapFile, _mapSet.AudioPath));
+            for (var i = 0; i < Count; i++)
+            {
+                _maps.Add(MapHandler.GetMapHandler(MapFile, _mapSet.Maps[i]));
+            }
+            DifficultyIndex = 0;
             // GrabFocus();
         }
 
@@ -97,7 +104,7 @@ namespace Quadrecep.UI
         private void FadeIn()
         {
             GetNode<AudioStreamPlayer>("Player").Playing = true;
-            GetNode<AudioStreamPlayer>("Player").Seek(_map.PreviewTime / 1000);
+            GetNode<AudioStreamPlayer>("Player").Seek(_mapSet.PreviewTime / 1000);
             var tween = GetNode<Tween>("Player/Tween");
             tween.InterpolateProperty(tween.GetParent(), "volume_db", -6, 0, FocusDuration);
             tween.Start();

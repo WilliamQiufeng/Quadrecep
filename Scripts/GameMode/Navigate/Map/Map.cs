@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using Godot;
 using Quadrecep.Database;
+using Quadrecep.Map;
 
-namespace Quadrecep.Map
+namespace Quadrecep.GameMode.Navigate.Map
 {
     public class Map : Node
     {
@@ -31,12 +32,9 @@ namespace Quadrecep.Map
             MapSet = new MapSetObject
             {
                 Name = name,
-                Maps = new List<MapObject>(new[]
+                Maps = new List<string>(new[]
                 {
-                    new MapObject
-                    {
-                        DifficultyName = "Default"
-                    }
+                    "Default"
                 })
             };
             var record = new MapRecord
@@ -62,12 +60,12 @@ namespace Quadrecep.Map
 
         public MapObject GetMap(int index)
         {
-            return MapSet.Maps[index];
+            return Quadrecep.Map.MapHandler.GetMapHandler(MapFile, MapSet.Maps[index]).GetMap<MapObject>();
         }
 
         public void ReadMap()
         {
-            MapSet = Global.ReadMap(MapFile);
+            MapSet = Global.DeserializeFromFile<MapSetObject>(MapFile, "MapSet.qbm");
         }
 
         public void SaveMap()

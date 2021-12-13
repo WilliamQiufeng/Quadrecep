@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Godot;
-using Quadrecep.Map;
+using Quadrecep.GameMode.Navigate.Map;
 
 namespace Quadrecep.Gameplay
 {

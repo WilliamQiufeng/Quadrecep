@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using CommandLine;
+using Quadrecep.GameMode.Navigate.Map;
 using Quadrecep.Map;
 using Quaver.API.Maps;
 using Quaver.API.Maps.Structures;
@@ -33,6 +34,7 @@ namespace Qua2Qbm
                     ScrollVelocities = qua.SliderVelocities.Select(x => new ScrollVelocity(x.StartTime, x.Multiplier)).ToList(),
                     TimingPoints = qua.TimingPoints.Select(x => new TimingPoint(x.StartTime, x.Bpm, (int)x.Signature)).ToList(),
                 }).ToList();
+            var mapFiles = maps.Select(x => $"{x.DifficultyName}.qbmn").ToList();
             var resMapSet = new MapSetObject
             {
                 Name = globQua.Title,
@@ -42,13 +44,16 @@ namespace Qua2Qbm
                 AudioPath = globQua.AudioFile,
                 BackgroundPath = globQua.BackgroundFile,
                 PreviewTime = globQua.SongPreviewTime,
-                Maps = maps,
+                Maps = mapFiles,
             };
             Console.WriteLine(globQua.Title);
             var zip = ZipFile.Open($"{opts.OutputFile}/{globQua.Title}.qms", ZipArchiveMode.Create);
-            var qbmFile = zip.CreateEntry("MapSet.qbm");
-            var qbmFileWriter = new StreamWriter(qbmFile.Open());
+            var qbmFileWriter = NewFileWriter(zip, "MapSet.qbm");
             SaveMap(resMapSet, qbmFileWriter);
+            for (var i = 0; i < maps.Count; i++)
+            {
+                SaveMap(maps[i], NewFileWriter(zip, mapFiles[i]));
+            }
             foreach (var file in Directory.GetFiles(opts.InputFile).Where(file => !file.EndsWith(".qua")))
             {
                 var fileName = new FileInfo(file).Name;
@@ -59,7 +64,14 @@ namespace Qua2Qbm
             zip.Dispose();
         }
 
-        private static void SaveMap(MapSetObject mapSet, TextWriter outputFile)
+        private static StreamWriter NewFileWriter(ZipArchive zip, string fileName)
+        {
+            var qbmFile = zip.CreateEntry(fileName);
+            var qbmFileWriter = new StreamWriter(qbmFile.Open());
+            return qbmFileWriter;
+        }
+
+        private static void SaveMap<T>(T mapSet, TextWriter outputFile)
         {
             var serializer = new SerializerBuilder()
                 .WithNamingConvention(PascalCaseNamingConvention.Instance)

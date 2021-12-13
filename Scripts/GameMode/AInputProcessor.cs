@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Quadrecep.GameMode.Navigate.Map;
 using Quadrecep.Gameplay;
-using Quadrecep.Map;
 using InputEvent = Quadrecep.Gameplay.InputEvent;
 
 namespace Quadrecep.GameMode

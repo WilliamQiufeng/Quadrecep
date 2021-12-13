@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Godot;
-using Quadrecep.GameMode.Navigate;
+using Quadrecep.Map;
 using YamlDotNet.Serialization;
 using Path = Quadrecep.Gameplay.Path;
 
-namespace Quadrecep.Map
+namespace Quadrecep.GameMode.Navigate.Map
 {
     public class MapObject
     {

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using Quadrecep.GameMode.Navigate.Map;
 using Quadrecep.Map;
 using static Godot.Vector2;
 using Path = Quadrecep.Gameplay.Path;
@@ -12,7 +13,7 @@ namespace Quadrecep.GameMode.Navigate
 
         public static float BaseSV = 500;
         private readonly Queue<NoteNode> _nodePool = new();
-        protected Quadrecep.Map.Map Map;
+        protected Map.Map Map;
         protected MapObject MapObject;
 
         private int _approachingPathIndex;
@@ -51,7 +52,7 @@ namespace Quadrecep.GameMode.Navigate
         protected override void ReadMap()
         {
             base.ReadMap();
-            Map = new Quadrecep.Map.Map(MapFile);
+            Map = new Map.Map(MapFile);
             Map.ReadMap();
             MapObject = Map.GetMap(MapIndex);
             MapObject.BuildPaths();

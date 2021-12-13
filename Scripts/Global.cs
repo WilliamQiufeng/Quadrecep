@@ -1,3 +1,4 @@
+using System.IO;
 using Godot;
 using Quadrecep.GameMode.Keys;
 using Quadrecep.GameMode.Navigate;
@@ -5,6 +6,8 @@ using Quadrecep.Map;
 using Quadrecep.UI;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using Directory = Godot.Directory;
+using File = Godot.File;
 using NoteNode = Quadrecep.GameMode.Navigate.NoteNode;
 using Play = Quadrecep.GameMode.Navigate.Play;
 
@@ -30,6 +33,7 @@ namespace Quadrecep
             Play.BaseSV = Config.NavigateScrollSpeed;
             LoadPackedScenes();
             LoadTextures();
+            GameMode.Navigate.GameModeInfo.Init();
         }
 
         private static void LoadPackedScenes()
@@ -73,17 +77,19 @@ namespace Quadrecep
         public static string RelativeToMap(string mapFile, string path = "", bool absolutePath = false)
         {
             var root = absolutePath ? OS.GetUserDataDir() : "user://";
-            return $"{root}//{Map.Map.MapDirectory}/{mapFile}/{path}";
+            return $"{root}//{GameMode.Navigate.Map.Map.MapDirectory}/{mapFile}/{path}";
         }
 
-        public static MapSetObject ReadMap(string mapFile)
+
+        public static T DeserializeFromFile<T>(string mapsetPath, string mapFile)
         {
             var deserializer = new DeserializerBuilder()
                 .WithNamingConvention(PascalCaseNamingConvention.Instance)
                 .Build();
             var read = new File();
-            read.Open(RelativeToMap(mapFile, "MapSet.qbm"), File.ModeFlags.Read);
-            return deserializer.Deserialize<MapSetObject>(read.GetAsText());
+            read.Open(RelativeToMap(mapsetPath, mapFile), File.ModeFlags.Read);
+            return deserializer.Deserialize<T>(read.GetAsText());
+            
         }
 
         public static void SaveMap(MapSetObject mapSet, string mapFile)
@@ -108,6 +114,13 @@ namespace Quadrecep
         private static void SwapModulate(CanvasItem texture1, CanvasItem texture2)
         {
             (texture1.Modulate, texture2.Modulate) = (texture2.Modulate, texture1.Modulate);
+        }
+
+        public static string GetFileExtension(string fileName)
+        {
+            var ext = new FileInfo(fileName).Extension;
+            GD.Print(ext);
+            return ext;
         }
     }
 }

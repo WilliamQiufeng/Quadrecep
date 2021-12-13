@@ -1,3 +1,4 @@
+using Quadrecep.GameMode.Navigate.Map;
 using Quadrecep.Map;
 
 namespace Quadrecep.Gameplay

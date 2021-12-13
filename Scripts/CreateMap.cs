@@ -1,18 +1,19 @@
 using Godot;
+using Quadrecep.GameMode.Navigate.Map;
 using Quadrecep.Map;
 
 namespace Quadrecep
 {
     public class CreateMap : Node
     {
-        private Map.Map _map;
+        private GameMode.Navigate.Map.Map _map;
         // Declare member variables here. Examples:
         // private int a = 2;
         // private string b = "text";
 
         public void _OnCreateMapPressed()
         {
-            _map = new Map.Map();
+            _map = new GameMode.Navigate.Map.Map();
             _map.CreateMap("Test");
             _map.MapSet.AudioPath = "テレキャスターヒーホーイlong ver  すりぃ feat鏡音レン.mp3";
             _map.MapSet.BackgroundPath = "Telecaster_B-Boy_highres.jpg";

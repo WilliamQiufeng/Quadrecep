@@ -1,6 +1,6 @@
 using Godot;
 
-namespace Quadrecep.Map
+namespace Quadrecep.GameMode.Navigate.Map
 {
     public class DirectionObject
     {

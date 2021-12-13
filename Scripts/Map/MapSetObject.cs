@@ -13,16 +13,8 @@ namespace Quadrecep.Map
         public string BackgroundPath { get; set; } = "background.jpg";
         public int LocalId { get; set; } = -1;
         public int OnlineId { get; set; } = -1;
-        public List<MapObject> Maps { get; set; } = new();
-
-        /// <summary>
-        ///     Invoke BuildPaths for all Maps
-        /// </summary>
-        public void BuildPaths()
-        {
-            foreach (var map in Maps) map.BuildPaths();
-        }
-
+        public List<string> Maps { get; set; } = new();
+        
         public override string ToString()
         {
             return
