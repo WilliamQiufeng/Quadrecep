@@ -10,9 +10,6 @@ namespace Quadrecep.Gameplay
         private static readonly float SqrtHalf = (float) Math.Sqrt(0.5f);
 
         public readonly float Factor;
-        public float SV => Speed / Factor;
-        public bool NotMoving => Direction == Vector2.Zero;
-        public bool IsInstant => StartTime == EndTime;
 
         private Vector2 _k, _p;
         public Vector2 Direction;
@@ -42,6 +39,10 @@ namespace Quadrecep.Gameplay
             CalculateConstants();
             EndPosition = this[EndTime];
         }
+
+        public float SV => Speed / Factor;
+        public bool NotMoving => Direction == Vector2.Zero;
+        public bool IsInstant => StartTime == EndTime;
 
         public Vector2 this[float time, bool round = false] => round ? GetPositionRounded(time) : GetPosition(time);
         public float this[Vector2 position] => GetTime(position);

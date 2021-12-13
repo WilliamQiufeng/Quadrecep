@@ -37,10 +37,8 @@ namespace Quadrecep.GameMode.Keys
         public void GenerateVisiblePaths(Vector2 regionPos1, Vector2 regionPos2)
         {
             _visiblePaths.Clear();
-            foreach (var visiblePath in Paths.Select(path => Path.CutVisiblePath(path, regionPos1, regionPos2)).Where(visiblePath => visiblePath != null))
-            {
-                _visiblePaths.Enqueue(visiblePath);
-            }
+            foreach (var visiblePath in Paths.Select(path => Path.CutVisiblePath(path, regionPos1, regionPos2))
+                .Where(visiblePath => visiblePath != null)) _visiblePaths.Enqueue(visiblePath);
         }
 
         public void CheckVisible()

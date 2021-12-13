@@ -32,14 +32,10 @@ namespace Quadrecep
             var intersectionY1 = m * regionPos1.x + b;
             var intersectionY2 = m * regionPos2.x + b;
             if (regionPos1.y <= intersectionY1 && intersectionY1 <= regionPos2.y)
-            {
                 res.Add(new Vector2(regionPos1.x, intersectionY1));
-            }
 
             if (regionPos1.y <= intersectionY2 && intersectionY2 <= regionPos2.y)
-            {
                 res.Add(new Vector2(regionPos2.x, intersectionY2));
-            }
 
             return res;
         }

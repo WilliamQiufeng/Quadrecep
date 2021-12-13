@@ -8,10 +8,10 @@ namespace Quadrecep.GameMode.Keys
     {
         public const float RealCoverHeight = 600;
 
+        public readonly List<NoteNode> NoteNodes = new();
+
         private Vector2 _receptorSize = new(256, 277);
         private Vector2 _receptorsSize;
-
-        public readonly List<NoteNode> NoteNodes = new();
         public Play Parent;
         public float[] ReceptorX;
         protected float PlayfieldNoteTopY => -RealCoverHeight * 4 + _receptorsSize.y;
