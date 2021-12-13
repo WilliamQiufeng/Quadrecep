@@ -31,7 +31,7 @@ namespace Quadrecep.GameMode.Keys
 
         public override void _Process(float delta)
         {
-            Position = _visiblePaths.Peek()[Parent.Parent.Time];
+            if (_visiblePaths.Count != 0) Position = _visiblePaths.Peek()[Parent.Parent.Time];
         }
 
         public void GenerateVisiblePaths(Vector2 regionPos1, Vector2 regionPos2)
@@ -103,7 +103,7 @@ namespace Quadrecep.GameMode.Keys
 
         private static string ImgPath(int keys, string name, int i)
         {
-            return $"{Global.TexturesPath}/Gamemodes/Keys/Keys{keys}/HitObjects/note-{name}-{i}.png";
+            return $"{Global.TexturesPath}/GameModes/Keys/Keys{keys}/HitObjects/note-{name}-{i}.png";
         }
 
         private static void FillTexturesUpTo(int keys, ref List<Texture[]> to)
