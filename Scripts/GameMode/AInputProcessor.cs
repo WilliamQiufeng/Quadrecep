@@ -1,20 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Quadrecep.GameMode.Navigate.Map;
 using Quadrecep.Gameplay;
-using InputEvent = Quadrecep.Gameplay.InputEvent;
 
 namespace Quadrecep.GameMode
 {
-    public abstract class AInputProcessor : Node
+    public abstract class AInputProcessor<T> : Node where T : IClearableInput
     {
         public readonly JudgementCounter Counter = new();
 
-        protected readonly List<Queue<InputEvent>> ExpectedInputs = new();
+        protected readonly List<Queue<InputEvent<T>>> ExpectedInputs = new();
 
-        public readonly List<Queue<InputEvent>> Inputs = new();
-        public APlay APlayParent;
+        public readonly List<Queue<InputEvent<T>>> Inputs = new();
+        public APlay<T> APlayParent;
 
         public JudgementSet JudgementSet = JudgementSet.Default;
         public int InputTracks => ExpectedInputs.Count;
@@ -32,8 +30,8 @@ namespace Quadrecep.GameMode
             Inputs.Clear();
             for (var i = 0; i < trackCount; i++)
             {
-                ExpectedInputs.Add(new Queue<InputEvent>());
-                Inputs.Add(new Queue<InputEvent>());
+                ExpectedInputs.Add(new Queue<InputEvent<T>>());
+                Inputs.Add(new Queue<InputEvent<T>>());
             }
         }
 
@@ -48,7 +46,7 @@ namespace Quadrecep.GameMode
         ///     This prevents the queue being blocked before input events are processed.
         /// </summary>
         /// <param name="input">Input</param>
-        private void RemoveMissed(InputEvent input)
+        private void RemoveMissed(InputEvent<T> input)
         {
             RemoveMissed(input.Key, input.Time);
         }
@@ -83,19 +81,19 @@ namespace Quadrecep.GameMode
             }
         }
 
-        private InputEvent DequeueLatestInputEvent(int key)
+        private InputEvent<T> DequeueLatestInputEvent(int key)
         {
             var latestInputEvent = ExpectedInputs[key].Dequeue();
-            if (latestInputEvent.Note?.BindNode != null) latestInputEvent.Note.BindNode.InputLeft[key] = 0;
+            latestInputEvent.Note?.ClearInput(key);
             return latestInputEvent;
         }
 
-        private InputEvent PeekLatestInputEvent(int key)
+        private InputEvent<T> PeekLatestInputEvent(int key)
         {
             return ExpectedInputs[key].Peek();
         }
 
-        protected virtual void PlaceJudgementFeedback(InputEvent input, Judgement judgement)
+        protected virtual void PlaceJudgementFeedback(InputEvent<T> input, Judgement judgement)
         {
         }
 
@@ -108,7 +106,7 @@ namespace Quadrecep.GameMode
         ///     Process a specific input
         /// </summary>
         /// <param name="input">input input</param>
-        private void ProcessInput(InputEvent input)
+        private void ProcessInput(InputEvent<T> input)
         {
             if (IsQueueEmpty(input.Key)) return; // Prevent Queue Length=0
             RemoveMissed(input);
@@ -129,7 +127,7 @@ namespace Quadrecep.GameMode
         ///     Feeds notes to the InputProcessor to generate _expectedInputs.
         /// </summary>
         /// <param name="notes">Notes to generate _expectedInputs</param>
-        public virtual void FeedNotes(List<NoteObject> notes)
+        public virtual void FeedNotes(List<T> notes)
         {
         }
     }

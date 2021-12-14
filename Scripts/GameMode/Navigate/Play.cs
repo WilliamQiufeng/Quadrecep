@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using Godot;
 using Quadrecep.GameMode.Navigate.Map;
-using Quadrecep.Map;
 using static Godot.Vector2;
 using Path = Quadrecep.Gameplay.Path;
 
 namespace Quadrecep.GameMode.Navigate
 {
-    public class Play : APlay
+    public class Play : APlay<NoteObject>
     {
         public static PackedScene Scene;
 
@@ -56,7 +55,6 @@ namespace Quadrecep.GameMode.Navigate
             MapSet.ReadMap();
             MapObject = MapSet.GetMap(MapFile);
             MapObject.BuildPaths();
-            ZInd = MapObject.Paths.Count;
         }
 
         protected override void FeedNotes()

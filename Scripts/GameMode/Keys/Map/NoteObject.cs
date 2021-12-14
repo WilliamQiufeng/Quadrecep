@@ -5,7 +5,7 @@ using YamlDotNet.Serialization;
 
 namespace Quadrecep.GameMode.Keys.Map
 {
-    public class NoteObject
+    public class NoteObject : IClearableInput
     {
         [YamlIgnore] public NoteNode BindNode;
 
@@ -33,6 +33,11 @@ namespace Quadrecep.GameMode.Keys.Map
         {
             return
                 $"[Note: {nameof(StartTime)}: {StartTime}, {nameof(Length)}: {Length}, {nameof(Lane)}: {Lane}]";
+        }
+
+        public void ClearInput(int key)
+        {
+            BindNode?.ClearInput();
         }
     }
 }

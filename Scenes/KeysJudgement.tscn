@@ -1,10 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Textures/Judgements/J0.png" type="Texture" id=1]
-[ext_resource path="res://Scripts/GameMode/Navigate/JudgementNode.cs" type="Script" id=2]
+[ext_resource path="res://Textures/GameModes/Keys/Judgements/judge-marv.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/GameMode/Keys/JudgementNode.cs" type="Script" id=2]
 
 [sub_resource type="Animation" id=1]
-resource_name = "Pop"
+resource_name = "KeysJudgePop"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 2, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
 length = 0.5
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:position")
@@ -39,6 +54,8 @@ script = ExtResource( 2 )
 texture = ExtResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Pop = SubResource( 1 )
+autoplay = "KeysJudgePop"
+anims/KeysJudgePop = SubResource( 1 )
+anims/Pop = SubResource( 2 )
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_OnAnimationFinished"]

@@ -7,5 +7,9 @@ namespace Quadrecep.GameMode.Keys.Map
         public MapSet(string mapFile = default) : base(mapFile)
         {
         }
+
+        public MapSet()
+        {
+        }
     }
 }

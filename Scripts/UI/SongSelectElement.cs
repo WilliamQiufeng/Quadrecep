@@ -41,7 +41,7 @@ namespace Quadrecep.UI
             GetNode<Label>("Author").Text = _mapSet.Creator;
             GetNode<Label>("Artist").Text = _mapSet.Artist;
             GetNode<AudioStreamPlayer>("Player").Stream =
-                APlay.LoadAudio(Global.RelativeToMap(MapFile, _mapSet.AudioPath));
+                APlay<IClearableInput>.LoadAudio(Global.RelativeToMap(MapFile, _mapSet.AudioPath));
             for (var i = 0; i < Count; i++)
             {
                 _maps.Add(MapHandler.GetMapHandler(MapFile, _mapSet.Maps[i]));

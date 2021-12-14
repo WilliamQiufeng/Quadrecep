@@ -4,7 +4,7 @@ using Quadrecep.Map;
 
 namespace Quadrecep.GameMode
 {
-    public abstract class APlay : Node2D
+    public abstract class APlay<T> : Node2D where T : IClearableInput
     {
         public bool Finished;
 
@@ -27,10 +27,10 @@ namespace Quadrecep.GameMode
         public AudioStreamPlayer AudioStreamPlayer => GetNode<AudioStreamPlayer>(AudioStreamPlayerPath);
         protected virtual string InputProcessorPath => "Player/InputProcessor";
 
-        public AInputProcessor InputProcessor => GetNode<AInputProcessor>(InputProcessorPath);
+        public AInputProcessor<T> InputProcessor => GetNode<AInputProcessor<T>>(InputProcessorPath);
 
         protected virtual string InputRetrieverPath => "InputRetriever";
-        public AInputRetriever InputRetriever => GetNode<AInputRetriever>(InputRetrieverPath);
+        public AInputRetriever<T> InputRetriever => GetNode<AInputRetriever<T>>(InputRetrieverPath);
 
         // Declare member variables here. Examples:
         // private int a = 2;

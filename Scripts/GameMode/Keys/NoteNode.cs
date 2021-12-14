@@ -109,5 +109,11 @@ namespace Quadrecep.GameMode.Keys
         {
             for (var i = to.Count; i <= keys; i++) to.Add(new Texture[i]);
         }
+
+        public void ClearInput()
+        {
+            _visiblePaths.Clear();
+            RemoveFromParent();
+        }
     }
 }

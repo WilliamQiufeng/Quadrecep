@@ -23,7 +23,7 @@ namespace Quadrecep.GameMode.Navigate
         private LogTransition _transition;
         public DirectionObject InputLeft;
         public NoteObject Note;
-        public APlay Parent;
+        public APlay<NoteObject> Parent;
 
         public override void _Ready()
         {

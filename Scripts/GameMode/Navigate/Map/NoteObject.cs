@@ -2,9 +2,13 @@ using YamlDotNet.Serialization;
 
 namespace Quadrecep.GameMode.Navigate.Map
 {
-    public class NoteObject
+    public class NoteObject : IClearableInput
     {
         [YamlIgnore] public NoteNode BindNode;
+        public void ClearInput(int key)
+        {
+            if (BindNode != null) BindNode.InputLeft[key] = 0;
+        }
 
         public NoteObject(float startTime = default, float length = default, int direction = default)
         {

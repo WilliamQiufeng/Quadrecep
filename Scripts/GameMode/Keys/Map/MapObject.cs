@@ -8,6 +8,7 @@ namespace Quadrecep.GameMode.Keys.Map
 {
     public class MapObject
     {
+        public int LaneCount = 4;
         public string DifficultyName { get; set; } = "None";
         public float StartTime { get; set; }
         public List<NoteObject> Notes { get; set; } = new();

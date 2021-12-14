@@ -42,14 +42,16 @@ namespace Quadrecep
             GameMode.Keys.Play.Scene = GD.Load<PackedScene>("res://Scenes/PlayKeys.tscn");
             SongSelectElement.Scene = GD.Load<PackedScene>("res://Scenes/SongSelectElement.tscn");
             NoteNode.Scene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
-            JudgementNode.Scene = GD.Load<PackedScene>("res://Scenes/Judgement.tscn");
+            GameMode.Navigate.JudgementNode.Scene = GD.Load<PackedScene>("res://Scenes/Judgement.tscn");
+            GameMode.Keys.JudgementNode.Scene = GD.Load<PackedScene>("res://Scenes/KeysJudgement.tscn");
             Receptor.Scene = GD.Load<PackedScene>("res://Scenes/Receptor.tscn");
             GameMode.Keys.NoteNode.Scene = GD.Load<PackedScene>("res://Scenes/KeysNote.tscn");
         }
 
         private static void LoadTextures()
         {
-            JudgementNode.LoadTextures();
+            GameMode.Navigate.JudgementNode.LoadTextures();
+            GameMode.Keys.JudgementNode.LoadTextures();
             GameMode.Keys.NoteNode.LoadTextures(4);
             GameMode.Keys.NoteNode.LoadTextures(7);
         }

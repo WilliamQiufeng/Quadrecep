@@ -3,7 +3,7 @@ using Quadrecep.GameMode.Keys.Map;
 
 namespace Quadrecep.GameMode.Keys
 {
-    public class Play : APlay
+    public class Play : APlay<NoteObject>
     {
         protected override string BackgroundNodePath => "Background";
         protected override string InputProcessorPath => "InputProcessor";
@@ -20,6 +20,7 @@ namespace Quadrecep.GameMode.Keys
             MapSet = new MapSet(MapSetFile);
             MapSet.ReadMap();
             MapObject = MapSet.GetMap(MapFile);
+            ((InputProcessor) InputProcessor).LaneCount = MapObject.LaneCount;
         }
 
         protected override void SetParents()

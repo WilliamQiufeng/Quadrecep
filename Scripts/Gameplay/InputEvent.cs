@@ -1,17 +1,14 @@
-using Quadrecep.GameMode.Navigate.Map;
-using Quadrecep.Map;
-
 namespace Quadrecep.Gameplay
 {
-    public struct InputEvent
+    public struct InputEvent<T>
     {
         public float Time;
         public int Key;
         public bool Release;
         public bool CountAsInput;
-        public readonly NoteObject Note;
+        public readonly T Note;
 
-        public InputEvent(float time, int key, bool release, bool countAsInput = true, NoteObject note = null)
+        public InputEvent(float time, int key, bool release, bool countAsInput = true, T note = default)
         {
             Time = time;
             Key = key;
@@ -25,7 +22,7 @@ namespace Quadrecep.Gameplay
         /// </summary>
         /// <param name="input">Another InputEvent to compare</param>
         /// <returns>if the event matches despite Time</returns>
-        public bool Matches(InputEvent input)
+        public bool Matches(InputEvent<T> input)
         {
             return Key == input.Key && Release == input.Release;
             /*&& CountAsInput == input.CountAsInput*/
