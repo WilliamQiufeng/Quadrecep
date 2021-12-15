@@ -124,8 +124,14 @@ namespace Quadrecep
         public static string GetFileExtension(string fileName)
         {
             var ext = new FileInfo(fileName).Extension;
-            GD.Print(ext);
+            // GD.Print(ext);
             return ext;
+        }
+
+        public static string GetFileName(string fileName)
+        {
+            var name = new FileInfo(fileName).Name;
+            return name.Substr(0, name.Length - GetFileExtension(fileName).Length);
         }
     }
 }

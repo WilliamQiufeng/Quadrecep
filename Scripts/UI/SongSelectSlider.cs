@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 using Quadrecep.GameMode.Navigate;
 using Quadrecep.Map;
@@ -68,6 +70,7 @@ namespace Quadrecep.UI
                     element.PlayScene = Play.Scene;
                     element.Index = ChildrenCount;
                     HBoxContainer.AddChild(element);
+                    Task.Run(() => element.LoadMap());
                 }
 
                 fileName = dir.GetNext();

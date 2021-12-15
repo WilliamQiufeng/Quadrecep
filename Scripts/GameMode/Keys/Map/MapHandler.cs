@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 
 namespace Quadrecep.GameMode.Keys.Map
@@ -30,7 +31,7 @@ namespace Quadrecep.GameMode.Keys.Map
         {
             var scene = Play.Scene.Instance<Play>();
             scene.MapSetFile = MapSetPath;
-            scene.MapFile = _mapFile;
+            scene.MapObject = _mapObject;
             return scene;
         }
     }

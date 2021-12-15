@@ -37,7 +37,7 @@ namespace Quadrecep.GameMode.Keys
                 // Places long note releases at primary directions.
                 // We assume that there wouldn't be any notes inside a long note.
                 // It's the mapper's responsibility not to do so.
-                ExpectedInputs[note.Lane].Enqueue(new InputEvent(note.EndTime, note.Lane, true, note.IsLongNote, note));
+                ExpectedInputs[note.Lane].Enqueue(new InputEvent(note.EndTime, note.Lane, true, note.IsLongNote, note.IsLongNote ? note : null));
             }
 
             Counter.ValidInputCount = ValidInputCount;

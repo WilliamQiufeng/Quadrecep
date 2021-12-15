@@ -44,8 +44,8 @@ namespace Quadrecep.GameMode
             SetParents();
             LoadMap();
             LoadBackground();
-            LoadAudio();
             AfterReady();
+            FeedNotes();
         }
 
         protected virtual void SetParents()
@@ -55,13 +55,13 @@ namespace Quadrecep.GameMode
 
         protected virtual void AfterReady()
         {
+            LoadAudio();
         }
 
         protected virtual void LoadMap()
         {
             GD.Print($"Loading {MapSetFile}");
             ReadMap();
-            FeedNotes();
         }
 
         protected virtual void ReadMap()

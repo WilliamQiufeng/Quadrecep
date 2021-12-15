@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 using Quadrecep.GameMode;
 using Quadrecep.Map;
@@ -18,6 +19,7 @@ namespace Quadrecep.UI
         public int Index;
         public string MapFile;
         public PackedScene PlayScene;
+        private bool _diffLoadDone;
 
         public int DifficultyIndex
         {
@@ -25,8 +27,8 @@ namespace Quadrecep.UI
             set
             {
                 _difficultyIndex = value;
-                GetNode<Label>("Difficulty").Text = _maps[DifficultyIndex].DifficultyName;
-                GetNode<Label>("Difficulty/GameMode").Text = _maps[DifficultyIndex].GameModeShortName;
+                GetNode<Label>("Difficulty").Text = _diffLoadDone ? _maps[DifficultyIndex].DifficultyName : Global.GetFileName(_mapSet.Maps[DifficultyIndex]);
+                GetNode<Label>("GameMode").Text = _diffLoadDone ? _maps[DifficultyIndex].GameModeShortName : "loading";
             }
         }
 
@@ -42,9 +44,15 @@ namespace Quadrecep.UI
             GetNode<Label>("Artist").Text = _mapSet.Artist;
             GetNode<AudioStreamPlayer>("Player").Stream =
                 APlay<IClearableInput>.LoadAudio(Global.RelativeToMap(MapFile, _mapSet.AudioPath));
-            for (var i = 0; i < Count; i++) _maps.Add(MapHandler.GetMapHandler(MapFile, _mapSet.Maps[i]));
             DifficultyIndex = 0;
             // GrabFocus();
+        }
+
+        public void LoadMap()
+        {
+            for (var i = 0; i < Count; i++) _maps.Add(MapHandler.GetMapHandler(MapFile, _mapSet.Maps[i]));
+            _diffLoadDone = true;
+            DifficultyIndex = 0;
         }
 
         public override void _Process(float delta)
@@ -64,6 +72,11 @@ namespace Quadrecep.UI
 
         private void PlayMap()
         {
+            if (!_diffLoadDone)
+            {
+                GD.Print("Difficulty load not done yet!");
+                return;
+            }
             GetNode<AudioStreamPlayer>("Player").Stop();
             GetTree().Root.AddChild(_maps[DifficultyIndex].InitScene());
             GetParent().GetParent().GetParent().GetParent().QueueFree();
