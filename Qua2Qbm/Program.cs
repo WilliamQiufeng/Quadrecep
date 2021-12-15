@@ -141,7 +141,7 @@ namespace Qua2Qbm
         private static List<Quadrecep.GameMode.Keys.Map.NoteObject> ConvertNotesKeys(List<HitObjectInfo> hitObjects)
         {
             return hitObjects.Select(x =>
-                new Quadrecep.GameMode.Keys.Map.NoteObject(x.StartTime, x.EndTime, x.Lane - 1)).ToList();
+                new Quadrecep.GameMode.Keys.Map.NoteObject(x.StartTime, x.EndTime == 0 ? 0 : x.EndTime - x.StartTime, x.Lane - 1)).ToList();
         }
 
         private static List<NoteObject> ConvertNotes(List<HitObjectInfo> hitObjects)
