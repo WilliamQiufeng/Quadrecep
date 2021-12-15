@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Godot;
 using Quadrecep.GameMode;
 using Quadrecep.Map;
@@ -13,13 +12,13 @@ namespace Quadrecep.UI
         private static readonly Color FocusedColor = new(1, 1, 1, 0);
 
         public static PackedScene Scene;
-        private int _difficultyIndex;
         private readonly List<MapHandler> _maps = new();
+        private int _difficultyIndex;
+        private bool _diffLoadDone;
         private MapSetObject _mapSet;
         public int Index;
         public string MapFile;
         public PackedScene PlayScene;
-        private bool _diffLoadDone;
 
         public int DifficultyIndex
         {
@@ -27,7 +26,9 @@ namespace Quadrecep.UI
             set
             {
                 _difficultyIndex = value;
-                GetNode<Label>("Difficulty").Text = _diffLoadDone ? _maps[DifficultyIndex].DifficultyName : Global.GetFileName(_mapSet.Maps[DifficultyIndex]);
+                GetNode<Label>("Difficulty").Text = _diffLoadDone
+                    ? _maps[DifficultyIndex].DifficultyName
+                    : Global.GetFileName(_mapSet.Maps[DifficultyIndex]);
                 GetNode<Label>("GameMode").Text = _diffLoadDone ? _maps[DifficultyIndex].GameModeShortName : "loading";
             }
         }
@@ -77,6 +78,7 @@ namespace Quadrecep.UI
                 GD.Print("Difficulty load not done yet!");
                 return;
             }
+
             GetNode<AudioStreamPlayer>("Player").Stop();
             GetTree().Root.AddChild(_maps[DifficultyIndex].InitScene());
             GetParent().GetParent().GetParent().GetParent().QueueFree();
