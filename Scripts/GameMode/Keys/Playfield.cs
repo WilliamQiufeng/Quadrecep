@@ -109,6 +109,7 @@ namespace Quadrecep.GameMode.Keys
 
         public void GenerateNoteNodesForLane(List<NoteObject> notes, List<ScrollVelocity> svs, int lane)
         {
+            var pathCutoff = Config.NoteGenerationPathCutoff;
             var laneNotes =
                 new Queue<NoteObject>(notes.Where(x => x.Lane == lane));
             var laneSVs = svs.Where(x => x.Key == -1 || x.Key == lane).Prepend(new ScrollVelocity(0, 1)).ToList();
@@ -158,6 +159,7 @@ namespace Quadrecep.GameMode.Keys
                         laneSVs[svIndex + 1].Time, new Vector2(0, lastSVFactor > 0 ? 1 : -1),
                         currentPosition, null));
                     currentPosition = paths[paths.Count - 1].EndPosition;
+                    while (paths.Count > pathCutoff && pathCutoff != -1) paths.RemoveAt(0);
                 }
 
                 lastSVFactor = laneSVs[svIndex].Factor;

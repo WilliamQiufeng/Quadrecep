@@ -13,12 +13,17 @@ namespace Quadrecep
 
         public static float NavigateScrollSpeed
         {
-            get => GetOrSet(GameplaySection, nameof(NavigateScrollSpeed), 500f);
+            get => GetOrSet(ScrollSpeedSection, nameof(NavigateScrollSpeed), 500f);
             set
             {
                 Set(ScrollSpeedSection, nameof(NavigateScrollSpeed), value);
                 Play.BaseSV = value;
             }
+        }
+        public static int NoteGenerationPathCutoff
+        {
+            get => GetOrSet(GameplaySection, nameof(NoteGenerationPathCutoff), 200);
+            set => Set(GameplaySection, nameof(NoteGenerationPathCutoff), value);
         }
 
         public static bool VsyncEnabled
