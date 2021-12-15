@@ -6,7 +6,7 @@ namespace Quadrecep.GameMode.Keys
     public class Receptor : Node2D
     {
         private static readonly string FallbackTexture =
-            $"{Global.TexturesPath}/Gamemodes/Keys/Receptors/receptor-up-1.png";
+            $"{Global.TexturesPath}/GameModes/Keys/Keys4/Receptors/receptor-up-1.png";
 
         public static PackedScene Scene;
         private Texture _upTexture, _downTexture;
@@ -28,10 +28,10 @@ namespace Quadrecep.GameMode.Keys
         public void LoadTexture()
         {
             _upTexture = Global.LoadImage(
-                $"res://Textures/Gamemodes/Keys/Keys{Parent.Parent.InputRetriever.Keys}/Receptors/receptor-up-{KeyIndex + 1}.png",
+                $"res://Textures/GameModes/Keys/Keys{Parent.Parent.InputRetriever.Keys}/Receptors/receptor-up-{KeyIndex + 1}.png",
                 FallbackTexture);
             _downTexture = Global.LoadImage(
-                $"res://Textures/Gamemodes/Keys/Keys{Parent.Parent.InputRetriever.Keys}/Receptors/receptor-down-{KeyIndex + 1}.png",
+                $"res://Textures/GameModes/Keys/Keys{Parent.Parent.InputRetriever.Keys}/Receptors/receptor-down-{KeyIndex + 1}.png",
                 FallbackTexture);
         }
     }

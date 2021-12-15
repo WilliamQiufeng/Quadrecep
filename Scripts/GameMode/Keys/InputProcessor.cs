@@ -29,7 +29,7 @@ namespace Quadrecep.GameMode.Keys
         public override void FeedNotes(List<NoteObject> notes)
         {
             GD.Print("Feeding Notes");
-            foreach (var note in notes)
+            foreach (var note in notes.Where(note => note.Lane < LaneCount))
             {
                 // Place note press event
                 // Don't clear InputLeft when the note is not a long note and is not primary direction

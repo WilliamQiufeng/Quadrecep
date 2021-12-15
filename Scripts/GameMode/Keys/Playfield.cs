@@ -16,8 +16,8 @@ namespace Quadrecep.GameMode.Keys
 
         private Vector2 _receptorSize = new(256, 277);
         private Vector2 _receptorsSize;
-        private Vector2 VisibleRegionPos1 => new(-100, PlayfieldNoteTopY - 100);
-        private Vector2 VisibleRegionPos2 => new(1124, 100);
+        private Vector2 VisibleRegionPos1 => new(-1579, PlayfieldNoteTopY - 100);
+        private Vector2 VisibleRegionPos2 => new(2600.5f, 100);
         public Play Parent;
         public float[] ReceptorX;
         protected float PlayfieldNoteTopY => -RealCoverHeight * 4 + _receptorsSize.y;
@@ -56,6 +56,7 @@ namespace Quadrecep.GameMode.Keys
                     0.25f);
             Receptors.Position = new Vector2(Cover.Texture.GetWidth() * Cover.Scale.x / -2f,
                 RealCoverHeight / 2f - _receptorSize.y * Receptors.Scale.y);
+            NoteNode.LoadTextures(Parent.InputRetriever.Keys);
         }
 
 
@@ -115,7 +116,7 @@ namespace Quadrecep.GameMode.Keys
                     }
 
                     lastSVFactor = laneSVs[svIndex].Factor;
-                    GD.Print($"Lane {i} {svIndex}th SV");
+                    // GD.Print($"Lane {i} {svIndex}th SV");
                 }
 
                 GD.Print($"Lane {i} done");
