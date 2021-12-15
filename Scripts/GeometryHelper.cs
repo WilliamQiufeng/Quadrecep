@@ -42,7 +42,7 @@ namespace Quadrecep
 
         private static Vector2 Exchange(this Vector2 vec)
         {
-            return new(vec.y, vec.x);
+            return new Vector2(vec.y, vec.x);
         }
     }
 }

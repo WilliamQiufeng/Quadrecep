@@ -13,13 +13,15 @@ namespace Quadrecep.GameMode.Keys
     public class Playfield : CanvasLayer
     {
         public const float RealCoverHeight = 600;
-
-        public List<NoteNode> NoteNodes = new();
         private readonly ConcurrentQueue<NoteNode> _tempNoteNodes = new();
         private readonly ConcurrentQueue<NoteNode> _tempNoteNodesOut = new();
 
         private Vector2 _receptorSize = new(256, 277);
         private Vector2 _receptorsSize;
+
+        public bool GenerationDone;
+
+        public List<NoteNode> NoteNodes = new();
         public Play Parent;
         public float[] ReceptorX;
         private Vector2 VisibleRegionPos1 => new(-1579, PlayfieldNoteTopY - 100);
@@ -32,8 +34,6 @@ namespace Quadrecep.GameMode.Keys
         private Sprite Receptors => GetNode<Sprite>("Main/Receptors");
 
         public Node2D Notes => GetNode<Node2D>("Main/Receptors/Notes");
-
-        public bool GenerationDone;
 
         public override void _Process(float delta)
         {
@@ -85,6 +85,7 @@ namespace Quadrecep.GameMode.Keys
             NoteNodes.Sort((x, y) => x.Note.StartTime.CompareTo(y.Note.StartTime));
             GenerationDone = true;
         }
+
         public async Task GenerateNoteNodesAsync(List<NoteObject> notes, List<ScrollVelocity> svs)
         {
             for (var i = 0; i < notes.Count; i++)
@@ -168,7 +169,7 @@ namespace Quadrecep.GameMode.Keys
 
         public void PullNoteNode()
         {
-            int count = 0;
+            var count = 0;
             while (!_tempNoteNodesOut.IsEmpty)
             {
                 if (!_tempNoteNodesOut.TryDequeue(out var node)) continue;
