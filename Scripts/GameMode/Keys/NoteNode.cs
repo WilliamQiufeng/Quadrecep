@@ -14,7 +14,7 @@ namespace Quadrecep.GameMode.Keys
         private static List<Texture[]> _holdHitObjectTextures = new() {null};
 
         public static PackedScene Scene;
-        private readonly Queue<Path> _visiblePaths = new();
+        private readonly List<Path> _visiblePaths = new();
 
         private bool _hasParent;
         public NoteObject Note;
@@ -24,37 +24,61 @@ namespace Quadrecep.GameMode.Keys
 
         public float XPositionBase => (Parent.ReceptorX[Key] + Parent.ReceptorX[Key + 1]) / 2;
         public bool Finished => _visiblePaths.Count == 0;
+        private Sprite HoldEnd => GetNode<Sprite>("HoldEnd");
+        private Sprite HoldBody => GetNode<Sprite>("HoldBody");
 
         public override void _Ready()
         {
             Texture = _hitObjectTextures[Parent.Parent.InputRetriever.Keys][Key];
             Offset = new Vector2(-Texture.GetWidth() / 2f, -Texture.GetHeight());
-            // Visible = false;
+            if (Note.IsLongNote)
+            {
+                HoldEnd.Texture = _holdEndTextures[Parent.Parent.InputRetriever.Keys][Key];
+                HoldEnd.Offset = new Vector2(-HoldEnd.Texture.GetWidth() / 2f, -HoldEnd.Texture.GetHeight());
+                var holdEndPosition = When(Note.StartTime) - When(Note.EndTime);
+                HoldEnd.Position = holdEndPosition;
+                HoldEnd.Visible = true;
+                HoldBody.Texture = _holdBodyTextures[Parent.Parent.InputRetriever.Keys][Key];
+                HoldBody.Offset = new Vector2(-HoldBody.Texture.GetWidth() / 2f, -HoldBody.Texture.GetHeight());
+                HoldBody.Visible = true;
+                HoldBody.Scale = new(1, Mathf.Abs(holdEndPosition.y) / HoldBody.Texture.GetHeight());
+            }
         }
 
         public override void _Process(float delta)
         {
-            if (_visiblePaths.Count != 0) Position = _visiblePaths.Peek()[Parent.Parent.Time];
+            UpdatePosition();
+        }
+
+        private void UpdatePosition()
+        {
+            if (_hasParent && _visiblePaths.Count != 0) Position = _visiblePaths[0][Parent.Parent.Time] + new Vector2(0, Play.GlobalVisualOffset);
         }
 
         public void GenerateVisiblePaths(Vector2 regionPos1, Vector2 regionPos2)
         {
             _visiblePaths.Clear();
             foreach (var visiblePath in Paths.Select(path => Path.CutVisiblePath(path, regionPos1, regionPos2, false))
-                .Where(visiblePath => visiblePath != null)) _visiblePaths.Enqueue(visiblePath);
+                .Where(visiblePath => visiblePath != null)) _visiblePaths.Add(visiblePath);
+        }
+
+        public Vector2 When(float time)
+        {
+            return Paths.FirstOrDefault(path => path.WithinTime(time))?.GetPosition(time) ?? Vector2.Zero;
         }
 
         public void CheckVisible()
         {
             if (RemoveIfFinished()) return;
 
-            while (Parent.Parent.Time > _visiblePaths.Peek().EndTime)
-            {
-                _visiblePaths.Dequeue();
+            while (Parent.Parent.Time > _visiblePaths.First().EndTime) {
+
+                if (Note.IsLongNote);
+                _visiblePaths.RemoveAt(0);
                 if (RemoveIfFinished()) return;
             }
 
-            if (Parent.Parent.Time < _visiblePaths.Peek().StartTime)
+            if (Parent.Parent.Time < _visiblePaths.First().StartTime)
             {
                 RemoveFromParent();
                 return;
@@ -67,6 +91,7 @@ namespace Quadrecep.GameMode.Keys
         {
             if (!Finished) return false;
             RemoveFromParent();
+            if (Note.IsLongNote) ;
             return true;
         }
 
@@ -75,6 +100,8 @@ namespace Quadrecep.GameMode.Keys
             if (_hasParent) return;
             _hasParent = true;
             Parent.Notes.AddChild(this);
+            Visible = true;
+            UpdatePosition();
         }
 
         private void RemoveFromParent()
@@ -82,6 +109,7 @@ namespace Quadrecep.GameMode.Keys
             if (!_hasParent) return;
             Parent.Notes.RemoveChild(this);
             _hasParent = false;
+            Visible = false;
         }
 
         public static void LoadTextures(int keys)

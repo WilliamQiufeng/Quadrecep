@@ -2,13 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Quadrecep.GameMode.Keys.Map;
+using Quadrecep.Gameplay;
 using InputEvent = Quadrecep.Gameplay.InputEvent<Quadrecep.GameMode.Keys.Map.NoteObject>;
 
 namespace Quadrecep.GameMode.Keys
 {
     public class InputProcessor : AInputProcessor<NoteObject>
     {
-        private readonly Queue<JudgementNode> _judgementNodePool = new();
+        private JudgementNode JudgementNode =>
+            ((Play) APlayParent).Playfield.GetNode<JudgementNode>("Main/Judgement");
         private int _laneCount = 4;
 
         public int LaneCount
@@ -23,6 +25,13 @@ namespace Quadrecep.GameMode.Keys
 
         public override void _Ready()
         {
+        }
+
+        protected override void PlaceJudgementFeedback(InputEvent input, Judgement judgement)
+        {
+            if (!input.CountAsInput) return;
+            JudgementNode.SetJudgement(judgement);
+            JudgementNode.Animate();
         }
 
         public override void FeedNotes(List<NoteObject> notes)
@@ -43,14 +52,11 @@ namespace Quadrecep.GameMode.Keys
 
             Counter.ValidInputCount = ValidInputCount;
             GD.Print("Done Feeding Notes");
-            // InitJudgementNodePool();
+            InitJudgementNodePool();
         }
 
         public virtual void InitJudgementNodePool()
         {
-            _judgementNodePool.Clear();
-            for (var i = 0; i < ExpectedInputs.Sum(x => x.Count); i++)
-                _judgementNodePool.Enqueue(JudgementNode.Scene.Instance<JudgementNode>());
         }
     }
 }

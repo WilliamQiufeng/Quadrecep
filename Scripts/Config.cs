@@ -25,6 +25,23 @@ namespace Quadrecep
             get => GetOrSet(GameplaySection, nameof(NoteGenerationPathCutoff), 200);
             set => Set(GameplaySection, nameof(NoteGenerationPathCutoff), value);
         }
+        public static int KeysAudioOffset
+        {
+            get => GetOrSet(GameplaySection, nameof(KeysAudioOffset), 0);
+            set
+            {
+                Set(GameplaySection, nameof(KeysAudioOffset), value);
+                GameMode.Keys.Play.GlobalOffset = value;
+            }
+        }public static int KeysVisualOffset
+        {
+            get => GetOrSet(GameplaySection, nameof(KeysVisualOffset), 0);
+            set
+            {
+                Set(GameplaySection, nameof(KeysVisualOffset), value);
+                GameMode.Keys.Play.GlobalVisualOffset = value;
+            }
+        }
 
         public static bool VsyncEnabled
         {

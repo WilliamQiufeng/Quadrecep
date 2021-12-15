@@ -15,7 +15,7 @@ namespace Quadrecep.GameMode
 
         protected int ZInd;
 
-        public float DynamicTime => (float) (AudioStreamPlayer.GetPlaybackPosition() +
+        public virtual float DynamicTime => (float) (AudioStreamPlayer.GetPlaybackPosition() +
             AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000;
 
         protected virtual string BackgroundNodePath => "ParallaxBackground/ParallaxLayer/Background";

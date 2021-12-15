@@ -7,6 +7,7 @@ namespace Quadrecep.GameMode.Keys
     {
         public static PackedScene Scene;
         public float BaseSV = 5000;
+        public static float GlobalOffset, GlobalVisualOffset;
         public MapObject MapObject;
         public MapSet MapSet;
         protected override string BackgroundNodePath => "Background";
@@ -17,6 +18,8 @@ namespace Quadrecep.GameMode.Keys
 
         protected string PlayfieldPath => "Playfield";
         public Playfield Playfield => GetNode<Playfield>(PlayfieldPath);
+
+        public override float DynamicTime => base.DynamicTime + GlobalOffset;
 
         protected override void ReadMap()
         {
@@ -41,6 +44,9 @@ namespace Quadrecep.GameMode.Keys
 
         protected override void AfterReady()
         {
+            GlobalOffset = Config.KeysAudioOffset;
+            GlobalVisualOffset = Config.KeysVisualOffset;
+            GD.Print($"Audio Offset: {GlobalOffset} ms");
             GD.Print("Initializing Field");
             Playfield.InitField();
             GD.Print("Generating Nodes");

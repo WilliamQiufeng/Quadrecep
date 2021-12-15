@@ -8,6 +8,7 @@ namespace Quadrecep.GameMode.Keys
     {
         public static PackedScene Scene;
         private static Texture[] _textures;
+        private AnimationPlayer AnimationPlayer => GetNode<AnimationPlayer>("AnimationPlayer");
 
         private static readonly string[] _textureNames =
         {
@@ -26,6 +27,12 @@ namespace Quadrecep.GameMode.Keys
         {
         }
 
+        public void Animate()
+        {
+            AnimationPlayer.Stop();
+            AnimationPlayer.Play("KeysJudgePop");
+        }
+
         public void SetJudgement(Judgement judgement)
         {
             GetNode<Sprite>("Sprite").Texture = _textures[(int) judgement];
@@ -33,7 +40,7 @@ namespace Quadrecep.GameMode.Keys
 
         public void _OnAnimationFinished(string n)
         {
-            QueueFree();
+            // QueueFree();
         }
     }
 }

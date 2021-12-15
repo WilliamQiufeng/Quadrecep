@@ -1,10 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Textures/GameModes/Keys/Keys4/HitObjects/note-hitobject-1.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/GameMode/Keys/NoteNode.cs" type="Script" id=2]
+[ext_resource path="res://Textures/GameModes/Keys/Keys4/HitObjects/note-holdend-1.png" type="Texture" id=3]
+[ext_resource path="res://Textures/GameModes/Keys/Keys4/HitObjects/note-holdbody-1.png" type="Texture" id=4]
 
 [node name="Note" type="Sprite"]
+z_index = 1
 texture = ExtResource( 1 )
 centered = false
-offset = Vector2( -128, -100 )
+offset = Vector2( -128, -90 )
 script = ExtResource( 2 )
+
+[node name="HoldBody" type="Sprite" parent="."]
+z_as_relative = false
+texture = ExtResource( 4 )
+centered = false
+offset = Vector2( -128, -90 )
+
+[node name="HoldEnd" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+centered = false
+offset = Vector2( -128, -90 )

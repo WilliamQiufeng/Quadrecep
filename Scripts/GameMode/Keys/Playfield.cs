@@ -124,7 +124,7 @@ namespace Quadrecep.GameMode.Keys
                 // If there are SV changes between [lastNoteStartTime...currentNoteStartTime), 
                 // break the path into sections
                 while (laneNotes.Count != 0 && (svIndex == laneSVs.Count - 1 ||
-                                                svIndex < laneSVs.Count - 1 && laneNotes.Peek().StartTime <
+                                                svIndex < laneSVs.Count - 1 && laneNotes.Peek().EndTime <
                                                 laneSVs[svIndex + 1].Time))
                 {
                     if (!_tempNoteNodes.TryDequeue(out var node)) break;
@@ -142,10 +142,10 @@ namespace Quadrecep.GameMode.Keys
                         node.Paths = paths.Append(path).ToList();
                     }
 
-                    node.Paths = node.Paths.Select(x => x + baseOffset + -node.Paths.Last().EndPosition)
+                    node.Paths = node.Paths.Select(x => x + baseOffset + -node.When(note.StartTime))
                         .ToList();
 
-                    node.GenerateVisiblePaths(VisibleRegionPos1, VisibleRegionPos2);
+                    node.GenerateVisiblePaths(VisibleRegionPos1, VisibleRegionPos2 + node.Paths.Last().EndPosition);
                     node.Parent = this;
                     node.Note = note;
                     _tempNoteNodesOut.Enqueue(node);

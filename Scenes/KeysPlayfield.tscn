@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
+[ext_resource path="res://Scenes/KeysJudgement.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Textures/GameModes/Keys/Stage/stage-left-border.png" type="Texture" id=4]
 [ext_resource path="res://Textures/GameModes/Keys/Stage/stage-right-border.png" type="Texture" id=6]
 [ext_resource path="res://Textures/GameModes/Keys/Stage/stage-bgmask.png" type="Texture" id=7]
@@ -31,3 +32,5 @@ position = Vector2( -133.333, 231 )
 scale = Vector2( 0.261, 0.25 )
 
 [node name="Notes" type="Node2D" parent="Main/Receptors"]
+
+[node name="Judgement" parent="Main" instance=ExtResource( 1 )]
