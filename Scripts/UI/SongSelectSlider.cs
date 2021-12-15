@@ -1,5 +1,6 @@
 using Godot;
 using Quadrecep.GameMode.Navigate;
+using Quadrecep.Map;
 
 namespace Quadrecep.UI
 {
@@ -32,7 +33,7 @@ namespace Quadrecep.UI
 
         public override void _Ready()
         {
-            Global.MapContainingDirectory.Open($"user://{Map.AMapSet<object>.MapDirectory}");
+            Global.MapContainingDirectory.Open($"user://{AMapSet<object>.MapDirectory}");
             LoadElements(Global.MapContainingDirectory);
             RefreshFocusChild();
         }

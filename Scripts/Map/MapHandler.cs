@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using Godot;
 
 namespace Quadrecep.Map
@@ -9,6 +8,17 @@ namespace Quadrecep.Map
     {
         public static readonly Dictionary<string, string> ExtensionGameModeMap = new();
         public static readonly Dictionary<string, Func<string, MapHandler>> Handlers = new();
+
+        public string MapSetPath;
+
+        protected MapHandler(string mapSetPath)
+        {
+            MapSetPath = mapSetPath;
+        }
+
+        public virtual PackedScene Scene => throw new NotImplementedException();
+        public virtual string DifficultyName => throw new NotImplementedException();
+        public virtual string GameModeShortName => throw new NotImplementedException();
 
         public static MapHandler GetMapHandler(string mapSetPath, string fileName, string gameMode)
         {
@@ -22,7 +32,10 @@ namespace Quadrecep.Map
             return GetMapHandler(mapSetPath, fileName, ExtensionGameModeMap[Global.GetFileExtension(fileName)]);
         }
 
-        public static MapHandler GetNewMapHandler(string mapSetPath, string gameMode) => Handlers[gameMode](mapSetPath);
+        public static MapHandler GetNewMapHandler(string mapSetPath, string gameMode)
+        {
+            return Handlers[gameMode](mapSetPath);
+        }
 
         public static void RegisterHandler(string gameMode, string extension, Func<string, MapHandler> initializer)
         {
@@ -30,19 +43,19 @@ namespace Quadrecep.Map
             Handlers.Add(gameMode, initializer);
         }
 
-        public string MapSetPath;
-
-        protected MapHandler(string mapSetPath)
+        public virtual T GetMap<T>() where T : class
         {
-            MapSetPath = mapSetPath;
+            throw new NotImplementedException();
         }
-        public virtual PackedScene Scene => throw new NotImplementedException();
-        public virtual string DifficultyName => throw new NotImplementedException();
-        public virtual string GameModeShortName => throw new NotImplementedException();
 
-        public virtual T GetMap<T>() where T : class => throw new NotImplementedException();
-        public virtual void ReadMap(string file) => throw new NotImplementedException();
+        public virtual void ReadMap(string file)
+        {
+            throw new NotImplementedException();
+        }
 
-        public virtual Node InitScene() => throw new NotImplementedException();
+        public virtual Node InitScene()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

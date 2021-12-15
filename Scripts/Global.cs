@@ -1,13 +1,15 @@
 using System.IO;
 using Godot;
 using Quadrecep.GameMode.Keys;
-using Quadrecep.GameMode.Navigate;
+using Quadrecep.GameMode.Navigate.Map;
 using Quadrecep.Map;
 using Quadrecep.UI;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using Directory = Godot.Directory;
 using File = Godot.File;
+using GameModeInfo = Quadrecep.GameMode.Navigate.GameModeInfo;
+using JudgementNode = Quadrecep.GameMode.Navigate.JudgementNode;
 using NoteNode = Quadrecep.GameMode.Navigate.NoteNode;
 using Play = Quadrecep.GameMode.Navigate.Play;
 
@@ -33,7 +35,7 @@ namespace Quadrecep
             Play.BaseSV = Config.NavigateScrollSpeed;
             LoadPackedScenes();
             LoadTextures();
-            GameMode.Navigate.GameModeInfo.Init();
+            GameModeInfo.Init();
             GameMode.Keys.GameModeInfo.Init();
         }
 
@@ -43,7 +45,7 @@ namespace Quadrecep
             GameMode.Keys.Play.Scene = GD.Load<PackedScene>("res://Scenes/PlayKeys.tscn");
             SongSelectElement.Scene = GD.Load<PackedScene>("res://Scenes/SongSelectElement.tscn");
             NoteNode.Scene = GD.Load<PackedScene>("res://Scenes/Note.tscn");
-            GameMode.Navigate.JudgementNode.Scene = GD.Load<PackedScene>("res://Scenes/Judgement.tscn");
+            JudgementNode.Scene = GD.Load<PackedScene>("res://Scenes/Judgement.tscn");
             GameMode.Keys.JudgementNode.Scene = GD.Load<PackedScene>("res://Scenes/KeysJudgement.tscn");
             Receptor.Scene = GD.Load<PackedScene>("res://Scenes/Receptor.tscn");
             GameMode.Keys.NoteNode.Scene = GD.Load<PackedScene>("res://Scenes/KeysNote.tscn");
@@ -51,7 +53,7 @@ namespace Quadrecep
 
         private static void LoadTextures()
         {
-            GameMode.Navigate.JudgementNode.LoadTextures();
+            JudgementNode.LoadTextures();
             GameMode.Keys.JudgementNode.LoadTextures();
             GameMode.Keys.NoteNode.LoadTextures(4);
             GameMode.Keys.NoteNode.LoadTextures(7);
@@ -81,7 +83,7 @@ namespace Quadrecep
         public static string RelativeToMap(string mapFile, string path = "", bool absolutePath = false)
         {
             var root = absolutePath ? OS.GetUserDataDir() : "user://";
-            return $"{root}//{GameMode.Navigate.Map.MapSet.MapDirectory}/{mapFile}/{path}";
+            return $"{root}//{MapSet.MapDirectory}/{mapFile}/{path}";
         }
 
 
@@ -93,7 +95,6 @@ namespace Quadrecep
             var read = new File();
             read.Open(RelativeToMap(mapsetPath, mapFile), File.ModeFlags.Read);
             return deserializer.Deserialize<T>(read.GetAsText());
-            
         }
 
         public static void SaveMap(MapSetObject mapSet, string mapFile)

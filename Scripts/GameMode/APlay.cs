@@ -1,6 +1,5 @@
 using System;
 using Godot;
-using Quadrecep.Map;
 
 namespace Quadrecep.GameMode
 {
@@ -8,9 +7,9 @@ namespace Quadrecep.GameMode
     {
         public bool Finished;
 
-        [Export] public string MapSetFile;
-
         [Export] public string MapFile;
+
+        [Export] public string MapSetFile;
 
         public float Time;
 
@@ -31,6 +30,9 @@ namespace Quadrecep.GameMode
 
         protected virtual string InputRetrieverPath => "InputRetriever";
         public AInputRetriever<T> InputRetriever => GetNode<AInputRetriever<T>>(InputRetrieverPath);
+
+        protected virtual string BackgroundPath => "";
+        protected virtual string AudioPath => "";
 
         // Declare member variables here. Examples:
         // private int a = 2;
@@ -61,8 +63,14 @@ namespace Quadrecep.GameMode
             ReadMap();
             FeedNotes();
         }
-        protected virtual void ReadMap() {}
-        protected virtual void FeedNotes() {}
+
+        protected virtual void ReadMap()
+        {
+        }
+
+        protected virtual void FeedNotes()
+        {
+        }
 
         public override void _Process(float delta)
         {
@@ -128,8 +136,5 @@ namespace Quadrecep.GameMode
             Background.Texture = Global.LoadImage(imgPath);
             Background.Visible = true;
         }
-
-        protected virtual string BackgroundPath => "";
-        protected virtual string AudioPath => "";
     }
 }

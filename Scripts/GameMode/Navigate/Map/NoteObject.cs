@@ -5,10 +5,6 @@ namespace Quadrecep.GameMode.Navigate.Map
     public class NoteObject : IClearableInput
     {
         [YamlIgnore] public NoteNode BindNode;
-        public void ClearInput(int key)
-        {
-            if (BindNode != null) BindNode.InputLeft[key] = 0;
-        }
 
         public NoteObject(float startTime = default, float length = default, int direction = default)
         {
@@ -27,6 +23,11 @@ namespace Quadrecep.GameMode.Navigate.Map
 
         [YamlIgnore] public float EndTime => StartTime + Length;
         [YamlIgnore] public bool IsLongNote => Length > 0;
+
+        public void ClearInput(int key)
+        {
+            if (BindNode != null) BindNode.InputLeft[key] = 0;
+        }
 
         public override string ToString()
         {

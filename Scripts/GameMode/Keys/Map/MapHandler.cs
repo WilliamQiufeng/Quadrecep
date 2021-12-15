@@ -4,13 +4,14 @@ namespace Quadrecep.GameMode.Keys.Map
 {
     public class MapHandler : Quadrecep.Map.MapHandler
     {
+        private string _mapFile;
+        private MapObject _mapObject;
+
         public MapHandler(string mapSetPath) : base(mapSetPath)
         {
         }
 
         public override PackedScene Scene => Play.Scene;
-        private MapObject _mapObject;
-        private string _mapFile;
         public override string DifficultyName => _mapObject.DifficultyName;
         public override string GameModeShortName => GameModeInfo.ShortName;
 

@@ -5,12 +5,12 @@ namespace Quadrecep.GameMode.Keys
 {
     public class Play : APlay<NoteObject>
     {
-        protected override string BackgroundNodePath => "Background";
-        protected override string InputProcessorPath => "InputProcessor";
         public static PackedScene Scene;
+        public float BaseSV = 5000;
         protected MapObject MapObject;
         protected MapSet MapSet;
-        public float BaseSV = 5000;
+        protected override string BackgroundNodePath => "Background";
+        protected override string InputProcessorPath => "InputProcessor";
 
         protected override string BackgroundPath => MapSet.MapSetObject.BackgroundPath;
         protected override string AudioPath => MapSet.MapSetObject.AudioPath;
@@ -31,7 +31,7 @@ namespace Quadrecep.GameMode.Keys
         protected override void FeedNotes()
         {
             base.FeedNotes();
-            ((InputProcessor)InputProcessor).FeedNotes(MapObject.Notes);
+            ((InputProcessor) InputProcessor).FeedNotes(MapObject.Notes);
         }
 
         protected override void SetParents()

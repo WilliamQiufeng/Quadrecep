@@ -15,11 +15,11 @@ namespace Quadrecep.GameMode.Keys
 
         public static PackedScene Scene;
         private readonly Queue<Path> _visiblePaths = new();
-        public List<Path> Paths = new();
 
         private bool _hasParent;
         public NoteObject Note;
         public Playfield Parent;
+        public List<Path> Paths = new();
         private int Key => Note.Lane;
 
         public float XPositionBase => (Parent.ReceptorX[Key] + Parent.ReceptorX[Key + 1]) / 2;

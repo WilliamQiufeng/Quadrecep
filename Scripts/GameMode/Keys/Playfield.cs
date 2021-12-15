@@ -16,10 +16,10 @@ namespace Quadrecep.GameMode.Keys
 
         private Vector2 _receptorSize = new(256, 277);
         private Vector2 _receptorsSize;
-        private Vector2 VisibleRegionPos1 => new(-1579, PlayfieldNoteTopY - 100);
-        private Vector2 VisibleRegionPos2 => new(2600.5f, 100);
         public Play Parent;
         public float[] ReceptorX;
+        private Vector2 VisibleRegionPos1 => new(-1579, PlayfieldNoteTopY - 100);
+        private Vector2 VisibleRegionPos2 => new(2600.5f, 100);
         protected float PlayfieldNoteTopY => -RealCoverHeight * 4 + _receptorsSize.y;
         private Sprite BorderL => Cover.GetNode<Sprite>("BorderL");
         private Sprite BorderR => Cover.GetNode<Sprite>("BorderR");
@@ -62,7 +62,7 @@ namespace Quadrecep.GameMode.Keys
 
         public void GenerateNoteNodes(List<NoteObject> notes, List<ScrollVelocity> svs)
         {
-            GD.Print($"Starting Generation");
+            GD.Print("Starting Generation");
             if (notes.Count == 0) return;
             for (var i = 0; i < Parent.InputRetriever.Keys; i++)
             {
@@ -86,7 +86,10 @@ namespace Quadrecep.GameMode.Keys
                     {
                         var node = NoteNode.Scene.Instance<NoteNode>();
                         var note = laneNotes.Dequeue();
-                        if (note.CustomPaths != null && note.CustomPaths.Count != 0) node.Paths = note.CustomPaths;
+                        if (note.CustomPaths != null && note.CustomPaths.Count != 0)
+                        {
+                            node.Paths = note.CustomPaths;
+                        }
                         else
                         {
                             var path = new Path(Parent.BaseSV, Mathf.Abs(lastSVFactor), laneSVs[svIndex].Time,
@@ -96,7 +99,7 @@ namespace Quadrecep.GameMode.Keys
                             node.Paths = paths.Append(path).ToList();
                         }
 
-                        node.Paths = node.Paths.Select(x => x + baseOffset + -(node.Paths.Last()).EndPosition)
+                        node.Paths = node.Paths.Select(x => x + baseOffset + -node.Paths.Last().EndPosition)
                             .ToList();
 
                         node.GenerateVisiblePaths(VisibleRegionPos1, VisibleRegionPos2);
@@ -121,6 +124,7 @@ namespace Quadrecep.GameMode.Keys
 
                 GD.Print($"Lane {i} done");
             }
+
             NoteNodes.Sort((x, y) => x.Note.StartTime.CompareTo(y.Note.StartTime));
         }
 

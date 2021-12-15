@@ -1,4 +1,5 @@
 using Godot;
+using Quadrecep.Gameplay;
 
 namespace Quadrecep.GameMode
 {
@@ -21,9 +22,9 @@ namespace Quadrecep.GameMode
         {
             if (!InputMap.HasAction(actionName)) return;
             if (@event.IsActionPressed(actionName))
-                processor.Inputs[key].Enqueue(new Gameplay.InputEvent<T>(time, key, false));
+                processor.Inputs[key].Enqueue(new InputEvent<T>(time, key, false));
             if (@event.IsActionReleased(actionName))
-                processor.Inputs[key].Enqueue(new Gameplay.InputEvent<T>(time, key, true));
+                processor.Inputs[key].Enqueue(new InputEvent<T>(time, key, true));
         }
     }
 }

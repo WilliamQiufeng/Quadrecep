@@ -12,6 +12,9 @@ namespace Quadrecep.Gameplay
 
         [YamlIgnore] private Vector2 _k, _p;
         public Vector2 Direction;
+        [YamlIgnore] public Vector2 EndPosition;
+        [YamlIgnore] public bool IsInstant;
+        [YamlIgnore] public bool NotMoving;
 
         /// <summary>
         ///     Number of pixels the player goes in one second.
@@ -21,9 +24,10 @@ namespace Quadrecep.Gameplay
         [YamlIgnore] public float Speed;
 
         public Vector2 StartPosition;
-        [YamlIgnore] public Vector2 EndPosition;
 
         public float StartTime, EndTime;
+
+        public float SV;
         [YamlIgnore] public NoteObject TargetNote;
 
         public Path(float sv, float factor, float startTime, float endTime, Vector2 direction, Vector2 startPosition,
@@ -42,10 +46,6 @@ namespace Quadrecep.Gameplay
         public Path()
         {
         }
-
-        public float SV;
-        [YamlIgnore] public bool NotMoving;
-        [YamlIgnore] public bool IsInstant;
 
         public Vector2 this[float time, bool round = false] => round ? GetPositionRounded(time) : GetPosition(time);
         public float this[Vector2 position] => GetTime(position);
@@ -117,7 +117,7 @@ namespace Quadrecep.Gameplay
 
         public Path Reversed()
         {
-            var copy = (Path)MemberwiseClone();
+            var copy = (Path) MemberwiseClone();
             copy.Reverse();
             return copy;
         }
@@ -135,9 +135,17 @@ namespace Quadrecep.Gameplay
             copy.Offset(offset);
             return copy;
         }
-        public static Path operator~(Path path) => path.Reversed();
-        public static Path operator +(Path path, Vector2 offset) => path.WithOffset(offset);
-        
+
+        public static Path operator ~(Path path)
+        {
+            return path.Reversed();
+        }
+
+        public static Path operator +(Path path, Vector2 offset)
+        {
+            return path.WithOffset(offset);
+        }
+
 
         /// <summary>
         ///     Calculates constants (K, P) used for <see cref="GetPosition" />.

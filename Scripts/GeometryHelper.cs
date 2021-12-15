@@ -40,6 +40,9 @@ namespace Quadrecep
             return res;
         }
 
-        private static Vector2 Exchange(this Vector2 vec) => new(vec.y, vec.x);
+        private static Vector2 Exchange(this Vector2 vec)
+        {
+            return new(vec.y, vec.x);
+        }
     }
 }

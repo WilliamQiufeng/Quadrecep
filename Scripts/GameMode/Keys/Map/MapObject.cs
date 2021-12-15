@@ -1,8 +1,5 @@
 using System.Collections.Generic;
-using Godot;
 using Quadrecep.Map;
-using YamlDotNet.Serialization;
-using Path = Quadrecep.Gameplay.Path;
 
 namespace Quadrecep.GameMode.Keys.Map
 {

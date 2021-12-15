@@ -2,9 +2,9 @@ namespace Quadrecep.Map
 {
     public class TimingPoint
     {
-        public float Time;
-        public float Tempo;
         public int Signature;
+        public float Tempo;
+        public float Time;
 
         public TimingPoint(float time, float tempo, int signature)
         {

@@ -13,8 +13,8 @@ namespace Quadrecep.UI
 
         public static PackedScene Scene;
         private int _difficultyIndex;
+        private readonly List<MapHandler> _maps = new();
         private MapSetObject _mapSet;
-        private List<MapHandler> _maps = new();
         public int Index;
         public string MapFile;
         public PackedScene PlayScene;
@@ -42,10 +42,7 @@ namespace Quadrecep.UI
             GetNode<Label>("Artist").Text = _mapSet.Artist;
             GetNode<AudioStreamPlayer>("Player").Stream =
                 APlay<IClearableInput>.LoadAudio(Global.RelativeToMap(MapFile, _mapSet.AudioPath));
-            for (var i = 0; i < Count; i++)
-            {
-                _maps.Add(MapHandler.GetMapHandler(MapFile, _mapSet.Maps[i]));
-            }
+            for (var i = 0; i < Count; i++) _maps.Add(MapHandler.GetMapHandler(MapFile, _mapSet.Maps[i]));
             DifficultyIndex = 0;
             // GrabFocus();
         }

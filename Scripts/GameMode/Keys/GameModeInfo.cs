@@ -1,6 +1,4 @@
-
-
-using Quadrecep.GameMode.Keys.Map;
+using Quadrecep.Map;
 
 namespace Quadrecep.GameMode.Keys
 {
@@ -12,7 +10,7 @@ namespace Quadrecep.GameMode.Keys
 
         public static void Init()
         {
-            Quadrecep.Map.MapHandler.RegisterHandler(Name, Extension, mapSetPath => new MapHandler(mapSetPath));
+            MapHandler.RegisterHandler(Name, Extension, mapSetPath => new Map.MapHandler(mapSetPath));
         }
     }
 }

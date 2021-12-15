@@ -45,7 +45,8 @@ namespace Quadrecep.GameMode.Navigate
                         ExpectedInputs[i].Enqueue(new InputEvent<NoteObject>(note.EndTime, i, true, note: note));
                     // Place note release event if the currently processing note direction is not primary..
                     // As a side input it shouldn't be long note..
-                    if (primaryDir[i] != 1) ExpectedInputs[i].Enqueue(new InputEvent<NoteObject>(note.EndTime, i, true, false));
+                    if (primaryDir[i] != 1)
+                        ExpectedInputs[i].Enqueue(new InputEvent<NoteObject>(note.EndTime, i, true, false));
                 }
             }
 

@@ -6,7 +6,7 @@ namespace Quadrecep
 {
     public class CreateMap : Node
     {
-        private GameMode.Navigate.Map.MapSet _mapSet;
+        private MapSet _mapSet;
         // Declare member variables here. Examples:
         // private int a = 2;
         // private string b = "text";

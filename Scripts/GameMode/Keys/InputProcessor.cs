@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Quadrecep.GameMode.Keys.Map;
-using Quadrecep.Gameplay;
 using InputEvent = Quadrecep.Gameplay.InputEvent<Quadrecep.GameMode.Keys.Map.NoteObject>;
 
 namespace Quadrecep.GameMode.Keys

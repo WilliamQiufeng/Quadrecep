@@ -9,7 +9,7 @@ namespace Quadrecep.GameMode.Keys
         public static PackedScene Scene;
         private static Texture[] _textures;
 
-        private static string[] _textureNames =
+        private static readonly string[] _textureNames =
         {
             "marv", "perf", "great", "good", "okay", "miss"
         };
@@ -18,7 +18,8 @@ namespace Quadrecep.GameMode.Keys
         {
             _textures = new Texture[Enum.GetNames(typeof(Judgement)).Length];
             for (var i = 0; i < _textures.Length; i++)
-                _textures[i] = Global.LoadImage($"res://Textures/GameModes/Keys/Judgements/judge-{_textureNames[i]}.png");
+                _textures[i] =
+                    Global.LoadImage($"res://Textures/GameModes/Keys/Judgements/judge-{_textureNames[i]}.png");
         }
 
         public override void _Ready()

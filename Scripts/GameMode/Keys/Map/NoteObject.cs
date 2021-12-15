@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Quadrecep.GameMode.Keys;
 using Quadrecep.Gameplay;
 using YamlDotNet.Serialization;
 
@@ -29,15 +28,15 @@ namespace Quadrecep.GameMode.Keys.Map
         [YamlIgnore] public float EndTime => StartTime + Length;
         [YamlIgnore] public bool IsLongNote => Length > 0;
 
+        public void ClearInput(int key)
+        {
+            BindNode?.ClearInput();
+        }
+
         public override string ToString()
         {
             return
                 $"[Note: {nameof(StartTime)}: {StartTime}, {nameof(Length)}: {Length}, {nameof(Lane)}: {Lane}]";
-        }
-
-        public void ClearInput(int key)
-        {
-            BindNode?.ClearInput();
         }
     }
 }

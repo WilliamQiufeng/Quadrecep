@@ -12,11 +12,11 @@ namespace Quadrecep.GameMode.Navigate
 
         public static float BaseSV = 500;
         private readonly Queue<NoteNode> _nodePool = new();
-        protected MapSet MapSet;
-        protected MapObject MapObject;
 
         private int _approachingPathIndex;
         private int _pathIndex;
+        protected MapObject MapObject;
+        protected MapSet MapSet;
 
         public Path CurrentPath => MapObject.Paths[_pathIndex];
 
@@ -24,7 +24,7 @@ namespace Quadrecep.GameMode.Navigate
         protected override string AudioPath => MapSet.MapSetObject.AudioPath;
 
         protected override void AfterReady()
-        {            
+        {
             GetNode<Label>("HUD/Name").Text = MapSet.MapSetObject.Name;
             foreach (var path in MapObject.Paths)
             {
@@ -74,7 +74,8 @@ namespace Quadrecep.GameMode.Navigate
                 {
                     var tween = player.GetNode<Tween>("Tween");
                     tween.InterpolateProperty(player, "rect_rotation", player.RectRotation,
-                        Mathf.Rad2Deg(GetNoteRotation(CurrentPath.TargetNote.Direction)), Mathf.Pow(0.1f, CurrentPath.Factor));
+                        Mathf.Rad2Deg(GetNoteRotation(CurrentPath.TargetNote.Direction)),
+                        Mathf.Pow(0.1f, CurrentPath.Factor));
                     tween.Start();
                 }
 

@@ -1,4 +1,4 @@
-using Quadrecep.GameMode.Navigate.Map;
+using Quadrecep.Map;
 
 namespace Quadrecep.GameMode.Navigate
 {
@@ -7,10 +7,10 @@ namespace Quadrecep.GameMode.Navigate
         public const string Name = "Navigate";
         public const string Extension = ".qbmn";
         public const string ShortName = "nav";
+
         public static void Init()
         {
-            Quadrecep.Map.MapHandler.RegisterHandler(Name, Extension, mapSetPath => new MapHandler(mapSetPath));
+            MapHandler.RegisterHandler(Name, Extension, mapSetPath => new Map.MapHandler(mapSetPath));
         }
-        
     }
 }

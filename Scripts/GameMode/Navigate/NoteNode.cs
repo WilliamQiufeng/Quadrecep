@@ -1,6 +1,5 @@
 using Godot;
 using Quadrecep.GameMode.Navigate.Map;
-using Quadrecep.Map;
 
 namespace Quadrecep.GameMode.Navigate
 {
