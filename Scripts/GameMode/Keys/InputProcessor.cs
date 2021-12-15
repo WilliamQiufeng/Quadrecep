@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Godot;
 using Quadrecep.GameMode.Keys.Map;
 using Quadrecep.Gameplay;
 using InputEvent = Quadrecep.Gameplay.InputEvent<Quadrecep.GameMode.Keys.Map.NoteObject>;
@@ -9,15 +10,25 @@ namespace Quadrecep.GameMode.Keys
     public class InputProcessor : AInputProcessor<NoteObject>
     {
         private readonly Queue<JudgementNode> _judgementNodePool = new();
-        public int LaneCount = 4;
+        private int _laneCount = 4;
+
+        public int LaneCount
+        {
+            get => _laneCount;
+            set
+            {
+                _laneCount = value;
+                InitTracks(_laneCount);
+            }
+        }
 
         public override void _Ready()
         {
-            InitTracks(LaneCount);
         }
 
         public override void FeedNotes(List<NoteObject> notes)
         {
+            GD.Print("Feeding Notes");
             foreach (var note in notes)
             {
                 // Place note press event
@@ -27,15 +38,15 @@ namespace Quadrecep.GameMode.Keys
                 // Places long note releases at primary directions.
                 // We assume that there wouldn't be any notes inside a long note.
                 // It's the mapper's responsibility not to do so.
-                if (note.IsLongNote)
-                    ExpectedInputs[note.Lane].Enqueue(new InputEvent(note.EndTime, note.Lane, true, note: note));
+                ExpectedInputs[note.Lane].Enqueue(new InputEvent(note.EndTime, note.Lane, true, note.IsLongNote, note));
             }
 
             Counter.ValidInputCount = ValidInputCount;
-            InitJudgementNodePool();
+            GD.Print("Done Feeding Notes");
+            // InitJudgementNodePool();
         }
 
-        protected virtual void InitJudgementNodePool()
+        public virtual void InitJudgementNodePool()
         {
             _judgementNodePool.Clear();
             for (var i = 0; i < ExpectedInputs.Sum(x => x.Count); i++)

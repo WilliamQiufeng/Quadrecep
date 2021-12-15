@@ -34,6 +34,7 @@ namespace Quadrecep
             LoadPackedScenes();
             LoadTextures();
             GameMode.Navigate.GameModeInfo.Init();
+            GameMode.Keys.GameModeInfo.Init();
         }
 
         private static void LoadPackedScenes()

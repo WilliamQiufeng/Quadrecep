@@ -74,7 +74,7 @@ namespace Quadrecep.GameMode.Navigate
                 {
                     var tween = player.GetNode<Tween>("Tween");
                     tween.InterpolateProperty(player, "rect_rotation", player.RectRotation,
-                        Mathf.Rad2Deg(GetNoteRotation(CurrentPath.TargetNote.Direction)), 0.1f / CurrentPath.Factor);
+                        Mathf.Rad2Deg(GetNoteRotation(CurrentPath.TargetNote.Direction)), Mathf.Pow(0.1f, CurrentPath.Factor));
                     tween.Start();
                 }
 

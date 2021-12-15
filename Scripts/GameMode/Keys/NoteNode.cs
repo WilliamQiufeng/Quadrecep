@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Quadrecep.GameMode.Keys.Map;
 using Path = Quadrecep.Gameplay.Path;
 
 namespace Quadrecep.GameMode.Keys
@@ -14,11 +15,12 @@ namespace Quadrecep.GameMode.Keys
 
         public static PackedScene Scene;
         private readonly Queue<Path> _visiblePaths = new();
-        public readonly List<Path> Paths = new();
+        public List<Path> Paths = new();
 
         private bool _hasParent;
-        public int Key;
+        public NoteObject Note;
         public Playfield Parent;
+        private int Key => Note.Lane;
 
         public float XPositionBase => (Parent.ReceptorX[Key] + Parent.ReceptorX[Key + 1]) / 2;
         public bool Finished => _visiblePaths.Count == 0;
@@ -27,6 +29,7 @@ namespace Quadrecep.GameMode.Keys
         {
             Texture = _hitObjectTextures[Parent.Parent.InputRetriever.Keys][Key];
             Offset = new Vector2(-Texture.GetWidth() / 2f, -Texture.GetHeight());
+            // Visible = false;
         }
 
         public override void _Process(float delta)
@@ -37,7 +40,7 @@ namespace Quadrecep.GameMode.Keys
         public void GenerateVisiblePaths(Vector2 regionPos1, Vector2 regionPos2)
         {
             _visiblePaths.Clear();
-            foreach (var visiblePath in Paths.Select(path => Path.CutVisiblePath(path, regionPos1, regionPos2))
+            foreach (var visiblePath in Paths.Select(path => Path.CutVisiblePath(path, regionPos1, regionPos2, false))
                 .Where(visiblePath => visiblePath != null)) _visiblePaths.Enqueue(visiblePath);
         }
 
@@ -48,7 +51,7 @@ namespace Quadrecep.GameMode.Keys
             while (Parent.Parent.Time > _visiblePaths.Peek().EndTime)
             {
                 _visiblePaths.Dequeue();
-                RemoveIfFinished();
+                if (RemoveIfFinished()) return;
             }
 
             if (Parent.Parent.Time < _visiblePaths.Peek().StartTime)

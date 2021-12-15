@@ -8,5 +8,7 @@ namespace Qua2Qbm
         public string InputFile { get; set; }
         [Option('o', "output", Required = true, HelpText = "Output map.")]
         public string OutputFile { get; set; }
+        [Option('t', "type", Required = false, HelpText = "Type of map", Default = "nav")]
+        public string Type { get; set; }
     }
 }

@@ -27,15 +27,31 @@ namespace Qua2Qbm
         static void RunOptions(Options opts)
         {
             var globQua = Qua.Parse(Directory.GetFiles(opts.InputFile).First(file => file.EndsWith(".qua")));
-            var maps = Directory.GetFiles(opts.InputFile).Where(file => file.EndsWith(".qua"))
-                .Select(mapFile => Qua.Parse(mapFile)).Where(qua => qua.Mode == GameMode.Keys4).Select(qua => new MapObject
+            List<string> mapFiles = new();
+            Console.WriteLine(globQua.Title);
+            var zip = ZipFile.Open($"{opts.OutputFile}/{globQua.Title}.qms", ZipArchiveMode.Create);
+            switch (opts.Type)
+            {
+                case "nav":
                 {
-                    DifficultyName = qua.DifficultyName, StartTime = qua.TimingPoints[0].StartTime,
-                    Notes = ConvertNotes(qua.HitObjects),
-                    ScrollVelocities = qua.SliderVelocities.Select(x => new ScrollVelocity(x.StartTime, x.Multiplier)).ToList(),
-                    TimingPoints = qua.TimingPoints.Select(x => new TimingPoint(x.StartTime, x.Bpm, (int)x.Signature)).ToList(),
-                }).ToList();
-            var mapFiles = maps.Select(x => $"{x.DifficultyName}.qbmn").ToList();
+                    var maps = Directory.GetFiles(opts.InputFile).Where(file => file.EndsWith(".qua"))
+                        .Select(mapFile => Qua.Parse(mapFile)).Where(qua => qua.Mode == GameMode.Keys4)
+                        .Select(ConvertNavMap).ToList();
+                    mapFiles = maps.Select(x => $"{x.DifficultyName}.qbmn").ToList();
+                    SaveMaps(zip, maps, mapFiles);
+                    break;
+                }
+                case "keys":
+                {
+                    var maps = Directory.GetFiles(opts.InputFile).Where(file => file.EndsWith(".qua"))
+                        .Select(mapFile => Qua.Parse(mapFile))
+                        .Select(ConvertKeysMap).ToList();
+                    mapFiles = maps.Select(x => $"{x.DifficultyName}.qbmk").ToList();
+                    SaveMaps(zip, maps, mapFiles);
+                    break;
+                }
+            }
+
             var resMapSet = new MapSetObject
             {
                 Name = globQua.Title,
@@ -47,14 +63,8 @@ namespace Qua2Qbm
                 PreviewTime = globQua.SongPreviewTime,
                 Maps = mapFiles,
             };
-            Console.WriteLine(globQua.Title);
-            var zip = ZipFile.Open($"{opts.OutputFile}/{globQua.Title}.qms", ZipArchiveMode.Create);
             var qbmFileWriter = NewFileWriter(zip, "MapSet.qbm");
             SaveMap(resMapSet, qbmFileWriter);
-            for (var i = 0; i < maps.Count; i++)
-            {
-                SaveMap(maps[i], NewFileWriter(zip, mapFiles[i]));
-            }
             foreach (var file in Directory.GetFiles(opts.InputFile).Where(file => !file.EndsWith(".qua")))
             {
                 var fileName = new FileInfo(file).Name;
@@ -63,6 +73,14 @@ namespace Qua2Qbm
                 Console.WriteLine($"{fileName}: {file}");
             }
             zip.Dispose();
+        }
+
+        private static void SaveMaps<T>(ZipArchive zip, List<T> maps, List<string> mapFiles)
+        {
+            for (var i = 0; i < mapFiles.Count; i++)
+            {
+                SaveMap(maps[i], NewFileWriter(zip, mapFiles[i]));
+            }
         }
 
         private static StreamWriter NewFileWriter(ZipArchive zip, string fileName)
@@ -89,6 +107,41 @@ namespace Qua2Qbm
             binaryReader.Read(buffer);
             writer.Write(buffer);
             writer.Close();
+        }
+
+        private static MapObject ConvertNavMap(Qua qua)
+        {
+            if (qua.Mode != GameMode.Keys4) return null;
+            return new MapObject
+            {
+                DifficultyName = qua.DifficultyName, StartTime = qua.TimingPoints[0].StartTime,
+                Notes = ConvertNotes(qua.HitObjects),
+                ScrollVelocities = qua.SliderVelocities.Select(x => new ScrollVelocity(x.StartTime, x.Multiplier))
+                    .ToList(),
+                TimingPoints = qua.TimingPoints.Select(x => new TimingPoint(x.StartTime, x.Bpm, (int) x.Signature))
+                    .ToList(),
+            };
+        }
+
+        private static Quadrecep.GameMode.Keys.Map.MapObject ConvertKeysMap(Qua qua)
+        {
+            return new Quadrecep.GameMode.Keys.Map.MapObject
+            {
+                LaneCount = qua.Mode == GameMode.Keys4 ? 4 : 7,
+                DifficultyName = qua.DifficultyName,
+                StartTime = qua.TimingPoints[0].StartTime,
+                Notes = ConvertNotesKeys(qua.HitObjects),
+                ScrollVelocities = qua.SliderVelocities.Select(x => new ScrollVelocity(x.StartTime, x.Multiplier))
+                    .ToList(),
+                TimingPoints = qua.TimingPoints.Select(x => new TimingPoint(x.StartTime, x.Bpm, (int) x.Signature))
+                    .ToList(),
+            };
+        }
+
+        private static List<Quadrecep.GameMode.Keys.Map.NoteObject> ConvertNotesKeys(List<HitObjectInfo> hitObjects)
+        {
+            return hitObjects.Select(x =>
+                new Quadrecep.GameMode.Keys.Map.NoteObject(x.StartTime, x.EndTime, x.Lane - 1)).ToList();
         }
 
         private static List<NoteObject> ConvertNotes(List<HitObjectInfo> hitObjects)

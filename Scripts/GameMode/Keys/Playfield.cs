@@ -1,6 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
+using Quadrecep.GameMode.Keys.Map;
+using Quadrecep.Map;
+using Path = Quadrecep.Gameplay.Path;
 
 namespace Quadrecep.GameMode.Keys
 {
@@ -12,6 +16,8 @@ namespace Quadrecep.GameMode.Keys
 
         private Vector2 _receptorSize = new(256, 277);
         private Vector2 _receptorsSize;
+        private Vector2 VisibleRegionPos1 => new(-100, PlayfieldNoteTopY - 100);
+        private Vector2 VisibleRegionPos2 => new(1124, 100);
         public Play Parent;
         public float[] ReceptorX;
         protected float PlayfieldNoteTopY => -RealCoverHeight * 4 + _receptorsSize.y;
@@ -50,70 +56,72 @@ namespace Quadrecep.GameMode.Keys
                     0.25f);
             Receptors.Position = new Vector2(Cover.Texture.GetWidth() * Cover.Scale.x / -2f,
                 RealCoverHeight / 2f - _receptorSize.y * Receptors.Scale.y);
-            DebugPlaceNote(1, 0);
-            DebugPlaceNote(4, PlayfieldNoteTopY);
         }
 
-        private void DebugPlaceNote(int key, float height)
-        {
-            var note = NoteNode.Scene.Instance<NoteNode>();
-            note.Parent = this;
-            note.Key = key;
-            note.Position = new Vector2(note.XPositionBase, height);
-            Notes.AddChild(note);
-        }
 
-        public void GenerateNoteNodes()
+        public void GenerateNoteNodes(List<NoteObject> notes, List<ScrollVelocity> svs)
         {
-            
+            GD.Print($"Starting Generation");
+            if (notes.Count == 0) return;
+            for (var i = 0; i < Parent.InputRetriever.Keys; i++)
+            {
+                var lane = i;
+                var laneNotes =
+                    new Queue<NoteObject>(notes.Where(x => x.Lane == lane));
+                var laneSVs = svs.Where(x => x.Key == -1 || x.Key == lane).Prepend(new ScrollVelocity(0, 1)).ToList();
+                var svIndex = 0;
+                var currentPosition = new Vector2(0, 0); // Origin
+                var paths = new List<Path>();
+                var lastSVFactor = 1.0f; // Initial SV
+                var baseOffset = new Vector2((ReceptorX[i] + ReceptorX[i + 1]) / 2, 0);
+
+                for (; svIndex < laneSVs.Count; svIndex++)
+                {
+                    // If there are SV changes between [lastNoteStartTime...currentNoteStartTime), 
+                    // break the path into sections
+                    while (laneNotes.Count != 0 && (svIndex == laneSVs.Count - 1 ||
+                                                    svIndex < laneSVs.Count - 1 && laneNotes.Peek().StartTime <
+                                                    laneSVs[svIndex + 1].Time))
+                    {
+                        var node = NoteNode.Scene.Instance<NoteNode>();
+                        var note = laneNotes.Dequeue();
+                        if (note.CustomPaths != null && note.CustomPaths.Count != 0) node.Paths = note.CustomPaths;
+                        else
+                        {
+                            var path = new Path(Parent.BaseSV, Mathf.Abs(lastSVFactor), laneSVs[svIndex].Time,
+                                note.EndTime,
+                                new Vector2(0, lastSVFactor > 0 ? 1 : -1),
+                                currentPosition, null);
+                            node.Paths = paths.Append(path).ToList();
+                        }
+
+                        node.Paths = node.Paths.Select(x => x + baseOffset + -(node.Paths.Last()).EndPosition)
+                            .ToList();
+
+                        node.GenerateVisiblePaths(VisibleRegionPos1, VisibleRegionPos2);
+                        node.Parent = this;
+                        node.Note = note;
+                        NoteNodes.Add(node);
+                    }
+
+                    // Add final path
+                    // If there isn't any SVs between, the start time will be lastNoteStartTime
+                    if (svIndex != laneSVs.Count - 1)
+                    {
+                        paths.Add(new Path(Parent.BaseSV, Mathf.Abs(lastSVFactor), laneSVs[svIndex].Time,
+                            laneSVs[svIndex + 1].Time, new Vector2(0, lastSVFactor > 0 ? 1 : -1),
+                            currentPosition, null));
+                        currentPosition = paths[paths.Count - 1].EndPosition;
+                    }
+
+                    lastSVFactor = laneSVs[svIndex].Factor;
+                    GD.Print($"Lane {i} {svIndex}th SV");
+                }
+
+                GD.Print($"Lane {i} done");
+            }
+            NoteNodes.Sort((x, y) => x.Note.StartTime.CompareTo(y.Note.StartTime));
         }
-        // /// <summary>
-        // ///     note(t) #     #
-        // ///     sv  (t)   # #
-        // /// </summary>
-        // public void BuildPaths()
-        // {
-        //     if (Notes.Count == 0) return;
-        //     var svIndex = 0;
-        //     var lastNoteStartTime = 0f; // This can be changed to be the audio offset
-        //     var currentPosition = new Vector2(0, 0); // Origin
-        //     var lastSVFactor = 1.0f; // Initial SV
-        //     DirectionObject direction = 0b0010; // Up
-        //
-        //     foreach (var note in Notes)
-        //     {
-        //         UpdateSVIndex(ref svIndex, lastNoteStartTime);
-        //         var slicedStartTime = lastNoteStartTime;
-        //         // If there are SV changes between [lastNoteStartTime...currentNoteStartTime), 
-        //         // break the path into sections
-        //         for (;
-        //             svIndex < ScrollVelocities.Count && ScrollVelocities[svIndex].Time < note.StartTime;
-        //             svIndex++)
-        //         {
-        //             ref var endTime = ref ScrollVelocities[svIndex].Time;
-        //             var path = new Path(Play.BaseSV, lastSVFactor, slicedStartTime, endTime, direction,
-        //                 currentPosition, null);
-        //             if (!slicedStartTime.Equals(endTime)) Paths.Add(path);
-        //             lastSVFactor = ScrollVelocities[svIndex].Factor;
-        //             slicedStartTime = endTime;
-        //             currentPosition = path.EndPosition;
-        //         }
-        //
-        //         // Add final path where the next note is `note`.
-        //         // If there isn't any SVs between, the start time will be lastNoteStartTime
-        //         Paths.Add(new Path(Play.BaseSV, lastSVFactor, slicedStartTime, note.StartTime, direction,
-        //             currentPosition, note));
-        //
-        //         lastNoteStartTime = note.StartTime;
-        //         currentPosition = Paths[Paths.Count - 1].EndPosition;
-        //         direction = note.Direction;
-        //     }
-        // }
-        //
-        // private void UpdateSVIndex(ref int svIndex, float leastTime)
-        // {
-        //     while (svIndex < ScrollVelocities.Count && ScrollVelocities[svIndex].Time < leastTime) svIndex++;
-        // }
 
         public void PlaceReceptors()
         {

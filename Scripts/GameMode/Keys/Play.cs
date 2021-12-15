@@ -10,6 +10,10 @@ namespace Quadrecep.GameMode.Keys
         public static PackedScene Scene;
         protected MapObject MapObject;
         protected MapSet MapSet;
+        public float BaseSV = 5000;
+
+        protected override string BackgroundPath => MapSet.MapSetObject.BackgroundPath;
+        protected override string AudioPath => MapSet.MapSetObject.AudioPath;
 
         protected string PlayfieldPath => "Playfield";
         public Playfield Playfield => GetNode<Playfield>(PlayfieldPath);
@@ -21,6 +25,13 @@ namespace Quadrecep.GameMode.Keys
             MapSet.ReadMap();
             MapObject = MapSet.GetMap(MapFile);
             ((InputProcessor) InputProcessor).LaneCount = MapObject.LaneCount;
+            InputRetriever.Keys = MapObject.LaneCount;
+        }
+
+        protected override void FeedNotes()
+        {
+            base.FeedNotes();
+            ((InputProcessor)InputProcessor).FeedNotes(MapObject.Notes);
         }
 
         protected override void SetParents()
@@ -32,7 +43,10 @@ namespace Quadrecep.GameMode.Keys
         protected override void AfterReady()
         {
             base.AfterReady();
+            GD.Print("Initializing Field");
             Playfield.InitField();
+            GD.Print("Generating Nodes");
+            Playfield.GenerateNoteNodes(MapObject.Notes, MapObject.ScrollVelocities);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Quadrecep.GameMode.Keys.Map
     {
         [YamlIgnore] public NoteNode BindNode;
 
-        public List<Path> CustomPaths;
+        public List<Path> CustomPaths = new();
 
         public NoteObject(float startTime = default, float length = default, int lane = default)
         {

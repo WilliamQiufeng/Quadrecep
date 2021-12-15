@@ -37,7 +37,6 @@ namespace Quadrecep.Gameplay
             StartPosition = startPosition;
             TargetNote = targetNote;
             CalculateConstants();
-            EndPosition = this[EndTime];
         }
 
         public Path()
@@ -99,10 +98,46 @@ namespace Quadrecep.Gameplay
             return StartTime <= time && time <= EndTime;
         }
 
+        public bool BothOutOfTime(float startTime, float endTime)
+        {
+            return startTime < StartTime && endTime < StartTime || startTime > EndTime && endTime > EndTime;
+        }
+
         public bool WithinTime(Vector2 position)
         {
             return WithinTime(this[position]);
         }
+
+        public void Reverse()
+        {
+            (StartPosition, EndPosition) = (EndPosition, StartPosition);
+            Direction = -Direction;
+            CalculateConstants();
+        }
+
+        public Path Reversed()
+        {
+            var copy = (Path)MemberwiseClone();
+            copy.Reverse();
+            return copy;
+        }
+
+        public void Offset(Vector2 offset)
+        {
+            StartPosition += offset;
+            EndPosition += offset;
+            CalculateConstants();
+        }
+
+        public Path WithOffset(Vector2 offset)
+        {
+            var copy = (Path) MemberwiseClone();
+            copy.Offset(offset);
+            return copy;
+        }
+        public static Path operator~(Path path) => path.Reversed();
+        public static Path operator +(Path path, Vector2 offset) => path.WithOffset(offset);
+        
 
         /// <summary>
         ///     Calculates constants (K, P) used for <see cref="GetPosition" />.
@@ -115,9 +150,10 @@ namespace Quadrecep.Gameplay
             if (float.IsInfinity(c)) c = 0;
             _k = Direction * c * Speed / 1000;
             _p = StartPosition - _k * StartTime;
-            NotMoving = Direction == Vector2.Zero;
+            NotMoving = Direction == Vector2.Zero || StartPosition == EndPosition;
             IsInstant = StartTime == EndTime;
             SV = Speed / Factor;
+            EndPosition = this[EndTime];
         }
 
 
@@ -127,7 +163,7 @@ namespace Quadrecep.Gameplay
                 $"[Path: {nameof(Speed)}: {Speed}, {nameof(StartTime)}: {StartTime}, {nameof(EndTime)}: {EndTime}, {nameof(Direction)}: {Direction}, {nameof(StartPosition)}: {StartPosition}, {nameof(EndPosition)}: {EndPosition}, {nameof(TargetNote)}: {TargetNote}]";
         }
 
-        public static Path CutVisiblePath(Path path, Vector2 regionPos1, Vector2 regionPos2)
+        public static Path CutVisiblePath(Path path, Vector2 regionPos1, Vector2 regionPos2, bool removeInstant = true)
         {
             var intersections = GeometryHelper
                 .IntersectionWithRegion(path.StartPosition, path.EndPosition, regionPos1, regionPos2)
@@ -136,11 +172,12 @@ namespace Quadrecep.Gameplay
             if (intersections.Count <= 1) return null;
             var startTime = intersections.Min(x => x.time);
             var endTime = intersections.Max(x => x.time);
+            if (path.BothOutOfTime(startTime, endTime)) return null;
             if (!path.WithinTime(startTime)) startTime = path.StartTime;
             if (!path.WithinTime(endTime)) endTime = path.EndTime;
             var cutPath = new Path(path.SV, path.Factor, startTime, endTime, path.Direction,
                 path[startTime], path.TargetNote);
-            return cutPath.IsInstant ? null : cutPath;
+            return cutPath.IsInstant && removeInstant ? null : cutPath;
         }
     }
 }
