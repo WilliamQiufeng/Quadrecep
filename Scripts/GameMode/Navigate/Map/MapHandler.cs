@@ -28,7 +28,7 @@ namespace Quadrecep.GameMode.Navigate.Map
 
         public override Node InitScene()
         {
-            var scene = Play.Scene.Instance<Play>();
+            var scene = Scene.Instance<Play>();
             scene.MapSetFile = MapSetPath;
             scene.MapFile = _mapFile;
             return scene;

@@ -4,7 +4,7 @@ namespace Quadrecep.Map
 {
     public class MapSetObject
     {
-        public float PreviewTime { get; set; } = 0;
+        public float PreviewTime { get; set; }
         public string Name { get; set; } = "";
         public string Artist { get; set; } = "";
         public string Creator { get; set; } = "";

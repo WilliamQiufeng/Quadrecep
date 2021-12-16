@@ -87,14 +87,22 @@ namespace Quadrecep
         }
 
 
-        public static T DeserializeFromFile<T>(string mapsetPath, string mapFile)
+        public static T DeserializeFromFile<T>(string mapSetPath, string mapFile)
         {
+            var path = RelativeToMap(mapSetPath, mapFile);
+#if DEBUG
+            GD.Print($"Loading {path}");
+#endif
             var deserializer = new DeserializerBuilder()
-                .WithNamingConvention(PascalCaseNamingConvention.Instance)
+                .IgnoreUnmatchedProperties()
                 .Build();
             var read = new File();
-            read.Open(RelativeToMap(mapsetPath, mapFile), File.ModeFlags.Read);
-            return deserializer.Deserialize<T>(read.GetAsText());
+            read.Open(path, File.ModeFlags.Read);
+            var res = deserializer.Deserialize<T>(read.GetAsText());
+#if DEBUG
+            GD.Print($"Done loading {path}");
+#endif
+            return res;
         }
 
         public static void SaveMap(MapSetObject mapSet, string mapFile)

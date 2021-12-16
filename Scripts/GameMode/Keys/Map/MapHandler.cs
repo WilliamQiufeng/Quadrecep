@@ -4,7 +4,6 @@ namespace Quadrecep.GameMode.Keys.Map
 {
     public class MapHandler : Quadrecep.Map.MapHandler
     {
-        private string _mapFile;
         private MapObject _mapObject;
 
         public MapHandler(string mapSetPath) : base(mapSetPath)
@@ -17,7 +16,6 @@ namespace Quadrecep.GameMode.Keys.Map
 
         public override void ReadMap(string file)
         {
-            _mapFile = file;
             _mapObject = Global.DeserializeFromFile<MapObject>(MapSetPath, file);
         }
 
@@ -28,7 +26,7 @@ namespace Quadrecep.GameMode.Keys.Map
 
         public override Node InitScene()
         {
-            var scene = Play.Scene.Instance<Play>();
+            var scene = Scene.Instance<Play>();
             scene.MapSetFile = MapSetPath;
             scene.MapObject = _mapObject;
             return scene;

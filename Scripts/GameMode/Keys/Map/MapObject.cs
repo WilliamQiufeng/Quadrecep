@@ -12,29 +12,6 @@ namespace Quadrecep.GameMode.Keys.Map
         public List<ScrollVelocity> ScrollVelocities { get; set; } = new();
         public List<TimingPoint> TimingPoints { get; set; } = new();
 
-        public void AddNote(NoteObject note)
-        {
-            Notes.Add(note);
-        }
-
-        public void AddSV(ScrollVelocity sv)
-        {
-            ScrollVelocities.Add(sv);
-        }
-
-        /// <summary>
-        ///     note(t) #     #
-        ///     sv  (t)   # #
-        /// </summary>
-        public void BuildPaths()
-        {
-        }
-
-        private void UpdateSVIndex(ref int svIndex, float leastTime)
-        {
-            while (svIndex < ScrollVelocities.Count && ScrollVelocities[svIndex].Time < leastTime) svIndex++;
-        }
-
 
         public override string ToString()
         {

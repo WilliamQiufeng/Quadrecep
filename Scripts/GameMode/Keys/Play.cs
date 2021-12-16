@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Godot;
 using Quadrecep.GameMode.Keys.Map;
 
@@ -6,8 +7,8 @@ namespace Quadrecep.GameMode.Keys
     public class Play : APlay<NoteObject>
     {
         public static PackedScene Scene;
-        public float BaseSV = 5000;
         public static float GlobalOffset, GlobalVisualOffset;
+        public float BaseSV = 5000;
         public MapObject MapObject;
         public MapSet MapSet;
         protected override string BackgroundNodePath => "Background";
@@ -50,8 +51,7 @@ namespace Quadrecep.GameMode.Keys
             GD.Print("Initializing Field");
             Playfield.InitField();
             GD.Print("Generating Nodes");
-            Playfield.GenerateNoteNodesAsync(MapObject.Notes, MapObject.ScrollVelocities);
-            // while (!Playfield.GenerationDone) ;
+            Task.Run(() => Playfield.GenerateNoteNodesAsync(MapObject.Notes, MapObject.ScrollVelocities));
             GD.Print("Done");
             base.AfterReady();
         }

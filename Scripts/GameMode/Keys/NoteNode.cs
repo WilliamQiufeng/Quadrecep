@@ -41,7 +41,7 @@ namespace Quadrecep.GameMode.Keys
                 HoldBody.Texture = _holdBodyTextures[Parent.Parent.InputRetriever.Keys][Key];
                 HoldBody.Offset = new Vector2(-HoldBody.Texture.GetWidth() / 2f, -HoldBody.Texture.GetHeight());
                 HoldBody.Visible = true;
-                HoldBody.Scale = new(1, Mathf.Abs(holdEndPosition.y) / HoldBody.Texture.GetHeight());
+                HoldBody.Scale = new Vector2(1, Mathf.Abs(holdEndPosition.y) / HoldBody.Texture.GetHeight());
             }
         }
 
@@ -52,7 +52,8 @@ namespace Quadrecep.GameMode.Keys
 
         private void UpdatePosition()
         {
-            if (_hasParent && _visiblePaths.Count != 0) Position = _visiblePaths[0][Parent.Parent.Time] + new Vector2(0, Play.GlobalVisualOffset);
+            if (_hasParent && _visiblePaths.Count != 0)
+                Position = _visiblePaths[0][Parent.Parent.Time] + new Vector2(0, Play.GlobalVisualOffset);
         }
 
         public void GenerateVisiblePaths(Vector2 regionPos1, Vector2 regionPos2)
@@ -71,9 +72,8 @@ namespace Quadrecep.GameMode.Keys
         {
             if (RemoveIfFinished()) return;
 
-            while (Parent.Parent.Time > _visiblePaths.First().EndTime) {
-
-                if (Note.IsLongNote);
+            while (Parent.Parent.Time > _visiblePaths.First().EndTime)
+            {
                 _visiblePaths.RemoveAt(0);
                 if (RemoveIfFinished()) return;
             }
@@ -91,7 +91,6 @@ namespace Quadrecep.GameMode.Keys
         {
             if (!Finished) return false;
             RemoveFromParent();
-            if (Note.IsLongNote) ;
             return true;
         }
 

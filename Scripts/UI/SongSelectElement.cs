@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Threading.Tasks;
 using Godot;
 using Quadrecep.GameMode;
 using Quadrecep.Map;
@@ -12,28 +12,28 @@ namespace Quadrecep.UI
         private static readonly Color FocusedColor = new(1, 1, 1, 0);
 
         public static PackedScene Scene;
-        private readonly List<MapHandler> _maps = new();
         private int _difficultyIndex;
-        private bool _diffLoadDone;
+        private MapHandler[] _maps;
         private MapSetObject _mapSet;
         public int Index;
         public string MapFile;
-        public PackedScene PlayScene;
 
-        public int DifficultyIndex
+        private int DifficultyIndex
         {
             get => _difficultyIndex;
             set
             {
                 _difficultyIndex = value;
-                GetNode<Label>("Difficulty").Text = _diffLoadDone
+                GetNode<Label>("Difficulty").Text = IsDifficultyLoaded(value)
                     ? _maps[DifficultyIndex].DifficultyName
                     : Global.GetFileName(_mapSet.Maps[DifficultyIndex]);
-                GetNode<Label>("GameMode").Text = _diffLoadDone ? _maps[DifficultyIndex].GameModeShortName : "loading";
+                GetNode<Label>("GameMode").Text = IsDifficultyLoaded(value)
+                    ? _maps[DifficultyIndex].GameModeShortName
+                    : $"{MapHandler.GetGameMode(_mapSet.Maps[DifficultyIndex])} (loading)";
             }
         }
 
-        public int Count => _mapSet.Maps.Count;
+        private int Count => _mapSet.Maps.Count;
 
         public override void _Ready()
         {
@@ -49,11 +49,26 @@ namespace Quadrecep.UI
             // GrabFocus();
         }
 
-        public void LoadMap()
+        private bool IsDifficultyLoaded(int index)
         {
-            for (var i = 0; i < Count; i++) _maps.Add(MapHandler.GetMapHandler(MapFile, _mapSet.Maps[i]));
-            _diffLoadDone = true;
-            DifficultyIndex = 0;
+            return _maps?[index] != null;
+        }
+
+        public async Task LoadMap()
+        {
+            _maps = new MapHandler[Count];
+            var tasks = new Task[Count];
+            for (var i = 0; i < Count; i++)
+            {
+                var index = i;
+                tasks[i] = Task.Run(() => _maps[index] = MapHandler.GetMapHandler(MapFile, _mapSet.Maps[index]));
+            }
+
+            await Task.WhenAll(tasks);
+#if DEBUG
+            GD.Print($"Done loading {MapFile}");
+#endif
+            DifficultyIndex = DifficultyIndex; // Refresh state
         }
 
         public override void _Process(float delta)
@@ -73,7 +88,7 @@ namespace Quadrecep.UI
 
         private void PlayMap()
         {
-            if (!_diffLoadDone)
+            if (!IsDifficultyLoaded(DifficultyIndex))
             {
                 GD.Print("Difficulty load not done yet!");
                 return;

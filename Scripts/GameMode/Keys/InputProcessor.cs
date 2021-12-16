@@ -9,9 +9,10 @@ namespace Quadrecep.GameMode.Keys
 {
     public class InputProcessor : AInputProcessor<NoteObject>
     {
+        private int _laneCount = 4;
+
         private JudgementNode JudgementNode =>
             ((Play) APlayParent).Playfield.GetNode<JudgementNode>("Main/Judgement");
-        private int _laneCount = 4;
 
         public int LaneCount
         {

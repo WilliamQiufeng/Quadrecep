@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using Godot;
-using Quadrecep.GameMode.Navigate;
 using Quadrecep.Map;
 
 namespace Quadrecep.UI
@@ -66,7 +65,6 @@ namespace Quadrecep.UI
                     var element = SongSelectElement.Scene.Instance<SongSelectElement>();
                     GD.Print(fileName);
                     element.MapFile = fileName;
-                    element.PlayScene = Play.Scene;
                     element.Index = ChildrenCount;
                     HBoxContainer.AddChild(element);
                     Task.Run(() => element.LoadMap());

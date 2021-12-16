@@ -19,8 +19,6 @@ namespace Quadrecep.GameMode.Keys
         private Vector2 _receptorSize = new(256, 277);
         private Vector2 _receptorsSize;
 
-        public bool GenerationDone;
-
         public List<NoteNode> NoteNodes = new();
         public Play Parent;
         public float[] ReceptorX;
@@ -74,16 +72,10 @@ namespace Quadrecep.GameMode.Keys
             if (notes.Count == 0) return;
             for (var i = 0; i < notes.Count; i++)
                 _tempNoteNodes.Enqueue(NoteNode.Scene.Instance<NoteNode>());
-            List<Task> tasks = new();
-            for (var i = 0; i < Parent.InputRetriever.Keys; i++)
-            {
-                var lane = i;
-                GenerateNoteNodesForLane(notes, svs, lane);
-            }
+            for (var i = 0; i < Parent.InputRetriever.Keys; i++) GenerateNoteNodesForLane(notes, svs, i);
 
 
             NoteNodes.Sort((x, y) => x.Note.StartTime.CompareTo(y.Note.StartTime));
-            GenerationDone = true;
         }
 
         public async Task GenerateNoteNodesAsync(List<NoteObject> notes, List<ScrollVelocity> svs)
@@ -103,7 +95,6 @@ namespace Quadrecep.GameMode.Keys
 
             // NoteNodes = _tempNoteNodesOut.ToList();
             // NoteNodes.Sort((x, y) => x.Note.StartTime.CompareTo(y.Note.StartTime));
-            GenerationDone = true;
             GD.Print("Generation async done");
         }
 
@@ -171,15 +162,11 @@ namespace Quadrecep.GameMode.Keys
 
         public void PullNoteNode()
         {
-            var count = 0;
             while (!_tempNoteNodesOut.IsEmpty)
             {
                 if (!_tempNoteNodesOut.TryDequeue(out var node)) continue;
                 NoteNodes.Add(node);
-                count++;
             }
-
-            // GD.Print($"{count} nodes pulled");
         }
 
         public void PlaceReceptors()

@@ -20,11 +20,13 @@ namespace Quadrecep
                 Play.BaseSV = value;
             }
         }
+
         public static int NoteGenerationPathCutoff
         {
             get => GetOrSet(GameplaySection, nameof(NoteGenerationPathCutoff), 200);
             set => Set(GameplaySection, nameof(NoteGenerationPathCutoff), value);
         }
+
         public static int KeysAudioOffset
         {
             get => GetOrSet(GameplaySection, nameof(KeysAudioOffset), 0);
@@ -33,7 +35,9 @@ namespace Quadrecep
                 Set(GameplaySection, nameof(KeysAudioOffset), value);
                 GameMode.Keys.Play.GlobalOffset = value;
             }
-        }public static int KeysVisualOffset
+        }
+
+        public static int KeysVisualOffset
         {
             get => GetOrSet(GameplaySection, nameof(KeysVisualOffset), 0);
             set
