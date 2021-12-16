@@ -30,7 +30,9 @@ texture = ExtResource( 6 )
 [node name="Receptors" type="Sprite" parent="Main"]
 position = Vector2( -133.333, 231 )
 scale = Vector2( 0.261, 0.25 )
+z_index = 1
 
 [node name="Notes" type="Node2D" parent="Main/Receptors"]
+z_as_relative = false
 
 [node name="Judgement" parent="Main" instance=ExtResource( 1 )]
