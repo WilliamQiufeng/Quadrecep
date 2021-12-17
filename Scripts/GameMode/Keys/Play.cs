@@ -8,7 +8,7 @@ namespace Quadrecep.GameMode.Keys
     {
         public static PackedScene Scene;
         public static float GlobalOffset, GlobalVisualOffset;
-        public float BaseSV = 5000;
+        public float BaseSV = 4500;
         public MapObject MapObject;
         public MapSet MapSet;
         protected override string BackgroundNodePath => "Background";
@@ -53,6 +53,7 @@ namespace Quadrecep.GameMode.Keys
             GD.Print("Generating Nodes");
             Task.Run(() => Playfield.GenerateNoteNodesAsync(MapObject.Notes, MapObject.ScrollVelocities));
             GD.Print("Done");
+            GetNode<Label>("HUD/Name").Text = MapSet.MapSetObject.Name;
             base.AfterReady();
         }
     }

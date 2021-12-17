@@ -36,3 +36,4 @@ z_index = 1
 z_as_relative = false
 
 [node name="Judgement" parent="Main" instance=ExtResource( 1 )]
+z_index = 1

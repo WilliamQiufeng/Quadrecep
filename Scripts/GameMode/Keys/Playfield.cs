@@ -29,7 +29,12 @@ namespace Quadrecep.GameMode.Keys
         private Sprite BorderR => Cover.GetNode<Sprite>("BorderR");
         public Sprite Cover => GetNode<Sprite>("Main/Cover");
 
-        private Sprite Receptors => GetNode<Sprite>("Main/Receptors");
+        private Sprite ReceptorsContainer => GetNode<Sprite>("Main/Receptors");
+
+        public Receptor GetReceptor(int key)
+        {
+            return ReceptorsContainer.GetChild<Receptor>(key + 1); // Notes Node are at top
+        }
 
         public Node2D Notes => GetNode<Node2D>("Main/Receptors/Notes");
 
@@ -57,11 +62,11 @@ namespace Quadrecep.GameMode.Keys
             BorderR.Scale = new Vector2(1, RealCoverHeight / BorderR.Texture.GetHeight() / Cover.Scale.y);
             BorderR.Position = new Vector2(Cover.Texture.GetWidth() / 2f + BorderR.Texture.GetWidth() / 2f, 0);
             PlaceReceptors();
-            Receptors.Scale =
+            ReceptorsContainer.Scale =
                 new Vector2(Cover.Texture.GetWidth() * Cover.Scale.x / _receptorsSize.x,
                     0.25f);
-            Receptors.Position = new Vector2(Cover.Texture.GetWidth() * Cover.Scale.x / -2f,
-                RealCoverHeight / 2f - _receptorSize.y * Receptors.Scale.y);
+            ReceptorsContainer.Position = new Vector2(Cover.Texture.GetWidth() * Cover.Scale.x / -2f,
+                RealCoverHeight / 2f - _receptorSize.y * ReceptorsContainer.Scale.y);
             NoteNode.LoadTextures(Parent.InputRetriever.Keys);
         }
 
@@ -182,14 +187,14 @@ namespace Quadrecep.GameMode.Keys
                 _receptorsSize.x += receptor.MaxSize().x;
                 _receptorSize.x = Math.Max(_receptorSize.x, receptor.MaxSize().x);
                 _receptorsSize.y = Math.Max(_receptorsSize.y, receptor.MaxSize().y);
-                Receptors.AddChild(receptor);
+                ReceptorsContainer.AddChild(receptor);
             }
 
             ReceptorX[Parent.InputRetriever.Keys] = _receptorsSize.x;
 
             _receptorSize.y = _receptorsSize.y;
 
-            foreach (var r in Receptors.GetChildren())
+            foreach (var r in ReceptorsContainer.GetChildren())
                 if (r is Receptor receptor)
                     receptor.Position = new Vector2(receptor.Position.x, _receptorSize.y - receptor.MaxSize().y);
         }

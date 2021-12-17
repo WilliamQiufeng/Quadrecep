@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Godot;
 using Quadrecep.Map;
@@ -7,6 +8,7 @@ namespace Quadrecep.UI
     public class SongSelectSlider : Control
     {
         private int _mapIndex;
+        private CancellationTokenSource _cancellationTokenSource = new();
 
         public int MapIndex
         {
@@ -66,6 +68,7 @@ namespace Quadrecep.UI
                     GD.Print(fileName);
                     element.MapFile = fileName;
                     element.Index = ChildrenCount;
+                    element.CancellationTokenSource = _cancellationTokenSource;
                     HBoxContainer.AddChild(element);
                     Task.Run(() => element.LoadMap());
                 }

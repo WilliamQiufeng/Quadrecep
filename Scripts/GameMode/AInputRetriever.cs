@@ -22,9 +22,20 @@ namespace Quadrecep.GameMode
         {
             if (!InputMap.HasAction(actionName)) return;
             if (@event.IsActionPressed(actionName))
+            {
                 processor.Inputs[key].Enqueue(new InputEvent<T>(time, key, false));
+                OnInput(time, key, false);
+            }
+
             if (@event.IsActionReleased(actionName))
+            {
                 processor.Inputs[key].Enqueue(new InputEvent<T>(time, key, true));
+                OnInput(time, key, true);
+            }
+        }
+
+        protected virtual void OnInput(float time, int key, bool release)
+        {
         }
     }
 }

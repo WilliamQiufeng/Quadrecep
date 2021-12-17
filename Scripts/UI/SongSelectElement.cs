@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using Godot;
 using Quadrecep.GameMode;
@@ -17,6 +18,8 @@ namespace Quadrecep.UI
         private MapSetObject _mapSet;
         public int Index;
         public string MapFile;
+        private Task[] _tasks;
+        public CancellationTokenSource CancellationTokenSource = new();
 
         private int DifficultyIndex
         {
@@ -57,14 +60,14 @@ namespace Quadrecep.UI
         public async Task LoadMap()
         {
             _maps = new MapHandler[Count];
-            var tasks = new Task[Count];
+            _tasks = new Task[Count];
             for (var i = 0; i < Count; i++)
             {
                 var index = i;
-                tasks[i] = Task.Run(() => _maps[index] = MapHandler.GetMapHandler(MapFile, _mapSet.Maps[index]));
+                _tasks[i] = Task.Run(() => _maps[index] = MapHandler.GetMapHandler(MapFile, _mapSet.Maps[index]), CancellationTokenSource.Token);
             }
 
-            await Task.WhenAll(tasks);
+            await Task.WhenAll(_tasks);
 #if DEBUG
             GD.Print($"Done loading {MapFile}");
 #endif
@@ -94,6 +97,7 @@ namespace Quadrecep.UI
                 return;
             }
 
+            CancellationTokenSource.Cancel();
             GetNode<AudioStreamPlayer>("Player").Stop();
             GetTree().Root.AddChild(_maps[DifficultyIndex].InitScene());
             GetParent().GetParent().GetParent().GetParent().QueueFree();

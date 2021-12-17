@@ -16,7 +16,11 @@ namespace Quadrecep.GameMode.Keys
         public override void _Ready()
         {
             LoadTexture();
-            GetNode<Sprite>("Sprite").Texture = _upTexture;
+        }
+
+        public void SetTextureState(bool release)
+        {
+            GetNode<Sprite>("Sprite").Texture = release ? _upTexture : _downTexture;
         }
 
         public Vector2 MaxSize()
