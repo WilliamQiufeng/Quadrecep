@@ -10,7 +10,9 @@ namespace Quadrecep.GameMode.Keys
 
         public static void Init()
         {
-            MapHandler.RegisterHandler(Name, Extension, mapSetPath => new Map.MapHandler(mapSetPath));
+            Global.RegisterExtension(Extension, Name);
+            MapHandler.RegisterHandler(Name, mapSetPath => new Map.MapHandler(mapSetPath));
+            MapImporter.RegisterImporter(Name, () => new Map.MapImporter());
         }
     }
 }

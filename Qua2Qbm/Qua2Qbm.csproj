@@ -13,7 +13,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Quadrecep.csproj" />
-      <ProjectReference Include="Quaver.API\Quaver.API\Quaver.API.csproj" />
+      <ProjectReference Include="..\Quaver.API\Quaver.API\Quaver.API.csproj" />
     </ItemGroup>
 
     <ItemGroup>

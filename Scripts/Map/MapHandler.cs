@@ -6,7 +6,6 @@ namespace Quadrecep.Map
 {
     public abstract class MapHandler
     {
-        private static readonly Dictionary<string, string> ExtensionGameModeMap = new();
         private static readonly Dictionary<string, Func<string, MapHandler>> Handlers = new();
 
         protected readonly string MapSetPath;
@@ -29,12 +28,7 @@ namespace Quadrecep.Map
 
         public static MapHandler GetMapHandler(string mapSetPath, string fileName)
         {
-            return GetMapHandler(mapSetPath, fileName, GetGameMode(fileName));
-        }
-
-        public static string GetGameMode(string fileName)
-        {
-            return ExtensionGameModeMap[Global.GetFileExtension(fileName)];
+            return GetMapHandler(mapSetPath, fileName, Global.GetGameMode(fileName));
         }
 
         public static MapHandler GetNewMapHandler(string mapSetPath, string gameMode)
@@ -42,9 +36,8 @@ namespace Quadrecep.Map
             return Handlers[gameMode](mapSetPath);
         }
 
-        public static void RegisterHandler(string gameMode, string extension, Func<string, MapHandler> initializer)
+        public static void RegisterHandler(string gameMode, Func<string, MapHandler> initializer)
         {
-            ExtensionGameModeMap.Add(extension, gameMode);
             Handlers.Add(gameMode, initializer);
         }
 

@@ -639,8 +639,8 @@
     },
     "Quaver.API/1.0.0": {
       "type": "project",
-      "path": "Quaver.API/Quaver.API/Quaver.API.csproj",
-      "msbuildProject": "Quaver.API/Quaver.API/Quaver.API.csproj"
+      "path": "../Quaver.API/Quaver.API/Quaver.API.csproj",
+      "msbuildProject": "../Quaver.API/Quaver.API/Quaver.API.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -677,11 +677,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "/Users/mac/Documents/GodotProjects/Quadrecep/Qua2Qbm/Quaver.API/Quaver.API/Quaver.API.csproj": {
-              "projectPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Qua2Qbm/Quaver.API/Quaver.API/Quaver.API.csproj"
-            },
             "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj": {
               "projectPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj"
+            },
+            "/Users/mac/Documents/GodotProjects/Quadrecep/Quaver.API/Quaver.API/Quaver.API.csproj": {
+              "projectPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Quaver.API/Quaver.API/Quaver.API.csproj"
             }
           }
         }

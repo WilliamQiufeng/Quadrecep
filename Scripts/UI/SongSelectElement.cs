@@ -32,7 +32,7 @@ namespace Quadrecep.UI
                     : Global.GetFileName(_mapSet.Maps[DifficultyIndex]);
                 GetNode<Label>("GameMode").Text = IsDifficultyLoaded(value)
                     ? _maps[DifficultyIndex].GameModeShortName
-                    : $"{MapHandler.GetGameMode(_mapSet.Maps[DifficultyIndex])} (loading)";
+                    : $"{Global.GetGameMode(_mapSet.Maps[DifficultyIndex])} (loading)";
             }
         }
 

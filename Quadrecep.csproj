@@ -12,12 +12,17 @@
     <ItemGroup>
         <Compile Remove="Qua2Qbm\**" />
         <Compile Remove="UnitTests\**" />
+        <Compile Remove="Quaver.API\**" />
     </ItemGroup>
     <ItemGroup>
         <EmbeddedResource Remove="Qua2Qbm\**" />
         <EmbeddedResource Remove="UnitTests\**" />
+        <EmbeddedResource Remove="Quaver.API\**" />
     </ItemGroup>
     <ItemGroup>
         <Content Include=".gitignore" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="Quaver.API\Quaver.API\Quaver.API.csproj" />
     </ItemGroup>
 </Project>

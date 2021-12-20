@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using Godot;
 using Quadrecep.GameMode.Keys;
@@ -105,16 +106,16 @@ namespace Quadrecep
             return res;
         }
 
-        public static void SaveMap(MapSetObject mapSet, string mapFile)
+        public static void SaveMap(object mapSet, string filePath)
         {
             var serializer = new SerializerBuilder()
                 .WithNamingConvention(PascalCaseNamingConvention.Instance)
                 .Build();
             var yaml = serializer.Serialize(mapSet);
             var dir = new Directory();
-            dir.MakeDir($"user://{mapFile}");
+            dir.MakeDir($"user://{filePath}");
             var save = new File();
-            save.Open(RelativeToMap(mapFile, "MapSet.qbm"), File.ModeFlags.Write);
+            save.Open(filePath, File.ModeFlags.Write);
             save.StoreString(yaml);
             save.Close();
         }
@@ -139,7 +140,32 @@ namespace Quadrecep
         public static string GetFileName(string fileName)
         {
             var name = new FileInfo(fileName).Name;
-            return name.Substr(0, name.Length - GetFileExtension(fileName).Length);
+            return WithoutExtension(name);
+        }
+
+        public static string WithoutExtension(string name)
+        {
+            return name.Substr(0, name.Length - GetFileExtension(name).Length);
+        }
+
+        public static Dictionary<string, string> ExtensionGameModeMap { get; } = new();
+        public static Dictionary<string, string> GameModeExtensionMap { get; } = new();
+
+        public static string GetGameModeFromExtension(string ext) => ExtensionGameModeMap[ext];
+        public static string GetGameMode(string fileName)
+        {
+            return GetGameModeFromExtension(GetFileExtension(fileName));
+        }
+
+        public static string GetExtensionOfGameMode(string gameMode)
+        {
+            return GameModeExtensionMap[gameMode];
+        }
+
+        public static void RegisterExtension(string extension, string gameMode)
+        {
+            ExtensionGameModeMap.Add(extension, gameMode);
+            GameModeExtensionMap.Add(gameMode, extension);
         }
     }
 }

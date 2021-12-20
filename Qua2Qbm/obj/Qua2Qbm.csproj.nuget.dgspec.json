@@ -26,11 +26,11 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "/Users/mac/Documents/GodotProjects/Quadrecep/Qua2Qbm/Quaver.API/Quaver.API/Quaver.API.csproj": {
-                "projectPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Qua2Qbm/Quaver.API/Quaver.API/Quaver.API.csproj"
-              },
               "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj": {
                 "projectPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj"
+              },
+              "/Users/mac/Documents/GodotProjects/Quadrecep/Quaver.API/Quaver.API/Quaver.API.csproj": {
+                "projectPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Quaver.API/Quaver.API/Quaver.API.csproj"
               }
             }
           }
@@ -77,14 +77,67 @@
         }
       }
     },
-    "/Users/mac/Documents/GodotProjects/Quadrecep/Qua2Qbm/Quaver.API/Quaver.API/Quaver.API.csproj": {
+    "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mac/Documents/GodotProjects/Quadrecep/Qua2Qbm/Quaver.API/Quaver.API/Quaver.API.csproj",
-        "projectName": "Quaver.API",
-        "projectPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Qua2Qbm/Quaver.API/Quaver.API/Quaver.API.csproj",
+        "projectUniqueName": "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj",
+        "projectName": "Quadrecep",
+        "projectPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj",
         "packagesPath": "/Users/mac/.nuget/packages/",
-        "outputPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Qua2Qbm/Quaver.API/Quaver.API/obj/",
+        "outputPath": "/Users/mac/Documents/GodotProjects/Quadrecep/.mono/temp/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/mac/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net472"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "targetAlias": "net472",
+            "projectReferences": {
+              "/Users/mac/Documents/GodotProjects/Quadrecep/Quaver.API/Quaver.API/Quaver.API.csproj": {
+                "projectPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Quaver.API/Quaver.API/Quaver.API.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net472": {
+          "targetAlias": "net472",
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.0, )",
+              "autoReferenced": true
+            },
+            "YamlDotNet": {
+              "target": "Package",
+              "version": "[11.2.1, )"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/mac/Documents/GodotProjects/Quadrecep/Quaver.API/Quaver.API/Quaver.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/mac/Documents/GodotProjects/Quadrecep/Quaver.API/Quaver.API/Quaver.API.csproj",
+        "projectName": "Quaver.API",
+        "projectPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Quaver.API/Quaver.API/Quaver.API.csproj",
+        "packagesPath": "/Users/mac/.nuget/packages/",
+        "outputPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Quaver.API/Quaver.API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/mac/.nuget/NuGet/NuGet.Config"
@@ -160,55 +213,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj",
-        "projectName": "Quadrecep",
-        "projectPath": "/Users/mac/Documents/GodotProjects/Quadrecep/Quadrecep.csproj",
-        "packagesPath": "/Users/mac/.nuget/packages/",
-        "outputPath": "/Users/mac/Documents/GodotProjects/Quadrecep/.mono/temp/obj/",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "/Users/mac/.nuget/NuGet/NuGet.Config"
-        ],
-        "originalTargetFrameworks": [
-          "net472"
-        ],
-        "sources": {
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "net472": {
-            "targetAlias": "net472",
-            "projectReferences": {}
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "net472": {
-          "targetAlias": "net472",
-          "dependencies": {
-            "Microsoft.NETFramework.ReferenceAssemblies": {
-              "suppressParent": "All",
-              "target": "Package",
-              "version": "[1.0.0, )",
-              "autoReferenced": true
-            },
-            "YamlDotNet": {
-              "target": "Package",
-              "version": "[11.2.1, )"
-            }
-          },
           "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.400/RuntimeIdentifierGraph.json"
         }
       }

@@ -11,6 +11,7 @@ using Quaver.API.Maps;
 using Quaver.API.Maps.Structures;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using MapImporter = Quadrecep.GameMode.Keys.Map.MapImporter;
 using Parser = CommandLine.Parser;
 
 namespace Qua2Qbm
@@ -36,7 +37,7 @@ namespace Qua2Qbm
                 {
                     var maps = Directory.GetFiles(opts.InputFile).Where(file => file.EndsWith(".qua"))
                         .Select(mapFile => Qua.Parse(mapFile)).Where(qua => qua.Mode == GameMode.Keys4)
-                        .Select(ConvertNavMap).ToList();
+                        .Select(Quadrecep.GameMode.Navigate.Map.MapImporter.ConvertNavMap).ToList();
                     mapFiles = maps.Select(x => $"{x.DifficultyName}.qbmn").ToList();
                     SaveMaps(zip, maps, mapFiles);
                     break;
@@ -45,24 +46,14 @@ namespace Qua2Qbm
                 {
                     var maps = Directory.GetFiles(opts.InputFile).Where(file => file.EndsWith(".qua"))
                         .Select(mapFile => Qua.Parse(mapFile))
-                        .Select(ConvertKeysMap).ToList();
+                        .Select(MapImporter.ConvertKeysMap).ToList();
                     mapFiles = maps.Select(x => $"{x.DifficultyName}.qbmk").ToList();
                     SaveMaps(zip, maps, mapFiles);
                     break;
                 }
             }
 
-            var resMapSet = new MapSetObject
-            {
-                Name = globQua.Title,
-                Artist = globQua.Artist,
-                Creator = globQua.Creator,
-                Description = globQua.Description,
-                AudioPath = globQua.AudioFile,
-                BackgroundPath = globQua.BackgroundFile,
-                PreviewTime = globQua.SongPreviewTime,
-                Maps = mapFiles,
-            };
+            var resMapSet = MapSetImporter.GenerateMapSetObject(globQua, mapFiles);
             var qbmFileWriter = NewFileWriter(zip, "MapSet.qbm");
             SaveMap(resMapSet, qbmFileWriter);
             foreach (var file in Directory.GetFiles(opts.InputFile).Where(file => !file.EndsWith(".qua")))
@@ -107,72 +98,6 @@ namespace Qua2Qbm
             binaryReader.Read(buffer);
             writer.Write(buffer);
             writer.Close();
-        }
-
-        private static MapObject ConvertNavMap(Qua qua)
-        {
-            if (qua.Mode != GameMode.Keys4) return null;
-            return new MapObject
-            {
-                DifficultyName = qua.DifficultyName, StartTime = qua.TimingPoints[0].StartTime,
-                Notes = ConvertNotes(qua.HitObjects),
-                ScrollVelocities = qua.SliderVelocities.Select(x => new ScrollVelocity(x.StartTime, x.Multiplier))
-                    .ToList(),
-                TimingPoints = qua.TimingPoints.Select(x => new TimingPoint(x.StartTime, x.Bpm, (int) x.Signature))
-                    .ToList(),
-            };
-        }
-
-        private static Quadrecep.GameMode.Keys.Map.MapObject ConvertKeysMap(Qua qua)
-        {
-            return new Quadrecep.GameMode.Keys.Map.MapObject
-            {
-                LaneCount = qua.Mode == GameMode.Keys4 ? 4 : 7,
-                DifficultyName = qua.DifficultyName,
-                StartTime = qua.TimingPoints[0].StartTime,
-                Notes = ConvertNotesKeys(qua.HitObjects),
-                ScrollVelocities = qua.SliderVelocities.Select(x => new ScrollVelocity(x.StartTime, x.Multiplier))
-                    .ToList(),
-                TimingPoints = qua.TimingPoints.Select(x => new TimingPoint(x.StartTime, x.Bpm, (int) x.Signature))
-                    .ToList(),
-            };
-        }
-
-        private static List<Quadrecep.GameMode.Keys.Map.NoteObject> ConvertNotesKeys(List<HitObjectInfo> hitObjects)
-        {
-            return hitObjects.Select(x =>
-                new Quadrecep.GameMode.Keys.Map.NoteObject(x.StartTime, x.EndTime == 0 ? 0 : x.EndTime - x.StartTime, x.Lane - 1)).ToList();
-        }
-
-        private static List<NoteObject> ConvertNotes(List<HitObjectInfo> hitObjects)
-        {
-            var notes = new List<NoteObject>();
-            var lastTime = 0f;
-            var keys = new[] {0, 0, 0, 0};
-            var length = 0f;
-            foreach (var hitObject in hitObjects)
-            {
-                if (hitObject.StartTime != lastTime)
-                {
-                    var note = new NoteObject(lastTime, length, new DirectionObject(keys));
-                    notes.Add(note);
-                    lastTime = hitObject.StartTime;
-                    keys = new[] {0, 0, 0, 0};
-                }
-
-                keys[hitObject.Lane - 1] = 1;
-                length = hitObject.IsLongNote ? hitObject.EndTime - lastTime : length;
-            }
-
-            if (keys != new[] {0, 0, 0, 0})
-            {
-                var note = new NoteObject(lastTime, length, new DirectionObject(keys));
-                notes.Add(note);
-            }
-
-            Console.WriteLine($"Final: {notes.LastOrDefault()}");
-
-            return notes;
         }
 
         static void HandleParseError(IEnumerable<Error> errs)
