@@ -30,7 +30,6 @@ tracks/0/keys = {
 [node name="Root" type="Node2D"]
 process_priority = -3
 script = ExtResource( 11 )
-MapFile = "Test"
 
 [node name="InputRetriever" type="Node" parent="."]
 process_priority = -2

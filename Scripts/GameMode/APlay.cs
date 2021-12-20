@@ -34,9 +34,9 @@ namespace Quadrecep.GameMode
         /// <summary>
         /// Real-time audio progress
         /// </summary>
-        public virtual float DynamicTime =>
+        public virtual float DynamicTime => AudioStreamPlayer.Playing ?
             (float) (AudioStreamPlayer.GetPlaybackPosition() +
-                AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000;
+                AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000 : 0f;
 
         /// <summary>
         /// Path to background node
