@@ -34,7 +34,7 @@ namespace Quadrecep.GameMode
         /// <summary>
         /// Real-time audio progress
         /// </summary>
-        public virtual float DynamicTime => AudioStreamPlayer.Playing ?
+        public virtual float DynamicTime => AudioStreamPlayer.Playing && !AudioStreamPlayer.StreamPaused ?
             (float) (AudioStreamPlayer.GetPlaybackPosition() +
                 AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000 : AudioStreamPlayer.GetPlaybackPosition();
 
@@ -83,6 +83,11 @@ namespace Quadrecep.GameMode
         /// Path to audio file
         /// </summary>
         protected virtual string AudioPath => "";
+
+        /// <summary>
+        /// If the gameplay is paused
+        /// </summary>
+        public bool Paused;
         
         public override void _Ready()
         {
@@ -136,6 +141,7 @@ namespace Quadrecep.GameMode
         {
             UpdateTime();
             UpdateHUD();
+            CheckForPause();
         }
 
         /// <summary>
@@ -156,9 +162,18 @@ namespace Quadrecep.GameMode
         /// </summary>
         protected virtual void UpdateTime()
         {
-            if (Finished) return;
+            if (Finished || Paused) return;
             // From https://docs.godotengine.org/en/stable/tutorials/audio/sync_with_audio.html
             Time = DynamicTime;
+        }
+
+        protected virtual void CheckForPause()
+        {
+            if (Input.IsActionJustPressed("play_pause"))
+            {
+                Paused = !Paused;
+                AudioStreamPlayer.StreamPaused = Paused;
+            }
         }
 
         /// <summary>
