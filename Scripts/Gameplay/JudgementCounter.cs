@@ -42,7 +42,7 @@ namespace Quadrecep.Gameplay
             if (judgement == Judgement.Miss) Combo = 0;
             else Combo++;
             AddScore(judgement);
-            GD.Print($"New judgement: {judgement}, {timeDiff}ms diff");
+            // GD.Print($"New judgement: {judgement}, {timeDiff}ms diff");
         }
 
         private void AddScore(Judgement judgement)

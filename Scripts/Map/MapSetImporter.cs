@@ -24,9 +24,14 @@ namespace Quadrecep.Map
         {
             var targetDirectory = Global.RelativeToMap(Path.GetFileNameWithoutExtension(file), absolutePath: true);
             ZipFile.ExtractToDirectory(file, targetDirectory);
-            var files = (from quaFile in Directory.GetFiles(targetDirectory).Where(x => x.EndsWith(".qua"))
+            var files = (from x in Directory.GetFiles(targetDirectory)
+                where x.EndsWith(".qua")
                 from gameMode in MapImporter.SupportedGameModes
-                select ImportQua(Qua.Parse(quaFile), targetDirectory, gameMode)).ToList();
+                select ImportQua(Qua.Parse(x), targetDirectory, gameMode)
+                into res
+                where res != null
+                select res).ToList();
+
             var globQua = Qua.Parse(Directory.GetFiles(targetDirectory).First(x => x.EndsWith(".qua")));
             var mapSetObject = GenerateMapSetObject(globQua, files);
             Global.SaveMap(mapSetObject, $"{targetDirectory}/MapSet.qbm");
@@ -45,8 +50,8 @@ namespace Quadrecep.Map
             importer.ConvertFrom(qua);
             // Replace extension
             var outputFile = qua.DifficultyName + Global.GetExtensionOfGameMode(gameMode);
-            importer.WriteTo($"{dir}/{outputFile}");
-            return outputFile;
+            var res = importer.WriteTo($"{dir}/{outputFile}");
+            return res ? outputFile : null;
         }
 
         public static MapSetObject GenerateMapSetObject(Qua globQua, List<string> mapFiles)

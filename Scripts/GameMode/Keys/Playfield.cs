@@ -22,8 +22,8 @@ namespace Quadrecep.GameMode.Keys
         public List<NoteNode> NoteNodes = new();
         public Play Parent;
         public float[] ReceptorX;
-        private Vector2 VisibleRegionPos1 => new(-1579, PlayfieldNoteTopY - 100);
-        private Vector2 VisibleRegionPos2 => new(2600.5f, 100);
+        private Vector2 VisibleRegionPos1 => new(-1579, PlayfieldNoteTopY - 100 - Parent.GlobalVisualOffset);
+        private Vector2 VisibleRegionPos2 => new(2600.5f, 100 + Parent.GlobalVisualOffset);
         protected float PlayfieldNoteTopY => -RealCoverHeight * 4 + _receptorsSize.y;
         private Sprite BorderL => Cover.GetNode<Sprite>("BorderL");
         private Sprite BorderR => Cover.GetNode<Sprite>("BorderR");

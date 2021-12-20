@@ -22,9 +22,11 @@ namespace Quadrecep.GameMode.Navigate.Map
             _output = ConvertNavMap(qua);
         }
 
-        public override void WriteTo(string path)
+        public override bool WriteTo(string path)
         {
+            if (_output == null) return false;
             Global.SaveMap(_output, path);
+            return true;
         }
 
         public static MapObject ConvertNavMap(Qua qua)

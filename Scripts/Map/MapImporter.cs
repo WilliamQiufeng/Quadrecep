@@ -24,7 +24,7 @@ namespace Quadrecep.Map
             throw new NotImplementedException();
         }
 
-        public virtual void WriteTo(string path)
+        public virtual bool WriteTo(string path)
         {
             throw new NotImplementedException();
         }

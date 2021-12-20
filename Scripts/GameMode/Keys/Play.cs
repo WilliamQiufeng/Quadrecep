@@ -7,7 +7,7 @@ namespace Quadrecep.GameMode.Keys
     public class Play : APlay<NoteObject>
     {
         public static PackedScene Scene;
-        public static float GlobalOffset, GlobalVisualOffset;
+        public float GlobalOffset, GlobalVisualOffset;
         public float BaseSV = 4500;
         public MapObject MapObject;
         public MapSet MapSet;
@@ -48,6 +48,7 @@ namespace Quadrecep.GameMode.Keys
             GlobalOffset = Config.KeysAudioOffset;
             GlobalVisualOffset = Config.KeysVisualOffset;
             GD.Print($"Audio Offset: {GlobalOffset} ms");
+            GD.Print($"Visual Offset: {GlobalVisualOffset} px");
             GD.Print("Initializing Field");
             Playfield.InitField();
             GD.Print("Generating Nodes");

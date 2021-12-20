@@ -53,7 +53,7 @@ namespace Quadrecep.GameMode.Keys
         private void UpdatePosition()
         {
             if (_hasParent && _visiblePaths.Count != 0)
-                Position = _visiblePaths[0][Parent.Parent.Time] + new Vector2(0, Play.GlobalVisualOffset);
+                Position = _visiblePaths[0][Parent.Parent.Time] + new Vector2(0, Parent.Parent.GlobalVisualOffset);
         }
 
         public void GenerateVisiblePaths(Vector2 regionPos1, Vector2 regionPos2)

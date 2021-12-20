@@ -22,9 +22,10 @@ namespace Quadrecep.GameMode.Keys.Map
             _output = ConvertKeysMap(qua);
         }
 
-        public override void WriteTo(string path)
+        public override bool WriteTo(string path)
         {
             Global.SaveMap(_output, path);
+            return true;
         }
 
         public static MapObject ConvertKeysMap(Qua qua)

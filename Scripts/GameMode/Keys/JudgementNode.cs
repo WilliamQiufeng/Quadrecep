@@ -26,10 +26,12 @@ namespace Quadrecep.GameMode.Keys
 
         public override void _Ready()
         {
+            Visible = false;
         }
 
         public void Animate()
         {
+            Visible = true;
             AnimationPlayer.Stop();
             AnimationPlayer.Play("KeysJudgePop");
         }

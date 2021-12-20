@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Godot;
 
 namespace Quadrecep.GameMode
@@ -15,8 +16,11 @@ namespace Quadrecep.GameMode
 
         protected int ZInd;
 
-        public virtual float DynamicTime => (float) (AudioStreamPlayer.GetPlaybackPosition() +
-            AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000;
+        public int PreAudioCountdown => Config.PreAudioCountdown;
+
+        public virtual float DynamicTime =>
+            (float) (AudioStreamPlayer.GetPlaybackPosition() +
+                AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000;
 
         protected virtual string BackgroundNodePath => "ParallaxBackground/ParallaxLayer/Background";
 
@@ -55,7 +59,7 @@ namespace Quadrecep.GameMode
 
         protected virtual void AfterReady()
         {
-            LoadAudio();
+            Task.Run(LoadAudio);
         }
 
         protected virtual void LoadMap()
@@ -93,9 +97,10 @@ namespace Quadrecep.GameMode
             Time = DynamicTime;
         }
 
-        protected virtual void LoadAudio()
+        protected virtual async Task LoadAudio()
         {
             AudioStreamPlayer.Stream = LoadAudio(Global.RelativeToMap(MapSetFile, AudioPath));
+            await Task.Delay(Mathf.Abs(PreAudioCountdown));
             AudioStreamPlayer.Play();
         }
 
