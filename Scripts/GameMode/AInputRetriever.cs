@@ -19,7 +19,7 @@ namespace Quadrecep.GameMode
 
         public override void _Input(InputEvent @event)
         {
-            if (APlayParent.Paused || APlayParent.Finished) return;
+            if (!APlayParent.IsPlaying) return;
             for (var i = 0; i < Keys; i++)
                 EnqueueInputs(APlayParent.InputProcessor, APlayParent.Time, @event, $"play_{InputName}_{i}", i);
         }

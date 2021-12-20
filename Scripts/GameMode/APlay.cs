@@ -88,6 +88,11 @@ namespace Quadrecep.GameMode
         /// If the gameplay is paused
         /// </summary>
         public bool Paused;
+
+        /// <summary>
+        /// If the gameplay is going on
+        /// </summary>
+        public bool IsPlaying => !Finished && !Paused;
         
         public override void _Ready()
         {
@@ -162,7 +167,7 @@ namespace Quadrecep.GameMode
         /// </summary>
         protected virtual void UpdateTime()
         {
-            if (Finished || Paused) return;
+            if (!IsPlaying) return;
             // From https://docs.godotengine.org/en/stable/tutorials/audio/sync_with_audio.html
             Time = DynamicTime;
         }
