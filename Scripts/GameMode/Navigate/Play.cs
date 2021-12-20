@@ -15,7 +15,7 @@ namespace Quadrecep.GameMode.Navigate
 
         private int _approachingPathIndex;
         private int _pathIndex;
-        protected MapObject MapObject;
+        public MapObject MapObject;
         protected MapSet MapSet;
 
         public Path CurrentPath => MapObject.Paths[_pathIndex];
@@ -39,6 +39,7 @@ namespace Quadrecep.GameMode.Navigate
                 noteSprite.ZIndex = ZInd--;
                 _nodePool.Enqueue(noteSprite);
             }
+            base.AfterReady();
         }
 
         public override void _Process(float delta)
@@ -53,7 +54,6 @@ namespace Quadrecep.GameMode.Navigate
             base.ReadMap();
             MapSet = new MapSet(MapSetFile);
             MapSet.ReadMap();
-            MapObject = MapSet.GetMap(MapFile);
             MapObject.BuildPaths();
         }
 

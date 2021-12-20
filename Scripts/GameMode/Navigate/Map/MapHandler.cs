@@ -30,7 +30,7 @@ namespace Quadrecep.GameMode.Navigate.Map
         {
             var scene = Scene.Instance<Play>();
             scene.MapSetFile = MapSetPath;
-            scene.MapFile = _mapFile;
+            scene.MapObject = _mapObject;
             return scene;
         }
     }
