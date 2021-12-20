@@ -70,7 +70,7 @@ namespace Quadrecep.UI
                     element.Index = ChildrenCount;
                     element.CancellationTokenSource = _cancellationTokenSource;
                     HBoxContainer.AddChild(element);
-                    Task.Run(() => element.LoadMap());
+                    Task.Run(() => element.LoadMaps());
                 }
 
                 fileName = dir.GetNext();

@@ -69,7 +69,7 @@ namespace Quadrecep.Map
 
         public void SaveMap()
         {
-            Global.SaveMap(MapSetObject, Global.RelativeToMap(MapFile, "MapSet.qbm"));
+            Global.SerializeToFile(MapSetObject, Global.RelativeToMap(MapFile, "MapSet.qbm"));
         }
 
         public override void _Ready()

@@ -24,7 +24,7 @@ namespace Quadrecep.GameMode.Keys.Map
 
         public override bool WriteTo(string path)
         {
-            Global.SaveMap(_output, path);
+            Global.SerializeToFile(_output, path);
             return true;
         }
 

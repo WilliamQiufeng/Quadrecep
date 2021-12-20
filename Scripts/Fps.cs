@@ -6,6 +6,10 @@ namespace Quadrecep
     {
         private int _count = -1;
 
+        /// <summary>
+        /// Updates FPS every second
+        /// </summary>
+        /// <param name="delta">time passed since last call (ignored)</param>
         public override void _PhysicsProcess(float delta)
         {
             if ((_count = (_count + 1) % 60) != 0) return;

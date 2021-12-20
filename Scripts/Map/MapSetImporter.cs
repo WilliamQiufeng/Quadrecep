@@ -34,7 +34,7 @@ namespace Quadrecep.Map
 
             var globQua = Qua.Parse(Directory.GetFiles(targetDirectory).First(x => x.EndsWith(".qua")));
             var mapSetObject = GenerateMapSetObject(globQua, files);
-            Global.SaveMap(mapSetObject, $"{targetDirectory}/MapSet.qbm");
+            Global.SerializeToFile(mapSetObject, $"{targetDirectory}/MapSet.qbm");
         }
 
         /// <summary>

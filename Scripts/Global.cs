@@ -24,11 +24,7 @@ namespace Quadrecep
         public static Dictionary<string, string> ExtensionGameModeMap { get; } = new();
 
         public static Dictionary<string, string> GameModeExtensionMap { get; } = new();
-        // Declare member variables here. Examples:
-        // private int a = 2;
-        // private string b = "text";
-
-        // Called when the node enters the scene tree for the first time.
+        
         public override void _Ready()
         {
             Config.Initialize();
@@ -43,6 +39,9 @@ namespace Quadrecep
             GameMode.Keys.GameModeInfo.Init();
         }
 
+        /// <summary>
+        /// Loads all packed scenes of nodes
+        /// </summary>
         private static void LoadPackedScenes()
         {
             Play.Scene = GD.Load<PackedScene>("res://Scenes/Play.tscn");
@@ -55,6 +54,9 @@ namespace Quadrecep
             GameMode.Keys.NoteNode.Scene = GD.Load<PackedScene>("res://Scenes/KeysNote.tscn");
         }
 
+        /// <summary>
+        /// Loads textures required by game modes
+        /// </summary>
         private static void LoadTextures()
         {
             JudgementNode.LoadTextures();
@@ -68,6 +70,13 @@ namespace Quadrecep
         {
         }
 
+        /// <summary>
+        /// Loads an image from specified path.<br/>
+        /// The image can be from res:// or from user://
+        /// </summary>
+        /// <param name="imgPath">The path to image</param>
+        /// <param name="fallback">The fallback image path if <paramref name="imgPath"/> is not found</param>
+        /// <returns></returns>
         public static Texture LoadImage(string imgPath, string fallback = "")
         {
             if (imgPath.StartsWith("res://"))
@@ -84,13 +93,28 @@ namespace Quadrecep
             return texture;
         }
 
-        public static string RelativeToMap(string mapFile, string path = "", bool absolutePath = false)
+        /// <summary>
+        /// Returns absolute path relative to the map.<br/>
+        /// This is used to get absolute path of paths specified in a map file.
+        /// </summary>
+        /// <param name="mapSetFile">MapSet file path</param>
+        /// <param name="path">Relative path (without './')</param>
+        /// <param name="absolutePath">If path returned is absolute or using "user://"</param>
+        /// <returns>Path processed</returns>
+        public static string RelativeToMap(string mapSetFile, string path = "", bool absolutePath = false)
         {
             var root = absolutePath ? OS.GetUserDataDir() : "user://";
-            return $"{root}//{MapSet.MapDirectory}/{mapFile}/{path}";
+            return $"{root}//{MapSet.MapDirectory}/{mapSetFile}/{path}";
         }
 
 
+        /// <summary>
+        /// Reads data from a file and deserialize to an object of type <typeparamref name="T"/>
+        /// </summary>
+        /// <param name="mapSetPath">MapSet path</param>
+        /// <param name="mapFile">Map file</param>
+        /// <typeparam name="T">Type to deserialize into</typeparam>
+        /// <returns>Deserialized object</returns>
         public static T DeserializeFromFile<T>(string mapSetPath, string mapFile)
         {
             var path = RelativeToMap(mapSetPath, mapFile);
@@ -109,12 +133,17 @@ namespace Quadrecep
             return res;
         }
 
-        public static void SaveMap(object mapSet, string filePath)
+        /// <summary>
+        /// Serialize an object and save to a file
+        /// </summary>
+        /// <param name="obj">Object to serialize</param>
+        /// <param name="filePath">Path to save</param>
+        public static void SerializeToFile(object obj, string filePath)
         {
             var serializer = new SerializerBuilder()
                 .WithNamingConvention(PascalCaseNamingConvention.Instance)
                 .Build();
-            var yaml = serializer.Serialize(mapSet);
+            var yaml = serializer.Serialize(obj);
             var dir = new Directory();
             dir.MakeDir($"user://{filePath}");
             var save = new File();
@@ -123,6 +152,11 @@ namespace Quadrecep
             save.Close();
         }
 
+        /// <summary>
+        /// Swaps the textures of two <see cref="TextureRect"/>
+        /// </summary>
+        /// <param name="texture1">Texture 1</param>
+        /// <param name="texture2">Texture 2</param>
         public static void SwapTexture(TextureRect texture1, TextureRect texture2)
         {
             (texture1.Texture, texture2.Texture) = (texture2.Texture, texture1.Texture);
@@ -133,6 +167,11 @@ namespace Quadrecep
             (texture1.Modulate, texture2.Modulate) = (texture2.Modulate, texture1.Modulate);
         }
 
+        /// <summary>
+        /// Returns the extension of a file (in format '.xxx')
+        /// </summary>
+        /// <param name="fileName">File name</param>
+        /// <returns>The extension of the file</returns>
         public static string GetFileExtension(string fileName)
         {
             var ext = new FileInfo(fileName).Extension;
@@ -140,32 +179,63 @@ namespace Quadrecep
             return ext;
         }
 
+        /// <summary>
+        /// Returns the name of the file, cutting the extension and it's parent directories off
+        /// </summary>
+        /// <param name="fileName">File name</param>
+        /// <returns>File name without extension and parent directories</returns>
         public static string GetFileName(string fileName)
         {
             var name = new FileInfo(fileName).Name;
             return WithoutExtension(name);
         }
 
+        /// <summary>
+        /// Cuts the extension off the given file
+        /// </summary>
+        /// <param name="name">file input</param>
+        /// <returns>String with extension cut</returns>
         public static string WithoutExtension(string name)
         {
             return name.Substr(0, name.Length - GetFileExtension(name).Length);
         }
 
+        /// <summary>
+        /// Gets game mode name from given extension
+        /// </summary>
+        /// <param name="ext">Extension of a game mode</param>
+        /// <returns>Game mode name</returns>
         public static string GetGameModeFromExtension(string ext)
         {
             return ExtensionGameModeMap[ext];
         }
 
+        /// <summary>
+        /// Gets game mode from a file. <br/>
+        /// First gets the extension of the file then calls <see cref="GetGameModeFromExtension"/>
+        /// </summary>
+        /// <param name="fileName">File name to get game mode</param>
+        /// <returns>The game mode name of the file</returns>
         public static string GetGameMode(string fileName)
         {
             return GetGameModeFromExtension(GetFileExtension(fileName));
         }
 
+        /// <summary>
+        /// Gets extension of a game mode
+        /// </summary>
+        /// <param name="gameMode">Game mode name</param>
+        /// <returns>The extension of the game mode</returns>
         public static string GetExtensionOfGameMode(string gameMode)
         {
             return GameModeExtensionMap[gameMode];
         }
 
+        /// <summary>
+        /// Relates an extension with a game mode
+        /// </summary>
+        /// <param name="extension">Extension of a game mode</param>
+        /// <param name="gameMode">Game mode name</param>
         public static void RegisterExtension(string extension, string gameMode)
         {
             ExtensionGameModeMap.Add(extension, gameMode);

@@ -6,12 +6,28 @@ namespace Quadrecep
 {
     public static class GeometryHelper
     {
+        /// <summary>
+        /// Checks if a point is inside a specified region
+        /// </summary>
+        /// <param name="point">Point to check</param>
+        /// <param name="regionPos1">Region top left</param>
+        /// <param name="regionPos2">Region bottom right</param>
+        /// <returns></returns>
         public static bool InsideRegion(Vector2 point, Vector2 regionPos1, Vector2 regionPos2)
         {
             return regionPos1.x <= point.x && point.x <= regionPos2.x &&
                    regionPos1.y <= point.y && point.y <= regionPos2.y;
         }
 
+        /// <summary>
+        /// Finds intersection of a line with the borders of a region<br/>
+        /// This works by calling <see cref="IntersectionWithVerticalBorders"/> once and once more with axis flipped.
+        /// </summary>
+        /// <param name="linePos1">Line start</param>
+        /// <param name="linePos2">Line end</param>
+        /// <param name="regionPos1">Region top left</param>
+        /// <param name="regionPos2">Region bottom right</param>
+        /// <returns></returns>
         public static IEnumerable<Vector2> IntersectionWithRegion(Vector2 linePos1, Vector2 linePos2,
             Vector2 regionPos1, Vector2 regionPos2)
         {
@@ -22,6 +38,14 @@ namespace Quadrecep
             return res;
         }
 
+        /// <summary>
+        /// Finds intersection of a line with the vertical border of a region.
+        /// </summary>
+        /// <param name="linePos1">Line start</param>
+        /// <param name="linePos2">Line end</param>
+        /// <param name="regionPos1">Region top left</param>
+        /// <param name="regionPos2">Region bottom right</param>
+        /// <returns></returns>
         private static List<Vector2> IntersectionWithVerticalBorders(Vector2 linePos1, Vector2 linePos2,
             Vector2 regionPos1,
             Vector2 regionPos2)
@@ -40,6 +64,11 @@ namespace Quadrecep
             return res;
         }
 
+        /// <summary>
+        /// Exchange <see cref="Vector2.x"/> and <see cref="Vector2.y"/>
+        /// </summary>
+        /// <param name="vec">Source <see cref="Vector2"/> to process</param>
+        /// <returns>result <see cref="Vector2"/> flipped</returns>
         private static Vector2 Exchange(this Vector2 vec)
         {
             return new Vector2(vec.y, vec.x);

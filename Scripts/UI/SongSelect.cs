@@ -12,6 +12,9 @@ namespace Quadrecep.UI
         {
         }
 
+        /// <summary>
+        /// Transitions textures of two map sets smoothly
+        /// </summary>
         public void ChangeBackgroundTexture()
         {
             var tween = GetNode<Tween>("BackgroundTransition");

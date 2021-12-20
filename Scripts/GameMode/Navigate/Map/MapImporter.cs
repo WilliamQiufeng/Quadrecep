@@ -25,7 +25,7 @@ namespace Quadrecep.GameMode.Navigate.Map
         public override bool WriteTo(string path)
         {
             if (_output == null) return false;
-            Global.SaveMap(_output, path);
+            Global.SerializeToFile(_output, path);
             return true;
         }
 

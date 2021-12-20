@@ -57,7 +57,10 @@ namespace Quadrecep.UI
             return _maps?[index] != null;
         }
 
-        public async Task LoadMap()
+        /// <summary>
+        /// Loads maps of a map set simultaneously
+        /// </summary>
+        public async Task LoadMaps()
         {
             _maps = new MapHandler[Count];
             _tasks = new Task[Count];
@@ -90,6 +93,9 @@ namespace Quadrecep.UI
             PlayMap();
         }
 
+        /// <summary>
+        /// Loads the game mode of selected map if the map is loaded
+        /// </summary>
         private void PlayMap()
         {
             if (!IsDifficultyLoaded(DifficultyIndex))
