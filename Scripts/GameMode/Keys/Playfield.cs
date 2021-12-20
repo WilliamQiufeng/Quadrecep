@@ -31,12 +31,12 @@ namespace Quadrecep.GameMode.Keys
 
         private Sprite ReceptorsContainer => GetNode<Sprite>("Main/Receptors");
 
+        public Node2D Notes => GetNode<Node2D>("Main/Receptors/Notes");
+
         public Receptor GetReceptor(int key)
         {
             return ReceptorsContainer.GetChild<Receptor>(key + 1); // Notes Node are at top
         }
-
-        public Node2D Notes => GetNode<Node2D>("Main/Receptors/Notes");
 
         public override void _Process(float delta)
         {

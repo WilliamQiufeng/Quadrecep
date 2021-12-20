@@ -8,6 +8,7 @@ namespace Quadrecep.Map
         private static readonly Dictionary<string, Func<MapImporter>> Importers = new();
 
         public static IEnumerable<string> SupportedGameModes => Importers.Keys;
+
         public static MapImporter GetImporter(string gameMode)
         {
             return Importers[gameMode]();
@@ -18,8 +19,14 @@ namespace Quadrecep.Map
             Importers.Add(gameMode, importer);
         }
 
-        public virtual void ConvertFrom<TType>(TType source) => throw new NotImplementedException();
+        public virtual void ConvertFrom<TType>(TType source)
+        {
+            throw new NotImplementedException();
+        }
 
-        public virtual void WriteTo(string path) => throw new NotImplementedException();
+        public virtual void WriteTo(string path)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

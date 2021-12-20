@@ -3,7 +3,6 @@ using System.IO;
 using Godot;
 using Quadrecep.GameMode.Keys;
 using Quadrecep.GameMode.Navigate.Map;
-using Quadrecep.Map;
 using Quadrecep.UI;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -21,6 +20,10 @@ namespace Quadrecep
         public const string TexturesPath = "res://Textures";
 
         public static readonly Directory MapContainingDirectory = new();
+
+        public static Dictionary<string, string> ExtensionGameModeMap { get; } = new();
+
+        public static Dictionary<string, string> GameModeExtensionMap { get; } = new();
         // Declare member variables here. Examples:
         // private int a = 2;
         // private string b = "text";
@@ -148,10 +151,11 @@ namespace Quadrecep
             return name.Substr(0, name.Length - GetFileExtension(name).Length);
         }
 
-        public static Dictionary<string, string> ExtensionGameModeMap { get; } = new();
-        public static Dictionary<string, string> GameModeExtensionMap { get; } = new();
+        public static string GetGameModeFromExtension(string ext)
+        {
+            return ExtensionGameModeMap[ext];
+        }
 
-        public static string GetGameModeFromExtension(string ext) => ExtensionGameModeMap[ext];
         public static string GetGameMode(string fileName)
         {
             return GetGameModeFromExtension(GetFileExtension(fileName));

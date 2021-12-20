@@ -16,10 +16,10 @@ namespace Quadrecep.UI
         private int _difficultyIndex;
         private MapHandler[] _maps;
         private MapSetObject _mapSet;
-        public int Index;
-        public string MapFile;
         private Task[] _tasks;
         public CancellationTokenSource CancellationTokenSource = new();
+        public int Index;
+        public string MapFile;
 
         private int DifficultyIndex
         {
@@ -64,7 +64,8 @@ namespace Quadrecep.UI
             for (var i = 0; i < Count; i++)
             {
                 var index = i;
-                _tasks[i] = Task.Run(() => _maps[index] = MapHandler.GetMapHandler(MapFile, _mapSet.Maps[index]), CancellationTokenSource.Token);
+                _tasks[i] = Task.Run(() => _maps[index] = MapHandler.GetMapHandler(MapFile, _mapSet.Maps[index]),
+                    CancellationTokenSource.Token);
             }
 
             await Task.WhenAll(_tasks);

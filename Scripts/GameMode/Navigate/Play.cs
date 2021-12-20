@@ -39,6 +39,7 @@ namespace Quadrecep.GameMode.Navigate
                 noteSprite.ZIndex = ZInd--;
                 _nodePool.Enqueue(noteSprite);
             }
+
             base.AfterReady();
         }
 

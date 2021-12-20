@@ -33,7 +33,7 @@ namespace Quadrecep.Map
         }
 
         /// <summary>
-        /// Imports qua file
+        ///     Imports qua file
         /// </summary>
         /// <param name="qua">Qua source</param>
         /// <param name="dir">output dir</param>
@@ -60,7 +60,7 @@ namespace Quadrecep.Map
                 AudioPath = globQua.AudioFile,
                 BackgroundPath = globQua.BackgroundFile,
                 PreviewTime = globQua.SongPreviewTime,
-                Maps = mapFiles,
+                Maps = mapFiles
             };
             return resMapSet;
         }

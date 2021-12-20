@@ -10,6 +10,7 @@ namespace Quadrecep.GameMode.Keys.Map
     public class MapImporter : Quadrecep.Map.MapImporter
     {
         private MapObject _output;
+
         public override void ConvertFrom<TType>(TType source)
         {
             if (typeof(TType) == typeof(Qua)) ConvertFrom(source as Qua);
@@ -37,7 +38,7 @@ namespace Quadrecep.GameMode.Keys.Map
                 ScrollVelocities = qua.SliderVelocities.Select(x => new ScrollVelocity(x.StartTime, x.Multiplier))
                     .ToList(),
                 TimingPoints = qua.TimingPoints.Select(x => new TimingPoint(x.StartTime, x.Bpm, (int) x.Signature))
-                    .ToList(),
+                    .ToList()
             };
         }
 

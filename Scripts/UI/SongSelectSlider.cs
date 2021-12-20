@@ -7,8 +7,8 @@ namespace Quadrecep.UI
 {
     public class SongSelectSlider : Control
     {
+        private readonly CancellationTokenSource _cancellationTokenSource = new();
         private int _mapIndex;
-        private CancellationTokenSource _cancellationTokenSource = new();
 
         public int MapIndex
         {
