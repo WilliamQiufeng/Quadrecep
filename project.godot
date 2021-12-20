@@ -31,7 +31,7 @@ singletons_disabled=[  ]
 
 [global]
 
-Mono=false
+Mono=true
 
 [input]
 

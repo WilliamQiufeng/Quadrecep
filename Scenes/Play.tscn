@@ -1,6 +1,5 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://Resources/tete-a-tete.mp3" type="AudioStream" id=1]
 [ext_resource path="res://Default_BGA.webm" type="VideoStream" id=2]
 [ext_resource path="res://font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=4]
@@ -40,7 +39,6 @@ process_priority = -2
 script = ExtResource( 13 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 1 )
 bus = "Music"
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
