@@ -93,6 +93,15 @@ namespace Quadrecep.GameMode
         /// If the gameplay is going on
         /// </summary>
         public bool IsPlaying => !Finished && !Paused;
+
+        /// <summary>
+        /// Rate of audio player playing
+        /// </summary>
+        public float Rate = 1.0f;
+        /// <summary>
+        /// If pitch shifts on rate change
+        /// </summary>
+        public bool PitchStretch;
         
         public override void _Ready()
         {
@@ -187,7 +196,9 @@ namespace Quadrecep.GameMode
         /// </summary>
         protected virtual async Task LoadAudio()
         {
+            PitchStretch = Config.PitchStretch;
             AudioStreamPlayer.Stream = LoadAudio(Global.RelativeToMap(MapSetFile, AudioPath));
+            UpdateRate(Rate);
             await Task.Delay(Mathf.Abs(PreAudioCountdown));
             AudioStreamPlayer.Play();
         }
@@ -237,6 +248,18 @@ namespace Quadrecep.GameMode
             GD.Print($"Loading background from {imgPath}");
             Background.Texture = Global.LoadImage(imgPath);
             Background.Visible = true;
+        }
+
+        /// <summary>
+        /// Sets the rate of the audio.<br/>
+        /// Will keep the pitch same if pitch stretch is on
+        /// </summary>
+        /// <param name="rate"></param>
+        protected virtual void UpdateRate(float rate)
+        {
+            AudioStreamPlayer.PitchScale = Rate;
+            if (!PitchStretch)
+                ((AudioEffectPitchShift) AudioServer.GetBusEffect(1, 0)).PitchScale = 1 / Rate;
         }
     }
 }

@@ -6,6 +6,7 @@ namespace Quadrecep
     public class Config
     {
         public const string ConfigPath = "user://config.cfg";
+        private const string AudioSection = "Audio";
         private const string GameplaySection = "Gameplay";
         private const string VideoSection = "Video";
         private const string ScrollSpeedSection = "ScrollSpeed";
@@ -42,6 +43,11 @@ namespace Quadrecep
         {
             get => GetOrSet(GameplaySection, nameof(PreAudioCountdown), 1000);
             set => Set(GameplaySection, nameof(PreAudioCountdown), value);
+        }
+        public static bool PitchStretch
+        {
+            get => GetOrSet(AudioSection, nameof(PitchStretch), false);
+            set => Set(AudioSection, nameof(PitchStretch), value);
         }
 
         public static bool VsyncEnabled
