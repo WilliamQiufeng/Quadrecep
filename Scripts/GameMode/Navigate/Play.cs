@@ -54,7 +54,7 @@ namespace Quadrecep.GameMode.Navigate
         {
             base.ReadMap();
             MapSet = new MapSet(MapSetFile);
-            MapSet.ReadMap();
+            MapSet.ReadMapSet();
             MapObject.BuildPaths();
         }
 

@@ -27,7 +27,7 @@ namespace Quadrecep
             _mapSet.GetMap(0).AddSV(new ScrollVelocity(3000, 1f));
             _mapSet.GetMap(0).AddSV(new ScrollVelocity(3600, 2.0f));
             _mapSet.GetMap(0).AddSV(new ScrollVelocity(5000, 10.0f));
-            _mapSet.SaveMap();
+            _mapSet.SaveMapSet();
         }
 
         // Called when the node enters the scene tree for the first time.

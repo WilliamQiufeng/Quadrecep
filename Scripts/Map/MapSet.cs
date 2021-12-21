@@ -20,11 +20,12 @@ namespace Quadrecep.Map
 
         [Export(PropertyHint.File, "*.qbm")] public string MapFile { get; set; } = "Test";
 
-        // Declare member variables here. Examples:
-        // private int a = 2;
-        // private string b = "text";
-
-        // Called when the node enters the scene tree for the first time.
+        /// <summary>
+        /// Creates a map set and add it to database record
+        /// </summary>
+        /// <param name="name">Name of the map set</param>
+        /// <param name="force">allow map set overwrite</param>
+        /// <returns>If the creation succeeds</returns>
         public bool CreateMap(string name, bool force = false)
         {
             MapFile = name;
@@ -48,39 +49,44 @@ namespace Quadrecep.Map
                 return false;
             DatabaseHandler.Connection.Insert(record);
             MapSetObject.LocalId = record.Id;
-            SaveMap();
+            SaveMapSet();
             return true;
         }
 
+        /// <summary>
+        /// Gets a map from given <paramref name="mapFile"/>
+        /// </summary>
+        /// <param name="mapFile">Map file to retrieve maps</param>
+        /// <returns>Map read</returns>
         public T GetMap(string mapFile)
         {
             return MapHandler.GetMapHandler(MapFile, mapFile).GetMap<T>();
         }
 
+        /// <summary>
+        /// Gets the <paramref name="index"/>'th map of the map set
+        /// </summary>
+        /// <param name="index">Index of the map</param>
+        /// <returns>Map read</returns>
         public T GetMap(int index)
         {
             return GetMap(MapSetObject.Maps[index]);
         }
 
-        public void ReadMap()
+        /// <summary>
+        /// Reads the map set file (.qbm)
+        /// </summary>
+        public void ReadMapSet()
         {
             MapSetObject = Global.DeserializeFromFile<MapSetObject>(MapFile, "MapSet.qbm");
         }
 
-        public void SaveMap()
+        /// <summary>
+        /// Saves map set file
+        /// </summary>
+        public void SaveMapSet()
         {
             Global.SerializeToFile(MapSetObject, Global.RelativeToMap(MapFile, "MapSet.qbm"));
         }
-
-        public override void _Ready()
-        {
-            GD.Print("Hi");
-        }
-
-//  // Called every frame. 'delta' is the elapsed time since the previous frame.
-//  public override void _Process(float delta)
-//  {
-//      
-//  }
     }
 }

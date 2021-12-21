@@ -2,6 +2,9 @@ using System.Collections.Generic;
 
 namespace Quadrecep.Map
 {
+    /// <summary>
+    /// Map set object which contains the metadata shared by all maps below a map set's directory
+    /// </summary>
     public class MapSetObject
     {
         public float PreviewTime { get; set; }

@@ -26,7 +26,7 @@ namespace Quadrecep.GameMode.Keys
         {
             base.ReadMap();
             MapSet = new MapSet(MapSetFile);
-            MapSet.ReadMap();
+            MapSet.ReadMapSet();
             ((InputProcessor) InputProcessor).LaneCount = MapObject.LaneCount;
             InputRetriever.Keys = MapObject.LaneCount;
         }
