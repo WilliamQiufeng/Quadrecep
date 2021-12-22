@@ -70,22 +70,44 @@ namespace Quadrecep.UI
         {
             dir.ListDirBegin();
             var fileName = dir.GetNext();
+            var fileCount = 0;
             while (!string.IsNullOrEmpty(fileName))
             {
                 if (dir.CurrentIsDir() && !fileName.StartsWith("."))
                 {
-                    var element = SongSelectElement.Scene.Instance<SongSelectElement>();
-                    GD.Print(fileName);
-                    element.MapFile = fileName;
-                    element.Index = ChildrenCount;
-                    element.CancellationTokenSource = _cancellationTokenSource;
-                    element.Parent = this;
+                    var element = CreateElement(fileName);
                     HBoxContainer.AddChild(element);
                     Task.Run(() => element.LoadMaps());
+                    fileCount++;
                 }
 
                 fileName = dir.GetNext();
             }
+            GD.Print($"{fileCount} Map sets");
+
+            if (fileCount != 0) return;
+            var stubElement = CreateStubElement();
+            HBoxContainer.AddChild(stubElement);
+            GD.Print("Stub element is created");
+        }
+
+        private SongSelectElement CreateStubElement()
+        {
+            var element = SongSelectElement.Scene.Instance<SongSelectElement>();
+            element.Parent = this;
+            element.Stub = true;
+            return element;
+        }
+
+        private SongSelectElement CreateElement(string fileName)
+        {
+            var element = SongSelectElement.Scene.Instance<SongSelectElement>();
+            GD.Print(fileName);
+            element.MapFile = fileName;
+            element.Index = ChildrenCount;
+            element.CancellationTokenSource = _cancellationTokenSource;
+            element.Parent = this;
+            return element;
         }
 
         public override void _Process(float delta)

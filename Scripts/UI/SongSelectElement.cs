@@ -21,6 +21,7 @@ namespace Quadrecep.UI
         public int Index;
         public string MapFile;
         public SongSelectSlider Parent;
+        public bool Stub;
         private AudioStreamPlayer AudioStreamPlayer => GetNode<AudioStreamPlayer>("Player");
 
         private int DifficultyIndex
@@ -28,6 +29,7 @@ namespace Quadrecep.UI
             get => _difficultyIndex;
             set
             {
+                if (Stub) return;
                 _difficultyIndex = value;
                 GetNode<Label>("Difficulty").Text = IsDifficultyLoaded(value)
                     ? _maps[DifficultyIndex].DifficultyName
@@ -38,19 +40,28 @@ namespace Quadrecep.UI
             }
         }
 
-        private int Count => _mapSet.Maps.Count;
+        private int Count => Stub ? 1 : _mapSet.Maps.Count;
 
         public override void _Ready()
         {
-            _mapSet = Global.DeserializeFromFile<MapSetObject>(MapFile, "MapSet.qbm");
-            GetNode<TextureRect>("Preview").Texture =
-                Global.LoadImage(Global.RelativeToMap(MapFile, _mapSet.BackgroundPath));
-            GetNode<Label>("Name").Text = _mapSet.Name;
-            GetNode<Label>("Author").Text = _mapSet.Creator;
-            GetNode<Label>("Artist").Text = _mapSet.Artist;
-            AudioStreamPlayer.Stream =
-                APlayBase.LoadAudio(Global.RelativeToMap(MapFile, _mapSet.AudioPath));
-            DifficultyIndex = 0;
+            if (Stub)
+            {
+                GetNode<Label>("Name").Text = "Empty";
+                GetNode<Label>("Author").Text = "none";
+                GetNode<Label>("Artist").Text = "none";
+            }
+            else
+            {
+                _mapSet = Global.DeserializeFromFile<MapSetObject>(MapFile, "MapSet.qbm");
+                GetNode<TextureRect>("Preview").Texture =
+                    Global.LoadImage(Global.RelativeToMap(MapFile, _mapSet.BackgroundPath));
+                GetNode<Label>("Name").Text = _mapSet.Name;
+                GetNode<Label>("Author").Text = _mapSet.Creator;
+                GetNode<Label>("Artist").Text = _mapSet.Artist;
+                AudioStreamPlayer.Stream =
+                    APlayBase.LoadAudio(Global.RelativeToMap(MapFile, _mapSet.AudioPath));
+                DifficultyIndex = 0;
+            }
             // GrabFocus();
         }
 
@@ -122,6 +133,7 @@ namespace Quadrecep.UI
         /// </summary>
         private void PlayMap()
         {
+            if (Stub) return;
             if (!IsDifficultyLoaded(DifficultyIndex))
             {
                 GD.Print("Difficulty load not done yet!");
@@ -167,7 +179,7 @@ namespace Quadrecep.UI
         private void FadeIn()
         {
             AudioStreamPlayer.Playing = true;
-            AudioStreamPlayer.Seek(_mapSet.PreviewTime / 1000);
+            if (!Stub) AudioStreamPlayer.Seek(_mapSet.PreviewTime / 1000);
             var tween = GetNode<Tween>("Player/Tween");
             tween.InterpolateProperty(tween.GetParent(), "volume_db", -6, 0, FocusDuration);
             tween.Start();
