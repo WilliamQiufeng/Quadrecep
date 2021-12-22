@@ -20,6 +20,8 @@ namespace Quadrecep.UI
         public CancellationTokenSource CancellationTokenSource = new();
         public int Index;
         public string MapFile;
+        public SongSelectSlider Parent;
+        private AudioStreamPlayer AudioStreamPlayer => GetNode<AudioStreamPlayer>("Player");
 
         private int DifficultyIndex
         {
@@ -46,10 +48,16 @@ namespace Quadrecep.UI
             GetNode<Label>("Name").Text = _mapSet.Name;
             GetNode<Label>("Author").Text = _mapSet.Creator;
             GetNode<Label>("Artist").Text = _mapSet.Artist;
-            GetNode<AudioStreamPlayer>("Player").Stream =
+            AudioStreamPlayer.Stream =
                 APlay<IClearableInput>.LoadAudio(Global.RelativeToMap(MapFile, _mapSet.AudioPath));
             DifficultyIndex = 0;
+            UpdateRate();
             // GrabFocus();
+        }
+
+        private void UpdateRate()
+        {
+            SetRate(Parent.Rate);
         }
 
         private bool IsDifficultyLoaded(int index)
@@ -84,8 +92,19 @@ namespace Quadrecep.UI
             if (Input.IsActionJustPressed("ui_up"))
                 DifficultyIndex = DifficultyIndex - 1 < 0 ? Count - 1 : DifficultyIndex - 1;
             if (Input.IsActionJustPressed("ui_down")) DifficultyIndex = (DifficultyIndex + 1) % Count;
-            if (Input.IsActionPressed("ui_play")) PlayMap();
+            if (Input.IsActionJustPressed("ui_play")) PlayMap();
+            if (Input.IsActionJustPressed("audio_rate_up")) RateUp();
+            if (Input.IsActionJustPressed("audio_rate_down")) RateDown();
         }
+
+        public void SetRate(float rate)
+        {
+            Parent.Rate = rate;
+            Global.UpdateRate(AudioStreamPlayer, rate, Config.PitchStretch);
+        }
+
+        public void RateUp() => SetRate(Parent.Rate + 0.05f);
+        public void RateDown() => SetRate(Parent.Rate - 0.05f);
 
         public void _OnPlayPressed()
         {
@@ -105,8 +124,11 @@ namespace Quadrecep.UI
             }
 
             CancellationTokenSource.Cancel();
-            GetNode<AudioStreamPlayer>("Player").Stop();
-            GetTree().Root.AddChild(_maps[DifficultyIndex].InitScene());
+            AudioStreamPlayer.Stop();
+            var scene = (APlayBase)_maps[DifficultyIndex].InitScene();
+            scene.Rate = Parent.Rate;
+            
+            GetTree().Root.AddChild(scene);
             GetParent().GetParent().GetParent().GetParent().QueueFree();
         }
 
@@ -118,6 +140,7 @@ namespace Quadrecep.UI
                 Tween.TransitionType.Linear, Tween.EaseType.In);
             tween.Start();
             FadeIn();
+            UpdateRate();
         }
 
         public void _OnFocusExit()
@@ -138,8 +161,8 @@ namespace Quadrecep.UI
 
         private void FadeIn()
         {
-            GetNode<AudioStreamPlayer>("Player").Playing = true;
-            GetNode<AudioStreamPlayer>("Player").Seek(_mapSet.PreviewTime / 1000);
+            AudioStreamPlayer.Playing = true;
+            AudioStreamPlayer.Seek(_mapSet.PreviewTime / 1000);
             var tween = GetNode<Tween>("Player/Tween");
             tween.InterpolateProperty(tween.GetParent(), "volume_db", -6, 0, FocusDuration);
             tween.Start();
@@ -147,7 +170,7 @@ namespace Quadrecep.UI
 
         public void _OnTweenComplete(Object obj, NodePath key)
         {
-            if (!HasFocus()) GetNode<AudioStreamPlayer>("Player").Stop();
+            if (!HasFocus()) AudioStreamPlayer.Stop();
         }
     }
 }

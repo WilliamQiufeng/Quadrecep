@@ -9,6 +9,7 @@ namespace Quadrecep.UI
     {
         private readonly CancellationTokenSource _cancellationTokenSource = new();
         private int _mapIndex;
+        public float Rate = 1.0f;
 
         public int MapIndex
         {
@@ -69,6 +70,7 @@ namespace Quadrecep.UI
                     element.MapFile = fileName;
                     element.Index = ChildrenCount;
                     element.CancellationTokenSource = _cancellationTokenSource;
+                    element.Parent = this;
                     HBoxContainer.AddChild(element);
                     Task.Run(() => element.LoadMaps());
                 }

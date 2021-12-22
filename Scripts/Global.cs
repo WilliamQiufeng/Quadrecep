@@ -257,5 +257,19 @@ namespace Quadrecep
             AudioEffectPitchShift.Oversampling = Config.TimeStretchOversampling;
             AudioEffectPitchShift.FftSize = (AudioEffectPitchShift.FFT_Size)Config.TimeStretchFftSize;
         }
+
+        /// <summary>
+        /// Sets the rate of the audio.<br/>
+        /// Will keep the pitch same if pitch stretch is on
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="rate"></param>
+        /// <param name="pitchStretch"></param>
+        public static void UpdateRate(AudioStreamPlayer player, float rate, bool pitchStretch)
+        {
+            player.PitchScale = rate;
+            if (!pitchStretch)
+                ((AudioEffectPitchShift) AudioServer.GetBusEffect(1, 0)).PitchScale = 1 / rate;
+        }
     }
 }
