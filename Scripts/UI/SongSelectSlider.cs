@@ -9,7 +9,16 @@ namespace Quadrecep.UI
     {
         private readonly CancellationTokenSource _cancellationTokenSource = new();
         private int _mapIndex;
-        public float Rate = 1.0f;
+        private float _rate = 1.0f;
+        public SongSelect Parent;
+        public float Rate { 
+            get => _rate;
+            set
+            {
+                _rate = Mathf.Clamp(value, 0.50f, 2.00f);
+                if (Parent != null) Parent.Rate.Text = $"{_rate:0.00}x";
+            } 
+        }
 
         public int MapIndex
         {

@@ -73,5 +73,20 @@ margin_top = 300.0
 margin_right = 512.0
 margin_bottom = 300.0
 
+[node name="Rate" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -90.0
+margin_top = 10.0
+margin_right = -15.0
+margin_bottom = 40.0
+grow_horizontal = 0
+custom_fonts/font = ExtResource( 2 )
+text = "1.00x"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="tween_all_completed" from="BackgroundTransition" to="." method="_OnTweenAllComplete"]
 [connection signal="pressed" from="CreateMap" to="CreateMap" method="_OnCreateMapPressed"]

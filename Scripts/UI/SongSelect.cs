@@ -7,9 +7,11 @@ namespace Quadrecep.UI
         public static readonly Color InitialColor = new(1, 1, 1, 0.75f);
         public static readonly Color FinalColor = new(1, 1, 1, 0);
         public SongSelectSlider Slider => GetNode<SongSelectSlider>("SongSelectSlider");
+        public Label Rate => GetNode<Label>("Rate");
 
         public override void _Ready()
         {
+            Slider.Parent = this;
         }
 
         /// <summary>

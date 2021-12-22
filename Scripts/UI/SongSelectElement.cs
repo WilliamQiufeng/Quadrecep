@@ -49,9 +49,8 @@ namespace Quadrecep.UI
             GetNode<Label>("Author").Text = _mapSet.Creator;
             GetNode<Label>("Artist").Text = _mapSet.Artist;
             AudioStreamPlayer.Stream =
-                APlay<IClearableInput>.LoadAudio(Global.RelativeToMap(MapFile, _mapSet.AudioPath));
+                APlayBase.LoadAudio(Global.RelativeToMap(MapFile, _mapSet.AudioPath));
             DifficultyIndex = 0;
-            UpdateRate();
             // GrabFocus();
         }
 
@@ -100,7 +99,8 @@ namespace Quadrecep.UI
         public void SetRate(float rate)
         {
             Parent.Rate = rate;
-            Global.UpdateRate(AudioStreamPlayer, rate, Config.PitchStretch);
+            // Use Parent.Rate because it clamps the value
+            Global.UpdateRate(AudioStreamPlayer, Parent.Rate, Config.PitchStretch);
         }
 
         public void RateUp() => SetRate(Parent.Rate + 0.05f);
