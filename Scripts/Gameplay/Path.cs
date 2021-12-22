@@ -56,11 +56,11 @@ namespace Quadrecep.Gameplay
         /// Calculates the player's position at a given time, given that the time is within the range
         /// The following explains how to deduce where the player is accurately.<br/>
         /// </para>
-        /// Let v be the speed, (x, y) be the initial position of the player,<br/>
-        /// (dx, dy) be the direction of the note<br/>
-        /// t1 be the initial time and t2 be the final time.<br/>
+        /// Let <c>v</c> be the speed, <c>(x, y)</c> be the initial position of the player,<br/>
+        /// <c>(dx, dy)</c> be the direction of the note<br/>
+        /// <c>t1</c> be the initial time and <c>t2</c> be the final time.<br/>
         /// The distance travelled in any direction in a constant time should be constant:<br/>
-        /// There should be a factor C, where sqrt((Cdx)^2 + (Cdy)^2) = 1:<br/>
+        /// There should be a factor <c>C</c>, where <c>sqrt((Cdx)^2 + (Cdy)^2) = 1</c>.<br/>
         /// C can be calculated by the following:<br/>
         /// <code>C = sqrt(1/(dx^2+dy^2))</code>
         /// From that we can calculate the final position the player is at at time t2:<br/>
