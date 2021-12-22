@@ -94,6 +94,11 @@ namespace Quadrecep.UI
             if (Input.IsActionJustPressed("ui_play")) PlayMap();
             if (Input.IsActionJustPressed("audio_rate_up")) RateUp();
             if (Input.IsActionJustPressed("audio_rate_down")) RateDown();
+            if (Input.IsActionJustPressed("audio_pitch_stretch"))
+            {
+                Config.PitchStretch = !Config.PitchStretch;
+                SetRate(Parent.Rate);
+            }
         }
 
         public void SetRate(float rate)

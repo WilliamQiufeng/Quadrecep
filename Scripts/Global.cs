@@ -268,8 +268,7 @@ namespace Quadrecep
         public static void UpdateRate(AudioStreamPlayer player, float rate, bool pitchStretch)
         {
             player.PitchScale = rate;
-            if (!pitchStretch)
-                ((AudioEffectPitchShift) AudioServer.GetBusEffect(1, 0)).PitchScale = 1 / rate;
+            ((AudioEffectPitchShift) AudioServer.GetBusEffect(1, 0)).PitchScale = pitchStretch ? 1 : 1 / rate;
         }
     }
 }
