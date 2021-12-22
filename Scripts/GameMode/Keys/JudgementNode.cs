@@ -43,7 +43,7 @@ namespace Quadrecep.GameMode.Keys
 
         public void _OnAnimationFinished(string n)
         {
-            // QueueFree();
+            Visible = false;
         }
     }
 }

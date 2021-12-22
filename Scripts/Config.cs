@@ -49,6 +49,16 @@ namespace Quadrecep
             get => GetOrSet(AudioSection, nameof(PitchStretch), false);
             set => Set(AudioSection, nameof(PitchStretch), value);
         }
+        public static int TimeStretchOversampling
+        {
+            get => GetOrSet(AudioSection, nameof(TimeStretchOversampling), 4);
+            set => Set(AudioSection, nameof(TimeStretchOversampling), value);
+        }
+        public static int TimeStretchFftSize
+        {
+            get => GetOrSet(AudioSection, nameof(TimeStretchFftSize), (int)AudioEffectPitchShift.FFT_Size.Size2048);
+            set => Set(AudioSection, nameof(TimeStretchFftSize), value);
+        }
 
         public static bool VsyncEnabled
         {

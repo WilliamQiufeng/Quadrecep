@@ -20,23 +20,33 @@ namespace Quadrecep
         public const string TexturesPath = "res://Textures";
 
         public static readonly Directory MapContainingDirectory = new();
+        public const int AudioEffectPitchShiftIndex = 0;
+
+        public static AudioEffectPitchShift AudioEffectPitchShift =>
+            (AudioEffectPitchShift) AudioServer.GetBusEffect(1, AudioEffectPitchShiftIndex);
 
         public static Dictionary<string, string> ExtensionGameModeMap { get; } = new();
 
         public static Dictionary<string, string> GameModeExtensionMap { get; } = new();
-        
+
         public override void _Ready()
         {
             Config.Initialize();
             // DatabaseHandler.Initialize();
-            OS.VsyncEnabled = Config.VsyncEnabled;
-            OS.WindowFullscreen = Config.WindowFullscreen;
-            OS.WindowBorderless = Config.WindowBorderless;
+            UpdateVideoConfig();
             Play.BaseSV = Config.NavigateScrollSpeed;
+            UpdateAudioConfig();
             LoadPackedScenes();
             LoadTextures();
             GameModeInfo.Init();
             GameMode.Keys.GameModeInfo.Init();
+        }
+
+        private static void UpdateVideoConfig()
+        {
+            OS.VsyncEnabled = Config.VsyncEnabled;
+            OS.WindowFullscreen = Config.WindowFullscreen;
+            OS.WindowBorderless = Config.WindowBorderless;
         }
 
         /// <summary>
@@ -240,6 +250,12 @@ namespace Quadrecep
         {
             ExtensionGameModeMap.Add(extension, gameMode);
             GameModeExtensionMap.Add(gameMode, extension);
+        }
+
+        public static void UpdateAudioConfig()
+        {
+            AudioEffectPitchShift.Oversampling = Config.TimeStretchOversampling;
+            AudioEffectPitchShift.FftSize = (AudioEffectPitchShift.FFT_Size)Config.TimeStretchFftSize;
         }
     }
 }
