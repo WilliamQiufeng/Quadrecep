@@ -49,6 +49,10 @@ namespace Quadrecep.Map
             var globQua = Qua.Parse(Directory.GetFiles(targetDirectory).First(x => x.EndsWith(".qua")));
             var mapSetObject = GenerateMapSetObject(globQua, files);
             Global.SerializeToFile(mapSetObject, $"{targetDirectory}/MapSet.qbm");
+            foreach (var del in Directory.GetFiles(targetDirectory).Where(x => x.EndsWith(".qua")))
+            {
+                File.Delete(del);
+            }
         }
 
         /// <summary>
