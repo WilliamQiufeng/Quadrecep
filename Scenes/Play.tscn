@@ -53,8 +53,8 @@ __meta__ = {
 }
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2( -768, -450 )
-scale = Vector2( 1.5, 1.5 )
+position = Vector2( -720, -405 )
+scale = Vector2( 0.75, 0.75 )
 motion_scale = Vector2( 0.02, 0.02 )
 
 [node name="Background" type="TextureRect" parent="ParallaxBackground/ParallaxLayer"]
