@@ -187,6 +187,22 @@ namespace Quadrecep.GameMode
             else PausePanel.Hide();
         }
 
+        internal virtual void Retry()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void PassValuesFrom(APlayBase play)
+        {
+            MapSetFile = play.MapSetFile;
+            Rate = play.Rate;
+        }
+
+        internal void GotoMenu()
+        {
+            Global.SwitchScene(this, Global.SongSelect);
+        }
+
         /// <summary>
         /// Loads audio and plays them.<br/>
         /// Delays interval before audio playing.
@@ -208,6 +224,7 @@ namespace Quadrecep.GameMode
         /// <exception cref="NotImplementedException">the file format is not supported (not one of mp3, wav or ogg)</exception>
         public static AudioStream LoadAudio(string audioPath)
         {
+            GD.Print($"Loading audio: {audioPath}");
             var audioFile = new File();
             audioFile.Open(audioPath, File.ModeFlags.Read);
             var buffer = audioFile.GetBuffer((int) audioFile.GetLen());

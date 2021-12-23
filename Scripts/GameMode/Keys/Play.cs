@@ -58,5 +58,13 @@ namespace Quadrecep.GameMode.Keys
             GetNode<Label>("HUD/Name").Text = MapSet.MapSetObject.Name;
             base.AfterReady();
         }
+
+        internal override void Retry()
+        {
+            var scene = Scene.Instance<Play>();
+            scene.PassValuesFrom(this);
+            scene.MapObject = MapObject;
+            Global.SwitchScene(this, scene);
+        }
     }
 }

@@ -29,6 +29,8 @@ namespace Quadrecep
 
         public static Dictionary<string, string> GameModeExtensionMap { get; } = new();
 
+        public static SongSelect SongSelect;
+
         public override void _Ready()
         {
             Config.Initialize();
@@ -40,6 +42,7 @@ namespace Quadrecep
             LoadTextures();
             GameModeInfo.Init();
             GameMode.Keys.GameModeInfo.Init();
+            SongSelect = GetNode<SongSelect>("../Root");
         }
 
         private static void UpdateVideoConfig()
@@ -54,6 +57,7 @@ namespace Quadrecep
         /// </summary>
         private static void LoadPackedScenes()
         {
+            SongSelect.Scene = GD.Load<PackedScene>("res://Scenes/SongSelect.tscn");
             Play.Scene = GD.Load<PackedScene>("res://Scenes/Play.tscn");
             GameMode.Keys.Play.Scene = GD.Load<PackedScene>("res://Scenes/PlayKeys.tscn");
             SongSelectElement.Scene = GD.Load<PackedScene>("res://Scenes/SongSelectElement.tscn");
@@ -269,6 +273,13 @@ namespace Quadrecep
         {
             player.PitchScale = rate;
             ((AudioEffectPitchShift) AudioServer.GetBusEffect(1, 0)).PitchScale = pitchStretch ? 1 : 1 / rate;
+        }
+
+        public static void SwitchScene(Node from, Node to, bool removeFromParent = false, bool queueFree = true)
+        {
+            from.GetTree().Root.AddChild(to);
+            if (removeFromParent) from.GetParent().RemoveChild(from);
+            if (queueFree) from.QueueFree();
         }
     }
 }

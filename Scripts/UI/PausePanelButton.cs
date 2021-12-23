@@ -27,8 +27,10 @@ namespace Quadrecep.UI
                     Parent.Parent.TogglePause();
                     break;
                 case ButtonType.Retry:
+                    Parent.Parent.Retry();
                     break;
                 case ButtonType.Menu:
+                    Parent.Parent.GotoMenu();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

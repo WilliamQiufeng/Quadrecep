@@ -103,5 +103,13 @@ namespace Quadrecep.GameMode.Navigate
         {
             return Zero.AngleToPoint(targetNoteDirection.NetDirection) - Mathf.Pi / 2;
         }
+
+        internal override void Retry()
+        {
+            var scene = Scene.Instance<Play>();
+            scene.PassValuesFrom(this);
+            scene.MapObject = MapObject;
+            Global.SwitchScene(this, scene);
+        }
     }
 }

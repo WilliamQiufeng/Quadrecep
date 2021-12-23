@@ -142,11 +142,13 @@ namespace Quadrecep.UI
 
             CancellationTokenSource.Cancel();
             AudioStreamPlayer.Stop();
+            
             var scene = _maps[DifficultyIndex].InitScene();
             scene.Rate = Parent.Rate;
-            
-            GetTree().Root.AddChild(scene);
-            Parent.GetParent().QueueFree();
+            // GetTree().Root.AddChild(scene);
+            // Parent.GetParent().QueueFree();
+            Global.SwitchScene(Parent.GetParent(), scene, true, false);
+            Global.SongSelect = Parent.Parent;
         }
 
         public void _OnFocusEnter()
