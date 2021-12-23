@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Godot;
 
 namespace Quadrecep.GameMode
@@ -21,6 +20,7 @@ namespace Quadrecep.GameMode
         /// </summary>
         protected override void SetParents()
         {
+            base.SetParents();
             InputRetriever.APlayParent = InputProcessor.APlayParent = this;
         }
 

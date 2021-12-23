@@ -1,5 +1,6 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
+[ext_resource path="res://Scenes/Pause.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Default_BGA.webm" type="VideoStream" id=2]
 [ext_resource path="res://font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=4]
@@ -172,6 +173,10 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PausePanel" parent="HUD" instance=ExtResource( 1 )]
+margin_right = 1024.0
+margin_bottom = 600.0
 
 [node name="Player" type="CanvasLayer" parent="."]
 follow_viewport_enable = true

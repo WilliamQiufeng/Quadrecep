@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Textures/Mask.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/GameMode/Keys/InputRetriever.cs" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scripts/GameMode/Keys/InputProcessor.cs" type="Script" id=7]
 [ext_resource path="res://Scripts/Fps.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/BackgroundMask.cs" type="Script" id=9]
+[ext_resource path="res://Scenes/Pause.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/GameMode/Keys/Play.cs" type="Script" id=11]
 
 [sub_resource type="Animation" id=1]
@@ -148,6 +149,11 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="PausePanel" parent="HUD" instance=ExtResource( 10 )]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
 
 [node name="InputProcessor" type="Node" parent="."]
 script = ExtResource( 7 )

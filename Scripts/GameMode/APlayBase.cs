@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using Godot;
+using Quadrecep.UI;
 
 namespace Quadrecep.GameMode
 {
@@ -66,6 +67,10 @@ namespace Quadrecep.GameMode
         /// </summary>
         protected virtual string InputRetrieverPath => "InputRetriever";
 
+        protected virtual string PausePanelPath => "HUD/PausePanel";
+
+        protected PausePanel PausePanel => GetNode<PausePanel>(PausePanelPath);
+
         /// <summary>
         /// Path to background file
         /// </summary>
@@ -108,6 +113,7 @@ namespace Quadrecep.GameMode
         /// </summary>
         protected virtual void SetParents()
         {
+            PausePanel.Parent = this;
         }
 
         /// <summary>
@@ -170,8 +176,15 @@ namespace Quadrecep.GameMode
         protected virtual void CheckForPause()
         {
             if (!Input.IsActionJustPressed("play_pause")) return;
+            TogglePause();
+        }
+
+        internal void TogglePause()
+        {
             Paused = !Paused;
             AudioStreamPlayer.StreamPaused = Paused;
+            if (Paused) PausePanel.Popup_();
+            else PausePanel.Hide();
         }
 
         /// <summary>
