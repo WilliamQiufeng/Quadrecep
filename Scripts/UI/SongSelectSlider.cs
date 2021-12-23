@@ -116,8 +116,9 @@ namespace Quadrecep.UI
             if (Input.IsActionJustPressed("ui_left")) MapIndex = MapIndex - 1 < 0 ? ChildrenCount - 1 : MapIndex - 1;
             if (Input.IsActionJustPressed("ui_right")) MapIndex = (MapIndex + 1) % ChildrenCount;
         }
-
-        private void UpdateElementFocus()
+        
+        
+        public void UpdateElementFocus()
         {
             FocusedElement.GrabFocus();
         }

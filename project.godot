@@ -106,6 +106,10 @@ audio_pitch_stretch={
  ]
 }
 
+[locale]
+
+locale_filter=[ 0, [ "en", "zh" ] ]
+
 [physics]
 
 common/enable_pause_aware_picking=true
