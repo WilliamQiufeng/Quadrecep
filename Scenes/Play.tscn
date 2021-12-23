@@ -94,6 +94,7 @@ autoplay = "Fade"
 anims/Fade = SubResource( 1 )
 
 [node name="HUD" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="Name" type="Label" parent="HUD"]
 anchor_left = -0.00055027
