@@ -29,7 +29,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.07 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.37, 0.37 ), Vector2( 0.4, 0.4 ) ]
+"values": [ Vector2( 0.694, 0.694 ), Vector2( 0.75, 0.75 ) ]
 }
 
 [sub_resource type="Animation" id=2]
@@ -60,7 +60,7 @@ tracks/1/keys = {
 }
 
 [node name="Judgement" type="Node2D"]
-scale = Vector2( 0.37, 0.37 )
+scale = Vector2( 0.75, 0.75 )
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

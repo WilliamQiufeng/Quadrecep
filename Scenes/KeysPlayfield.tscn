@@ -11,10 +11,10 @@ layer = 0
 script = ExtResource( 9 )
 
 [node name="Main" type="Node2D" parent="."]
-position = Vector2( 512, 300 )
+position = Vector2( 960, 540 )
 
 [node name="Cover" type="Sprite" parent="Main"]
-scale = Vector2( 0.667, 0.5 )
+scale = Vector2( 1.2, 0.9 )
 texture = ExtResource( 7 )
 
 [node name="BorderL" type="Sprite" parent="Main/Cover"]
@@ -28,8 +28,8 @@ scale = Vector2( 1, 0.781 )
 texture = ExtResource( 6 )
 
 [node name="Receptors" type="Sprite" parent="Main"]
-position = Vector2( -133.333, 231 )
-scale = Vector2( 0.261, 0.25 )
+position = Vector2( -240, 231 )
+scale = Vector2( 0.469, 0.45 )
 z_index = 1
 
 [node name="Notes" type="Node2D" parent="Main/Receptors"]

@@ -9,7 +9,7 @@
 [node name="SongSelectElement" type="Control"]
 margin_right = 300.0
 margin_bottom = 425.0
-rect_min_size = Vector2( 300, 425 )
+rect_min_size = Vector2( 450, 637.5 )
 focus_mode = 1
 script = ExtResource( 4 )
 __meta__ = {
@@ -18,9 +18,9 @@ __meta__ = {
 
 [node name="BG" type="TextureRect" parent="."]
 self_modulate = Color( 1, 1, 1, 0.768627 )
-margin_right = 300.0
-margin_bottom = 425.0
-rect_min_size = Vector2( 300, 425 )
+margin_right = 450.0
+margin_bottom = 637.5
+rect_min_size = Vector2( 450, 637.5 )
 mouse_filter = 2
 input_pass_on_modal_close_click = false
 texture = ExtResource( 5 )
@@ -30,15 +30,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Name" type="Label" parent="."]
-anchor_top = 0.8
+[node name="Preview" type="TextureRect" parent="."]
+margin_right = 450.0
+margin_bottom = 450.0
+rect_min_size = Vector2( 450, 450 )
+texture = ExtResource( 2 )
+expand = true
+stretch_mode = 7
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Play" type="TextureButton" parent="Preview"]
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-anchor_bottom = 0.8
-margin_top = -35.0
-margin_bottom = -15.0
+anchor_bottom = 1.0
+margin_left = -100.0
+margin_top = -100.0
+grow_horizontal = 0
+grow_vertical = 0
+focus_mode = 0
+enabled_focus_mode = 0
+texture_normal = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Name" type="Label" parent="."]
+margin_top = 450.0
+margin_right = 450.0
+margin_bottom = 503.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 300, 25 )
+rect_min_size = Vector2( 450, 53 )
 custom_fonts/font = ExtResource( 1 )
 text = "Name"
 align = 1
@@ -53,13 +78,13 @@ anchor_left = 0.5
 anchor_top = 0.739784
 anchor_right = 0.5
 anchor_bottom = 0.756398
-margin_left = -75.0
-margin_top = 25.0
-margin_right = 225.0
-margin_bottom = 41.0
+margin_left = -225.0
+margin_top = 31.3877
+margin_right = 675.0
+margin_bottom = 73.7963
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 300, 25 )
+rect_min_size = Vector2( 900, 53 )
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 1 )
 text = "Artist"
@@ -75,13 +100,13 @@ anchor_left = 0.5
 anchor_top = 0.748091
 anchor_right = 0.5
 anchor_bottom = 0.748091
-margin_left = -75.0
-margin_top = 32.0612
-margin_right = 225.0
-margin_bottom = 62.0612
+margin_left = -225.0
+margin_top = 52.092
+margin_right = 675.0
+margin_bottom = 105.092
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 300, 25 )
+rect_min_size = Vector2( 900, 53 )
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 1 )
 text = "Author"
@@ -97,13 +122,13 @@ anchor_left = 0.5
 anchor_top = 0.748091
 anchor_right = 0.5
 anchor_bottom = 0.748091
-margin_left = -150.0
-margin_top = 62.0613
-margin_right = 150.0
-margin_bottom = 92.0614
+margin_left = -225.0
+margin_top = 78.092
+margin_right = 225.0
+margin_bottom = 123.092
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 300, 25 )
+rect_min_size = Vector2( 450, 53 )
 custom_fonts/font = ExtResource( 1 )
 text = "Loading"
 align = 1
@@ -116,48 +141,19 @@ __meta__ = {
 [node name="GameMode" type="Label" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -75.0
-margin_top = 405.0
-margin_right = 225.0
-margin_bottom = 435.0
+margin_left = -225.0
+margin_top = 600.0
+margin_right = 675.0
+margin_bottom = 653.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 300, 15 )
+rect_min_size = Vector2( 900, 53 )
 rect_scale = Vector2( 0.5, 0.5 )
 custom_fonts/font = ExtResource( 1 )
 text = "unknown"
 align = 1
 valign = 1
 clip_text = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Preview" type="TextureRect" parent="."]
-margin_right = 300.0
-margin_bottom = 300.0
-texture = ExtResource( 2 )
-expand = true
-stretch_mode = 7
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Play" type="TextureButton" parent="Preview"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = -50.0
-margin_top = -50.0
-margin_right = 46.0
-margin_bottom = 46.0
-grow_horizontal = 0
-grow_vertical = 0
-rect_scale = Vector2( 0.5, 0.5 )
-focus_mode = 0
-enabled_focus_mode = 0
-texture_normal = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -170,9 +166,9 @@ bus = "Music"
 
 [node name="Mask" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0.768627 )
-margin_right = 300.0
-margin_bottom = 425.0
-rect_min_size = Vector2( 300, 425 )
+margin_right = 450.0
+margin_bottom = 637.5
+rect_min_size = Vector2( 450, 637.5 )
 mouse_filter = 2
 input_pass_on_modal_close_click = false
 texture = ExtResource( 5 )

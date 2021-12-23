@@ -12,7 +12,7 @@ namespace Quadrecep.GameMode.Keys
 {
     public class Playfield : CanvasLayer
     {
-        public const float RealCoverHeight = 600;
+        public const float RealCoverHeight = 1080;
         private readonly ConcurrentQueue<NoteNode> _tempNoteNodes = new();
         private readonly ConcurrentQueue<NoteNode> _tempNoteNodesOut = new();
 
@@ -64,7 +64,7 @@ namespace Quadrecep.GameMode.Keys
             PlaceReceptors();
             ReceptorsContainer.Scale =
                 new Vector2(Cover.Texture.GetWidth() * Cover.Scale.x / _receptorsSize.x,
-                    0.25f);
+                    0.45f);
             ReceptorsContainer.Position = new Vector2(Cover.Texture.GetWidth() * Cover.Scale.x / -2f,
                 RealCoverHeight / 2f - _receptorSize.y * ReceptorsContainer.Scale.y);
             NoteNode.LoadTextures(Parent.InputRetriever.Keys);
