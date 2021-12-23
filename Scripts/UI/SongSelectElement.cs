@@ -17,7 +17,6 @@ namespace Quadrecep.UI
         private MapHandler[] _maps;
         private MapSetObject _mapSet;
         private Task[] _tasks;
-        public CancellationTokenSource CancellationTokenSource = new();
         public int Index;
         public string MapFile;
         public SongSelectSlider Parent;
@@ -85,8 +84,7 @@ namespace Quadrecep.UI
             for (var i = 0; i < Count; i++)
             {
                 var index = i;
-                _tasks[i] = Task.Run(() => _maps[index] = MapHandler.GetMapHandler(MapFile, _mapSet.Maps[index]),
-                    CancellationTokenSource.Token);
+                _tasks[i] = Task.Run(() => _maps[index] = MapHandler.GetMapHandler(MapFile, _mapSet.Maps[index]));
             }
 
             await Task.WhenAll(_tasks);
@@ -140,7 +138,6 @@ namespace Quadrecep.UI
                 return;
             }
 
-            CancellationTokenSource.Cancel();
             AudioStreamPlayer.Stop();
             
             var scene = _maps[DifficultyIndex].InitScene();
