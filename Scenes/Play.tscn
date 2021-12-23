@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scenes/Pause.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Default_BGA.webm" type="VideoStream" id=2]
-[ext_resource path="res://font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=4]
 [ext_resource path="res://Textures/Mask.png" type="Texture" id=5]
 [ext_resource path="res://Scripts/GameMode/Navigate/Play.cs" type="Script" id=6]

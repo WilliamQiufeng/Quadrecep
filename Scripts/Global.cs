@@ -34,6 +34,9 @@ namespace Quadrecep
         public override void _Ready()
         {
             Config.Initialize();
+            Config.Locale = Config.Locale;
+            GD.Print($"Loaded locales: {TranslationServer.GetLoadedLocales()}");
+            GD.Print($"Locale: {Config.Locale}");
             // DatabaseHandler.Initialize();
             UpdateVideoConfig();
             Play.BaseSV = Config.NavigateScrollSpeed;

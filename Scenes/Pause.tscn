@@ -51,16 +51,16 @@ grow_vertical = 2
 margin_top = -135.0
 margin_bottom = -65.0
 group = SubResource( 1 )
-text = "Resume"
+text = "Gameplay_PausePanel_Resume"
 
 [node name="Retry" parent="CenterContainer/Control" instance=ExtResource( 1 )]
 group = SubResource( 2 )
-text = "Retry"
+text = "Gameplay_PausePanel_Retry"
 Type = 1
 
 [node name="Menu" parent="CenterContainer/Control" instance=ExtResource( 1 )]
 margin_top = 65.0
 margin_bottom = 135.0
 group = SubResource( 3 )
-text = "Menu"
+text = "Gameplay_PausePanel_Menu"
 Type = 2

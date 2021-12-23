@@ -1,0 +1,30 @@
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: POEditor.com\n"
+"Project-Id-Version: Quadrecep\n"
+"Language: en\n"
+
+#: 
+#, fuzzy
+msgid "GameMode_ShortName_Keys"
+msgstr "keys"
+
+#: 
+msgid "GameMode_ShortName_Navigate"
+msgstr "nav"
+
+#: 
+msgid "Gameplay_PausePanel_Resume"
+msgstr "Resume"
+
+#: 
+msgid "Gameplay_PausePanel_Retry"
+msgstr "Retry"
+
+#: 
+msgid "Gameplay_PausePanel_Menu"
+msgstr "Menu"
+

@@ -10,6 +10,7 @@ namespace Quadrecep
         private const string GameplaySection = "Gameplay";
         private const string VideoSection = "Video";
         private const string ScrollSpeedSection = "ScrollSpeed";
+        private const string MiscSection = "Misc";
         public static ConfigFile File { get; } = new();
 
         public static float NavigateScrollSpeed
@@ -94,6 +95,16 @@ namespace Quadrecep
         {
             get => GetOrSet(GameplaySection, nameof(PlayfieldWidthPerKey), 1f / 6);
             set => Set(GameplaySection, nameof(PlayfieldWidthPerKey), value);
+        }
+        public static string Locale
+        {
+            get => GetOrSet(MiscSection, nameof(Locale), "en");
+            set
+            {
+                Set(MiscSection, nameof(Locale), value);
+                TranslationServer.SetLocale(value);
+                GD.Print($"Locale changed to: {value}");
+            }
         }
 
         public static void Initialize()

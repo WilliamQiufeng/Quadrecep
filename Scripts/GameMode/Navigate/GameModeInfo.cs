@@ -6,7 +6,7 @@ namespace Quadrecep.GameMode.Navigate
     {
         public const string Name = "Navigate";
         public const string Extension = ".qbmn";
-        public const string ShortName = "nav";
+        public const string ShortName = "GameMode_ShortName_Navigate";
 
         public static void Init()
         {

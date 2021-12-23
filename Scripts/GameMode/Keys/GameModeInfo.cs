@@ -5,7 +5,7 @@ namespace Quadrecep.GameMode.Keys
     public class GameModeInfo
     {
         public const string Name = "Keys";
-        public const string ShortName = "key";
+        public const string ShortName = "GameMode_ShortName_Keys";
         public const string Extension = ".qbmk";
 
         public static void Init()
