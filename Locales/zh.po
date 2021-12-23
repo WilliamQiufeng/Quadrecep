@@ -27,3 +27,11 @@ msgstr "重试"
 msgid "Gameplay_PausePanel_Menu"
 msgstr "菜单"
 
+#: 
+msgid "GameMode_ShortName_Keys_Loading"
+msgstr "下落（载入中）"
+
+#: 
+msgid "GameMode_ShortName_Navigate_Loading"
+msgstr "移动（载入中）"
+
