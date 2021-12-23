@@ -21,7 +21,7 @@ namespace Quadrecep.GameMode
         {
             if (!APlayParent.IsPlaying) return;
             for (var i = 0; i < Keys; i++)
-                EnqueueInputs(APlayParent.InputProcessor, APlayParent.DynamicTime, @event, $"play_{InputName}_{i}", i);
+                EnqueueInputs(APlayParent.InputProcessor, APlayParent.DynamicTime + APlayParent.GlobalOffset, @event, $"play_{InputName}_{i}", i);
         }
 
         /// <summary>

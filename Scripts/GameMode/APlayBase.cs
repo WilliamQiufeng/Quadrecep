@@ -39,6 +39,9 @@ namespace Quadrecep.GameMode
         public virtual float DynamicTime => AudioStreamPlayer.Playing && !AudioStreamPlayer.StreamPaused
             ? AudioTime
             : AudioStreamPlayer.GetPlaybackPosition();
+        
+        
+        public float GlobalOffset, GlobalVisualOffset;
 
         public virtual float AudioTime => (float) (AudioStreamPlayer.GetPlaybackPosition() +
             AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000;
@@ -129,6 +132,10 @@ namespace Quadrecep.GameMode
         /// </summary>
         protected virtual void AfterReady()
         {
+            GlobalOffset = Config.KeysAudioOffset;
+            GlobalVisualOffset = Config.KeysVisualOffset;
+            GD.Print($"Audio Offset: {GlobalOffset} ms");
+            GD.Print($"Visual Offset: {GlobalVisualOffset} px");
             Task.Run(LoadAudio);
         }
 
