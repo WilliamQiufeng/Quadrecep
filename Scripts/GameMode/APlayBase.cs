@@ -33,11 +33,15 @@ namespace Quadrecep.GameMode
         public int PreAudioCountdown => Config.PreAudioCountdown;
 
         /// <summary>
+        /// From https://docs.godotengine.org/en/stable/tutorials/audio/sync_with_audio.html<br/>
         /// Real-time audio progress
         /// </summary>
-        public virtual float DynamicTime => AudioStreamPlayer.Playing && !AudioStreamPlayer.StreamPaused ?
-            (float) (AudioStreamPlayer.GetPlaybackPosition() +
-                AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000 : AudioStreamPlayer.GetPlaybackPosition();
+        public virtual float DynamicTime => AudioStreamPlayer.Playing && !AudioStreamPlayer.StreamPaused
+            ? AudioTime
+            : AudioStreamPlayer.GetPlaybackPosition();
+
+        public virtual float AudioTime => (float) (AudioStreamPlayer.GetPlaybackPosition() +
+            AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000;
 
         /// <summary>
         /// Path to background node
@@ -48,6 +52,7 @@ namespace Quadrecep.GameMode
         /// Background node
         /// </summary>
         public TextureRect Background => GetNode<TextureRect>(BackgroundNodePath);
+
         /// <summary>
         /// Path to audioStreamPlayer node
         /// </summary>
@@ -57,6 +62,7 @@ namespace Quadrecep.GameMode
         /// audioStreamPlayer node
         /// </summary>
         public AudioStreamPlayer AudioStreamPlayer => GetNode<AudioStreamPlayer>(AudioStreamPlayerPath);
+
         /// <summary>
         /// Path to input processor node
         /// </summary>
@@ -75,6 +81,7 @@ namespace Quadrecep.GameMode
         /// Path to background file
         /// </summary>
         protected virtual string BackgroundPath => "";
+
         /// <summary>
         /// Path to audio file
         /// </summary>
@@ -94,11 +101,12 @@ namespace Quadrecep.GameMode
         /// Rate of audio player playing
         /// </summary>
         public float Rate = 1.0f;
+
         /// <summary>
         /// If pitch shifts on rate change
         /// </summary>
         public bool PitchStretch;
-        
+
         public override void _Ready()
         {
             SetParents();
@@ -159,7 +167,6 @@ namespace Quadrecep.GameMode
         /// </summary>
         protected virtual void UpdateHUD()
         {
-            
         }
 
         /// <summary>
@@ -169,8 +176,12 @@ namespace Quadrecep.GameMode
         protected virtual void UpdateTime()
         {
             if (!IsPlaying) return;
-            // From https://docs.godotengine.org/en/stable/tutorials/audio/sync_with_audio.html
-            Time = DynamicTime;
+            var prevTime = Time;
+            var curTime = DynamicTime;
+            if (prevTime < curTime)
+            {
+                Time = curTime;
+            }
         }
 
         protected virtual void CheckForPause()
@@ -201,6 +212,7 @@ namespace Quadrecep.GameMode
         internal void GotoMenu()
         {
             Global.SwitchScene(this, Global.SongSelect);
+            Global.SongSelect.Slider.UpdateElementFocus();
         }
 
         /// <summary>
