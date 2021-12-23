@@ -24,7 +24,7 @@ namespace Quadrecep.GameMode.Keys.Map
             return _mapObject as T;
         }
 
-        public override Node InitScene()
+        public override APlayBase InitScene()
         {
             var scene = Scene.Instance<Play>();
             scene.MapSetFile = MapSetPath;

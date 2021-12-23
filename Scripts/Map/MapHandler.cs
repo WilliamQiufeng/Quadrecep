@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using Quadrecep.GameMode;
 
 namespace Quadrecep.Map
 {
@@ -80,7 +81,7 @@ namespace Quadrecep.Map
             throw new NotImplementedException();
         }
 
-        public virtual Node InitScene()
+        public virtual APlayBase InitScene()
         {
             throw new NotImplementedException();
         }
