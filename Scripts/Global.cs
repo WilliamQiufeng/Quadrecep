@@ -45,7 +45,6 @@ namespace Quadrecep
             LoadTextures();
             GameModeInfo.Init();
             GameMode.Keys.GameModeInfo.Init();
-            SongSelect = GetNode<SongSelect>("../Root");
         }
 
         private static void UpdateVideoConfig()
