@@ -28,10 +28,6 @@ msgid "Gameplay_PausePanel_Menu"
 msgstr "Menu"
 
 #: 
-msgid "GameMode_ShortName_Keys_Loading"
-msgstr "keys (Loading)"
-
-#: 
-msgid "GameMode_ShortName_Navigate_Loading"
-msgstr "nav (Loading)"
+msgid "GameMode_ShortName_Loading"
+msgstr "{0} (Loading)"
 
