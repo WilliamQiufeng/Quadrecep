@@ -13,7 +13,6 @@ namespace Quadrecep.GameMode.Keys
     public class Playfield : CanvasLayer
     {
         public const float RealCoverHeight = 1080;
-        private readonly ConcurrentQueue<NoteNode> _tempNoteNodes = new();
         private readonly ConcurrentQueue<NoteNode> _tempNoteNodesOut = new();
 
         private Vector2 _receptorSize = new(256, 277);
@@ -89,12 +88,6 @@ namespace Quadrecep.GameMode.Keys
             GD.Print("Generation async done");
         }
 
-        public void PoolObjects(List<NoteObject> notes)
-        {
-            for (var i = 0; i < notes.Count; i++)
-                _tempNoteNodes.Enqueue(NoteNode.Scene.Instance<NoteNode>());
-        }
-
         public void GenerateNoteNodesForLane(List<NoteObject> notes, List<ScrollVelocity> svs, int lane)
         {
             var pathCutoff = Config.NoteGenerationPathCutoff;
@@ -115,7 +108,11 @@ namespace Quadrecep.GameMode.Keys
                                                 svIndex < laneSVs.Count - 1 && laneNotes.Peek().EndTime <
                                                 laneSVs[svIndex + 1].Time))
                 {
-                    if (!_tempNoteNodes.TryDequeue(out var node)) break;
+                    NoteNode node;
+                    lock (NoteNode.Scene)
+                    {
+                        node = NoteNode.Scene.Instance<NoteNode>();
+                    }
                     var note = laneNotes.Dequeue();
                     if (note.CustomPaths != null && note.CustomPaths.Count != 0)
                     {

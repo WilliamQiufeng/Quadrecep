@@ -136,18 +136,12 @@ namespace Quadrecep
         public static T DeserializeFromFile<T>(string mapSetPath, string mapFile)
         {
             var path = RelativeToMap(mapSetPath, mapFile);
-#if DEBUG
-            GD.Print($"Loading {path}");
-#endif
             var deserializer = new DeserializerBuilder()
                 .IgnoreUnmatchedProperties()
                 .Build();
             var read = new File();
             read.Open(path, File.ModeFlags.Read);
             var res = deserializer.Deserialize<T>(read.GetAsText());
-#if DEBUG
-            GD.Print($"Done loading {path}");
-#endif
             return res;
         }
 
