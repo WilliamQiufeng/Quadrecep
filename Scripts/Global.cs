@@ -28,6 +28,8 @@ namespace Quadrecep
         public static Dictionary<string, string> ExtensionGameModeMap { get; } = new();
 
         public static Dictionary<string, string> GameModeExtensionMap { get; } = new();
+        public static Dictionary<string, string> GameModeShortNameMap { get; } = new();
+        public static Dictionary<string, string> GameModeFullNameMap { get; } = new();
 
         public static SongSelect SongSelect;
 
@@ -45,7 +47,6 @@ namespace Quadrecep
             LoadTextures();
             GameModeInfo.Init();
             GameMode.Keys.GameModeInfo.Init();
-            SongSelect = GetNode<SongSelect>("../Root");
         }
 
         private static void UpdateVideoConfig()
@@ -239,6 +240,25 @@ namespace Quadrecep
         }
 
         /// <summary>
+        /// Gets short name of a game mode.
+        /// </summary>
+        /// <param name="gameMode">Game mode</param>
+        /// <returns>The short name of the mode</returns>
+        public static string GetGameModeShortName(string gameMode)
+        {
+            return GameModeShortNameMap[gameMode];
+        }
+        /// <summary>
+        /// Gets full name of a game mode from a short name
+        /// </summary>
+        /// <param name="gameMode">Game mode short name</param>
+        /// <returns>The full name of the mode</returns>
+        public static string GetGameModeFullName(string gameMode)
+        {
+            return GameModeFullNameMap[gameMode];
+        }
+
+        /// <summary>
         /// Gets extension of a game mode
         /// </summary>
         /// <param name="gameMode">Game mode name</param>
@@ -257,6 +277,17 @@ namespace Quadrecep
         {
             ExtensionGameModeMap.Add(extension, gameMode);
             GameModeExtensionMap.Add(gameMode, extension);
+        }
+
+        /// <summary>
+        /// Relates an extension with a game mode
+        /// </summary>
+        /// <param name="gameMode">Game mode name</param>
+        /// <param name="shortName">Short name of the game mode</param>
+        public static void RegisterGameModeShortName(string gameMode, string shortName)
+        {
+            GameModeShortNameMap.Add(gameMode, shortName);
+            GameModeFullNameMap.Add(shortName, gameMode);
         }
 
         public static void UpdateAudioConfig()

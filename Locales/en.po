@@ -8,7 +8,6 @@ msgstr ""
 "Language: en\n"
 
 #: 
-#, fuzzy
 msgid "GameMode_ShortName_Keys"
 msgstr "keys"
 
@@ -27,4 +26,8 @@ msgstr "Retry"
 #: 
 msgid "Gameplay_PausePanel_Menu"
 msgstr "Menu"
+
+#: 
+msgid "GameMode_ShortName_Loading"
+msgstr "{0} (Loading)"
 

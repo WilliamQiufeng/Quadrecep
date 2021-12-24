@@ -8,8 +8,10 @@
 [ext_resource path="res://Scripts/UI/SongSelect.cs" type="Script" id=6]
 [ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=7]
 
-[node name="Root" type="Control"]
-rect_min_size = Vector2( 1024, 600 )
+[node name="Root2" type="Control"]
+margin_right = 1920.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 1920, 1080 )
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -22,9 +24,9 @@ script = ExtResource( 5 )
 
 [node name="BlurredBackground" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0.768627 )
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 1024, 600 )
+margin_right = 1920.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 1920, 1080 )
 texture = ExtResource( 7 )
 expand = true
 __meta__ = {
@@ -33,9 +35,9 @@ __meta__ = {
 
 [node name="BlurredBackground2" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-margin_right = 1024.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 1024, 600 )
+margin_right = 1920.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 1920, 1080 )
 texture = ExtResource( 7 )
 expand = true
 __meta__ = {
@@ -44,9 +46,9 @@ __meta__ = {
 
 [node name="Blur" type="ColorRect" parent="."]
 material = ExtResource( 3 )
-margin_right = 1024.0
-margin_bottom = 600.0
-rect_min_size = Vector2( 1024, 600 )
+margin_right = 1920.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 1920, 1080 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -68,10 +70,10 @@ __meta__ = {
 [node name="SongSelectSlider" parent="." instance=ExtResource( 1 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 512.0
-margin_top = 300.0
-margin_right = 512.0
-margin_bottom = 300.0
+margin_left = 960.0
+margin_top = 540.0
+margin_right = 960.0
+margin_bottom = 540.0
 
 [node name="Rate" type="Label" parent="."]
 anchor_left = 1.0

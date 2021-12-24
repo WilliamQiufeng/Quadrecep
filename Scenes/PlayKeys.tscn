@@ -1,15 +1,13 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Textures/Mask.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/GameMode/Keys/InputRetriever.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/KeysPlayfield.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Shaders/Blur.tres" type="Material" id=4]
 [ext_resource path="res://Textures/Default_BG.jpeg" type="Texture" id=5]
-[ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Scenes/HUD.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scripts/GameMode/Keys/InputProcessor.cs" type="Script" id=7]
-[ext_resource path="res://Scripts/Fps.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/BackgroundMask.cs" type="Script" id=9]
-[ext_resource path="res://Scenes/Pause.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/GameMode/Keys/Play.cs" type="Script" id=11]
 
 [sub_resource type="Animation" id=1]
@@ -40,8 +38,9 @@ bus = "Music"
 
 [node name="Background" type="TextureRect" parent="."]
 visible = false
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_right = 1920.0
+margin_bottom = 1080.0
+rect_min_size = Vector2( 1920, 1080 )
 texture = ExtResource( 5 )
 expand = true
 __meta__ = {
@@ -52,15 +51,16 @@ __meta__ = {
 material = ExtResource( 4 )
 margin_right = 1024.0
 margin_bottom = 600.0
-rect_min_size = Vector2( 1024, 600 )
+rect_min_size = Vector2( 1920, 1080 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Mask" type="TextureRect" parent="."]
-margin_right = 1024.0
-margin_bottom = 600.0
+margin_right = 1920.0
+margin_bottom = 1080.0
 texture = ExtResource( 1 )
+stretch_mode = 1
 script = ExtResource( 9 )
 __meta__ = {
 "_edit_use_anchors_": false,
@@ -71,88 +71,7 @@ __meta__ = {
 autoplay = "Fade"
 anims/Fade = SubResource( 1 )
 
-[node name="HUD" type="CanvasLayer" parent="."]
-
-[node name="Name" type="Label" parent="HUD"]
-anchor_right = 0.33
-anchor_bottom = 0.125
-margin_left = 30.0
-margin_top = 15.0
-margin_right = 0.563538
-margin_bottom = 35.0
-rect_pivot_offset = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 6 )
-text = "Name"
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Combo" type="Label" parent="HUD"]
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_top = 10.0
-margin_bottom = 40.0
-grow_horizontal = 2
-grow_vertical = 2
-custom_fonts/font = ExtResource( 6 )
-text = "0"
-align = 1
-valign = 1
-autowrap = true
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Fps" type="Label" parent="HUD"]
-process_priority = 1
-anchor_top = 1.0
-anchor_bottom = 1.01667
-margin_left = 10.0
-margin_top = -30.0
-margin_right = 150.0
-margin_bottom = -10.0
-rect_scale = Vector2( 0.75, 0.75 )
-rect_pivot_offset = Vector2( 0.5, 0.5 )
-custom_fonts/font = ExtResource( 6 )
-text = "  60 FPS"
-valign = 2
-autowrap = true
-script = ExtResource( 8 )
-__meta__ = {
-"_edit_use_anchors_": true
-}
-
-[node name="Score" type="Label" parent="HUD"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -129.0
-margin_top = 10.0
-margin_right = -110.0
-custom_fonts/font = ExtResource( 6 )
-text = " 0000000"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Accuracy" type="Label" parent="HUD"]
-anchor_left = 0.999701
-anchor_right = 0.999701
-margin_left = -100.0
-margin_top = 50.0
-margin_right = -10.0
-custom_fonts/font = ExtResource( 6 )
-text = "00.00%"
-align = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PausePanel" parent="HUD" instance=ExtResource( 10 )]
-margin_right = 1024.0
-margin_bottom = 600.0
+[node name="HUD" parent="." instance=ExtResource( 6 )]
 
 [node name="InputProcessor" type="Node" parent="."]
 script = ExtResource( 7 )

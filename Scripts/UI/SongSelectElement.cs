@@ -17,7 +17,6 @@ namespace Quadrecep.UI
         private MapHandler[] _maps;
         private MapSetObject _mapSet;
         private Task[] _tasks;
-        public CancellationTokenSource CancellationTokenSource = new();
         public int Index;
         public string MapFile;
         public SongSelectSlider Parent;
@@ -35,8 +34,8 @@ namespace Quadrecep.UI
                     ? _maps[DifficultyIndex].DifficultyName
                     : Global.GetFileName(_mapSet.Maps[DifficultyIndex]);
                 GetNode<Label>("GameMode").Text = IsDifficultyLoaded(value)
-                    ? _maps[DifficultyIndex].GameModeShortName
-                    : $"{Global.GetGameMode(_mapSet.Maps[DifficultyIndex])} (loading)";
+                    ? Tr($"GameMode_ShortName_{Global.GetGameModeFullName(_maps[DifficultyIndex].GameModeShortName)}")
+                    : string.Format(Tr("GameMode_ShortName_Loading"), Tr($"GameMode_ShortName_{Global.GetGameMode(_mapSet.Maps[DifficultyIndex])}"));
             }
         }
 
@@ -85,8 +84,7 @@ namespace Quadrecep.UI
             for (var i = 0; i < Count; i++)
             {
                 var index = i;
-                _tasks[i] = Task.Run(() => _maps[index] = MapHandler.GetMapHandler(MapFile, _mapSet.Maps[index]),
-                    CancellationTokenSource.Token);
+                _tasks[i] = Task.Run(() => _maps[index] = MapHandler.GetMapHandler(MapFile, _mapSet.Maps[index]));
             }
 
             await Task.WhenAll(_tasks);
@@ -140,7 +138,6 @@ namespace Quadrecep.UI
                 return;
             }
 
-            CancellationTokenSource.Cancel();
             AudioStreamPlayer.Stop();
             
             var scene = _maps[DifficultyIndex].InitScene();

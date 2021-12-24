@@ -7,7 +7,6 @@ namespace Quadrecep.UI
 {
     public class SongSelectSlider : Control
     {
-        private readonly CancellationTokenSource _cancellationTokenSource = new();
         private int _mapIndex;
         private float _rate = 1.0f;
         public SongSelect Parent;
@@ -105,7 +104,6 @@ namespace Quadrecep.UI
             GD.Print(fileName);
             element.MapFile = fileName;
             element.Index = ChildrenCount;
-            element.CancellationTokenSource = _cancellationTokenSource;
             element.Parent = this;
             return element;
         }

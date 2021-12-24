@@ -27,3 +27,7 @@ msgstr "重试"
 msgid "Gameplay_PausePanel_Menu"
 msgstr "菜单"
 
+#: 
+msgid "GameMode_ShortName_Loading"
+msgstr "{0}（载入中）"
+
