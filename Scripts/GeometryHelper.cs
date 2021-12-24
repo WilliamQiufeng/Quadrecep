@@ -7,7 +7,7 @@ namespace Quadrecep
     public static class GeometryHelper
     {
         /// <summary>
-        /// Checks if a point is inside a specified region
+        ///     Checks if a point is inside a specified region
         /// </summary>
         /// <param name="point">Point to check</param>
         /// <param name="regionPos1">Region top left</param>
@@ -20,8 +20,8 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Finds intersection of a line with the borders of a region<br/>
-        /// This works by calling <see cref="IntersectionWithVerticalBorders"/> once and once more with axis flipped.
+        ///     Finds intersection of a line with the borders of a region<br />
+        ///     This works by calling <see cref="IntersectionWithVerticalBorders" /> once and once more with axis flipped.
         /// </summary>
         /// <param name="linePos1">Line start</param>
         /// <param name="linePos2">Line end</param>
@@ -39,7 +39,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Finds intersection of a line with the vertical border of a region.
+        ///     Finds intersection of a line with the vertical border of a region.
         /// </summary>
         /// <param name="linePos1">Line start</param>
         /// <param name="linePos2">Line end</param>
@@ -65,10 +65,10 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Exchange <see cref="Vector2.x"/> and <see cref="Vector2.y"/>
+        ///     Exchange <see cref="Vector2.x" /> and <see cref="Vector2.y" />
         /// </summary>
-        /// <param name="vec">Source <see cref="Vector2"/> to process</param>
-        /// <returns>result <see cref="Vector2"/> flipped</returns>
+        /// <param name="vec">Source <see cref="Vector2" /> to process</param>
+        /// <returns>result <see cref="Vector2" /> flipped</returns>
         private static Vector2 Exchange(this Vector2 vec)
         {
             return new Vector2(vec.y, vec.x);

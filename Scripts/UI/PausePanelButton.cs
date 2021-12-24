@@ -12,13 +12,15 @@ namespace Quadrecep.UI
             Menu
         }
 
+        public PausePanel Parent;
+
+        [Export(PropertyHint.Enum, "Resume,Retry,Menu")]
+        public ButtonType Type = ButtonType.Resume;
+
         public override void _Ready()
         {
-            
         }
 
-        [Export(PropertyHint.Enum, "Resume,Retry,Menu")] public ButtonType Type = ButtonType.Resume;
-        public PausePanel Parent;
         private void OnButtonPressed()
         {
             switch (Type)

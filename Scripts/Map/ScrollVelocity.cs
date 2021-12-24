@@ -1,7 +1,7 @@
 namespace Quadrecep.Map
 {
     /// <summary>
-    /// Scroll Velocity (SV) changes
+    ///     Scroll Velocity (SV) changes
     /// </summary>
     public class ScrollVelocity
     {

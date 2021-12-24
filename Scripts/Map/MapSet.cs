@@ -21,7 +21,7 @@ namespace Quadrecep.Map
         [Export(PropertyHint.File, "*.qbm")] public string MapFile { get; set; } = "Test";
 
         /// <summary>
-        /// Creates a map set and add it to database record
+        ///     Creates a map set and add it to database record
         /// </summary>
         /// <param name="name">Name of the map set</param>
         /// <param name="force">allow map set overwrite</param>
@@ -54,7 +54,7 @@ namespace Quadrecep.Map
         }
 
         /// <summary>
-        /// Gets a map from given <paramref name="mapFile"/>
+        ///     Gets a map from given <paramref name="mapFile" />
         /// </summary>
         /// <param name="mapFile">Map file to retrieve maps</param>
         /// <returns>Map read</returns>
@@ -64,7 +64,7 @@ namespace Quadrecep.Map
         }
 
         /// <summary>
-        /// Gets the <paramref name="index"/>'th map of the map set
+        ///     Gets the <paramref name="index" />'th map of the map set
         /// </summary>
         /// <param name="index">Index of the map</param>
         /// <returns>Map read</returns>
@@ -74,7 +74,7 @@ namespace Quadrecep.Map
         }
 
         /// <summary>
-        /// Reads the map set file (.qbm)
+        ///     Reads the map set file (.qbm)
         /// </summary>
         public void ReadMapSet()
         {
@@ -82,7 +82,7 @@ namespace Quadrecep.Map
         }
 
         /// <summary>
-        /// Saves map set file
+        ///     Saves map set file
         /// </summary>
         public void SaveMapSet()
         {

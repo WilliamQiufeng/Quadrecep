@@ -8,37 +8,37 @@ namespace Quadrecep.GameMode
     public abstract class AInputProcessor<T> : Node where T : IClearableInput
     {
         /// <summary>
-        /// Judgement Counter to record judgements, sum up scores, give accuracy, etc.
+        ///     Judgement Counter to record judgements, sum up scores, give accuracy, etc.
         /// </summary>
         public readonly JudgementCounter Counter = new();
 
         /// <summary>
-        /// The expected inputs to be taken from the player
+        ///     The expected inputs to be taken from the player
         /// </summary>
         protected readonly List<Queue<InputEvent<T>>> ExpectedInputs = new();
 
         /// <summary>
-        /// The actual input from a player.<br/>
-        /// This can be extended to take inputs from autoplay mod
+        ///     The actual input from a player.<br />
+        ///     This can be extended to take inputs from autoplay mod
         /// </summary>
         public readonly List<Queue<InputEvent<T>>> Inputs = new();
 
         public APlay<T> APlayParent;
 
         /// <summary>
-        /// Judgement set to use.<br/>
-        /// This specifies judgement window
+        ///     Judgement set to use.<br />
+        ///     This specifies judgement window
         /// </summary>
         public JudgementSet JudgementSet = JudgementSet.Default;
 
         /// <summary>
-        /// Returns the number of tracks of input
+        ///     Returns the number of tracks of input
         /// </summary>
         public int InputTracks => ExpectedInputs.Count;
 
         /// <summary>
-        /// Returns count of total valid input.<br/>
-        /// Sums up all expected inputs where the input counts
+        ///     Returns count of total valid input.<br />
+        ///     Sums up all expected inputs where the input counts
         /// </summary>
         public int ValidInputCount => ExpectedInputs.Sum(x => x.Count(inp => inp.CountAsInput));
 
@@ -48,7 +48,7 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Initialise ExpectedInputs and Inputs with <paramref name="trackCount"/> number of tracks
+        ///     Initialise ExpectedInputs and Inputs with <paramref name="trackCount" /> number of tracks
         /// </summary>
         /// <param name="trackCount">The number of tracks to initialise</param>
         protected void InitTracks(int trackCount)
@@ -63,7 +63,7 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Processes inputs and remove missed notes 60 times per second.<br/>
+        ///     Processes inputs and remove missed notes 60 times per second.<br />
         /// </summary>
         /// <param name="delta">time passed since last _PhysicsProcess</param>
         public override void _PhysicsProcess(float delta)
@@ -103,7 +103,7 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Process inputs from <see cref="Inputs"/>
+        ///     Process inputs from <see cref="Inputs" />
         /// </summary>
         private void ProcessInputs()
         {
@@ -116,8 +116,8 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Dequeues input event from specified <paramref name="key"/> of <see cref="ExpectedInputs"/><br/>
-        /// Calls <see cref="IClearableInput.ClearInput"/> on the dequeued event
+        ///     Dequeues input event from specified <paramref name="key" /> of <see cref="ExpectedInputs" /><br />
+        ///     Calls <see cref="IClearableInput.ClearInput" /> on the dequeued event
         /// </summary>
         /// <param name="key">The key to dequeue</param>
         /// <returns>The event dequeued</returns>
@@ -129,9 +129,9 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Have a peek at the latest input event from <see cref="ExpectedInputs"/> on the key track
+        ///     Have a peek at the latest input event from <see cref="ExpectedInputs" /> on the key track
         /// </summary>
-        /// <param name="key">Track of <see cref="ExpectedInputs"/> to peek</param>
+        /// <param name="key">Track of <see cref="ExpectedInputs" /> to peek</param>
         /// <returns>peeked event</returns>
         private InputEvent<T> PeekLatestInputEvent(int key)
         {
@@ -139,18 +139,18 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Places visual judgement feedback
+        ///     Places visual judgement feedback
         /// </summary>
-        /// <param name="input">Input from <see cref="ExpectedInputs"/></param>
-        /// <param name="judgement"><see cref="Judgement"/> got from the input</param>
+        /// <param name="input">Input from <see cref="ExpectedInputs" /></param>
+        /// <param name="judgement"><see cref="Judgement" /> got from the input</param>
         protected virtual void PlaceJudgementFeedback(InputEvent<T> input, Judgement judgement)
         {
         }
 
         /// <summary>
-        /// Checks queue track of <see cref="ExpectedInputs"/> emptiness
+        ///     Checks queue track of <see cref="ExpectedInputs" /> emptiness
         /// </summary>
-        /// <param name="key">Track of <see cref="ExpectedInputs"/></param>
+        /// <param name="key">Track of <see cref="ExpectedInputs" /></param>
         /// <returns>If the queue is empty</returns>
         private bool IsQueueEmpty(int key)
         {
@@ -160,7 +160,7 @@ namespace Quadrecep.GameMode
         /// <summary>
         ///     Process a specific input
         /// </summary>
-        /// <param name="input"><see cref="InputEvent"/> input</param>
+        /// <param name="input"><see cref="InputEvent" /> input</param>
         private void ProcessInput(InputEvent<T> input)
         {
             if (IsQueueEmpty(input.Key)) return; // Prevent Queue Length=0
@@ -179,9 +179,9 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        ///     Feeds notes to the <see cref="AInputProcessor{T}"/> to generate <see cref="ExpectedInputs"/>
+        ///     Feeds notes to the <see cref="AInputProcessor{T}" /> to generate <see cref="ExpectedInputs" />
         /// </summary>
-        /// <param name="notes">Notes to generate <see cref="ExpectedInputs"/></param>
+        /// <param name="notes">Notes to generate <see cref="ExpectedInputs" /></param>
         public virtual void FeedNotes(List<T> notes)
         {
         }

@@ -1,4 +1,3 @@
-using System.Threading;
 using System.Threading.Tasks;
 using Godot;
 using Quadrecep.Map;
@@ -10,13 +9,15 @@ namespace Quadrecep.UI
         private int _mapIndex;
         private float _rate = 1.0f;
         public SongSelect Parent;
-        public float Rate { 
+
+        public float Rate
+        {
             get => _rate;
             set
             {
                 _rate = Mathf.Clamp(value, 0.50f, 2.00f);
                 if (Parent != null) Parent.Rate.Text = $"{_rate:0.00}x";
-            } 
+            }
         }
 
         public int MapIndex
@@ -82,6 +83,7 @@ namespace Quadrecep.UI
 
                 fileName = dir.GetNext();
             }
+
             GD.Print($"{fileCount} Map sets");
 
             if (fileCount != 0) return;
@@ -114,8 +116,8 @@ namespace Quadrecep.UI
             if (Input.IsActionJustPressed("ui_left")) MapIndex = MapIndex - 1 < 0 ? ChildrenCount - 1 : MapIndex - 1;
             if (Input.IsActionJustPressed("ui_right")) MapIndex = (MapIndex + 1) % ChildrenCount;
         }
-        
-        
+
+
         public void UpdateElementFocus()
         {
             FocusedElement.GrabFocus();

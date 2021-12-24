@@ -1,7 +1,7 @@
 namespace Quadrecep.Map
 {
     /// <summary>
-    /// Timing point (Time signature and tempo) changes
+    ///     Timing point (Time signature and tempo) changes
     /// </summary>
     public class TimingPoint
     {

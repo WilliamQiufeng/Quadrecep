@@ -7,7 +7,7 @@ using Quaver.API.Maps;
 namespace Quadrecep.Map
 {
     /// <summary>
-    /// Used to import a whole map set in a single file, usually compressed.
+    ///     Used to import a whole map set in a single file, usually compressed.
     /// </summary>
     public class MapSetImporter
     {
@@ -18,8 +18,8 @@ namespace Quadrecep.Map
         }
 
         /// <summary>
-        /// Imports qms, the condensed map set file natively used by Quadrecep.<br/>
-        /// Since it's natively supported, it can be imported simply by extracting the file
+        ///     Imports qms, the condensed map set file natively used by Quadrecep.<br />
+        ///     Since it's natively supported, it can be imported simply by extracting the file
         /// </summary>
         /// <param name="file">The file path to the .qbm file</param>
         private static void ImportQms(string file)
@@ -29,9 +29,9 @@ namespace Quadrecep.Map
         }
 
         /// <summary>
-        /// Imports qp, the condensed map set file natively used by Quaver.<br/>
-        /// This method extracts the file into the map set directory,<br/>
-        /// and tries to convert every difficulty to into every game modes that registered <see cref="MapImporter"/>.
+        ///     Imports qp, the condensed map set file natively used by Quaver.<br />
+        ///     This method extracts the file into the map set directory,<br />
+        ///     and tries to convert every difficulty to into every game modes that registered <see cref="MapImporter" />.
         /// </summary>
         /// <param name="file">The file path to the .qp file</param>
         private static void ImportQp(string file)
@@ -49,16 +49,13 @@ namespace Quadrecep.Map
             var globQua = Qua.Parse(Directory.GetFiles(targetDirectory).First(x => x.EndsWith(".qua")));
             var mapSetObject = GenerateMapSetObject(globQua, files);
             Global.SerializeToFile(mapSetObject, $"{targetDirectory}/MapSet.qbm");
-            foreach (var del in Directory.GetFiles(targetDirectory).Where(x => x.EndsWith(".qua")))
-            {
-                File.Delete(del);
-            }
+            foreach (var del in Directory.GetFiles(targetDirectory).Where(x => x.EndsWith(".qua"))) File.Delete(del);
         }
 
         /// <summary>
-        ///     Converts qua file to a given <paramref name="gameMode"/>.<br/>
-        ///     This first finds the corresponding <see cref="MapImporter"/> for given <paramref name="gameMode"/>,<br/>
-        ///     then converts the deserialized <see cref="Qua"/> object into corresponding MapObject,<br/>
+        ///     Converts qua file to a given <paramref name="gameMode" />.<br />
+        ///     This first finds the corresponding <see cref="MapImporter" /> for given <paramref name="gameMode" />,<br />
+        ///     then converts the deserialized <see cref="Qua" /> object into corresponding MapObject,<br />
         ///     then saves the converted MapObject
         /// </summary>
         /// <param name="qua">Qua source</param>
@@ -76,11 +73,11 @@ namespace Quadrecep.Map
         }
 
         /// <summary>
-        /// Generates <see cref="MapSetObject"/> from <paramref name="globQua"/>
+        ///     Generates <see cref="MapSetObject" /> from <paramref name="globQua" />
         /// </summary>
         /// <param name="globQua">The .qua file to retrieve metadata from</param>
         /// <param name="mapFiles">Map files list</param>
-        /// <returns>Generated <see cref="MapSetObject"/></returns>
+        /// <returns>Generated <see cref="MapSetObject" /></returns>
         public static MapSetObject GenerateMapSetObject(Qua globQua, List<string> mapFiles)
         {
             var resMapSet = new MapSetObject

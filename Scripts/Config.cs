@@ -40,24 +40,28 @@ namespace Quadrecep
             get => GetOrSet(GameplaySection, nameof(KeysVisualOffset), 0);
             set => Set(GameplaySection, nameof(KeysVisualOffset), value);
         }
+
         public static int PreAudioCountdown
         {
             get => GetOrSet(GameplaySection, nameof(PreAudioCountdown), 1000);
             set => Set(GameplaySection, nameof(PreAudioCountdown), value);
         }
+
         public static bool PitchStretch
         {
             get => GetOrSet(AudioSection, nameof(PitchStretch), false);
             set => Set(AudioSection, nameof(PitchStretch), value);
         }
+
         public static int TimeStretchOversampling
         {
             get => GetOrSet(AudioSection, nameof(TimeStretchOversampling), 4);
             set => Set(AudioSection, nameof(TimeStretchOversampling), value);
         }
+
         public static int TimeStretchFftSize
         {
-            get => GetOrSet(AudioSection, nameof(TimeStretchFftSize), (int)AudioEffectPitchShift.FFT_Size.Size2048);
+            get => GetOrSet(AudioSection, nameof(TimeStretchFftSize), (int) AudioEffectPitchShift.FFT_Size.Size2048);
             set => Set(AudioSection, nameof(TimeStretchFftSize), value);
         }
 
@@ -96,6 +100,7 @@ namespace Quadrecep
             get => GetOrSet(GameplaySection, nameof(PlayfieldWidthPerKey), 1f / 6);
             set => Set(GameplaySection, nameof(PlayfieldWidthPerKey), value);
         }
+
         public static string Locale
         {
             get => GetOrSet(MiscSection, nameof(Locale), "en");

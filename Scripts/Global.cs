@@ -18,9 +18,11 @@ namespace Quadrecep
     public class Global : Node
     {
         public const string TexturesPath = "res://Textures";
+        public const int AudioEffectPitchShiftIndex = 0;
 
         public static readonly Directory MapContainingDirectory = new();
-        public const int AudioEffectPitchShiftIndex = 0;
+
+        public static SongSelect SongSelect;
 
         public static AudioEffectPitchShift AudioEffectPitchShift =>
             (AudioEffectPitchShift) AudioServer.GetBusEffect(1, AudioEffectPitchShiftIndex);
@@ -30,8 +32,6 @@ namespace Quadrecep
         public static Dictionary<string, string> GameModeExtensionMap { get; } = new();
         public static Dictionary<string, string> GameModeShortNameMap { get; } = new();
         public static Dictionary<string, string> GameModeFullNameMap { get; } = new();
-
-        public static SongSelect SongSelect;
 
         public override void _Ready()
         {
@@ -57,7 +57,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Loads all packed scenes of nodes
+        ///     Loads all packed scenes of nodes
         /// </summary>
         private static void LoadPackedScenes()
         {
@@ -73,7 +73,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Loads textures required by game modes
+        ///     Loads textures required by game modes
         /// </summary>
         private static void LoadTextures()
         {
@@ -89,11 +89,11 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Loads an image from specified path.<br/>
-        /// The image can be from res:// or from user://
+        ///     Loads an image from specified path.<br />
+        ///     The image can be from res:// or from user://
         /// </summary>
         /// <param name="imgPath">The path to image</param>
-        /// <param name="fallback">The fallback image path if <paramref name="imgPath"/> is not found</param>
+        /// <param name="fallback">The fallback image path if <paramref name="imgPath" /> is not found</param>
         /// <returns></returns>
         public static Texture LoadImage(string imgPath, string fallback = "")
         {
@@ -112,8 +112,8 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Returns absolute path relative to the map.<br/>
-        /// This is used to get absolute path of paths specified in a map file.
+        ///     Returns absolute path relative to the map.<br />
+        ///     This is used to get absolute path of paths specified in a map file.
         /// </summary>
         /// <param name="mapSetFile">MapSet file path</param>
         /// <param name="path">Relative path (without './')</param>
@@ -127,7 +127,7 @@ namespace Quadrecep
 
 
         /// <summary>
-        /// Reads data from a file and deserialize to an object of type <typeparamref name="T"/>
+        ///     Reads data from a file and deserialize to an object of type <typeparamref name="T" />
         /// </summary>
         /// <param name="mapSetPath">MapSet path</param>
         /// <param name="mapFile">Map file</param>
@@ -152,7 +152,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Serialize an object and save to a file
+        ///     Serialize an object and save to a file
         /// </summary>
         /// <param name="obj">Object to serialize</param>
         /// <param name="filePath">Path to save</param>
@@ -171,7 +171,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Swaps the textures of two <see cref="TextureRect"/>
+        ///     Swaps the textures of two <see cref="TextureRect" />
         /// </summary>
         /// <param name="texture1">Texture 1</param>
         /// <param name="texture2">Texture 2</param>
@@ -186,7 +186,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Returns the extension of a file (in format '.xxx')
+        ///     Returns the extension of a file (in format '.xxx')
         /// </summary>
         /// <param name="fileName">File name</param>
         /// <returns>The extension of the file</returns>
@@ -198,7 +198,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Returns the name of the file, cutting the extension and it's parent directories off
+        ///     Returns the name of the file, cutting the extension and it's parent directories off
         /// </summary>
         /// <param name="fileName">File name</param>
         /// <returns>File name without extension and parent directories</returns>
@@ -209,7 +209,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Cuts the extension off the given file
+        ///     Cuts the extension off the given file
         /// </summary>
         /// <param name="name">file input</param>
         /// <returns>String with extension cut</returns>
@@ -219,7 +219,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Gets game mode name from given extension
+        ///     Gets game mode name from given extension
         /// </summary>
         /// <param name="ext">Extension of a game mode</param>
         /// <returns>Game mode name</returns>
@@ -229,8 +229,8 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Gets game mode from a file. <br/>
-        /// First gets the extension of the file then calls <see cref="GetGameModeFromExtension"/>
+        ///     Gets game mode from a file. <br />
+        ///     First gets the extension of the file then calls <see cref="GetGameModeFromExtension" />
         /// </summary>
         /// <param name="fileName">File name to get game mode</param>
         /// <returns>The game mode name of the file</returns>
@@ -240,7 +240,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Gets short name of a game mode.
+        ///     Gets short name of a game mode.
         /// </summary>
         /// <param name="gameMode">Game mode</param>
         /// <returns>The short name of the mode</returns>
@@ -248,8 +248,9 @@ namespace Quadrecep
         {
             return GameModeShortNameMap[gameMode];
         }
+
         /// <summary>
-        /// Gets full name of a game mode from a short name
+        ///     Gets full name of a game mode from a short name
         /// </summary>
         /// <param name="gameMode">Game mode short name</param>
         /// <returns>The full name of the mode</returns>
@@ -259,7 +260,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Gets extension of a game mode
+        ///     Gets extension of a game mode
         /// </summary>
         /// <param name="gameMode">Game mode name</param>
         /// <returns>The extension of the game mode</returns>
@@ -269,7 +270,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Relates an extension with a game mode
+        ///     Relates an extension with a game mode
         /// </summary>
         /// <param name="extension">Extension of a game mode</param>
         /// <param name="gameMode">Game mode name</param>
@@ -280,7 +281,7 @@ namespace Quadrecep
         }
 
         /// <summary>
-        /// Relates an extension with a game mode
+        ///     Relates an extension with a game mode
         /// </summary>
         /// <param name="gameMode">Game mode name</param>
         /// <param name="shortName">Short name of the game mode</param>
@@ -293,12 +294,12 @@ namespace Quadrecep
         public static void UpdateAudioConfig()
         {
             AudioEffectPitchShift.Oversampling = Config.TimeStretchOversampling;
-            AudioEffectPitchShift.FftSize = (AudioEffectPitchShift.FFT_Size)Config.TimeStretchFftSize;
+            AudioEffectPitchShift.FftSize = (AudioEffectPitchShift.FFT_Size) Config.TimeStretchFftSize;
         }
 
         /// <summary>
-        /// Sets the rate of the audio.<br/>
-        /// Will keep the pitch same if pitch stretch is on
+        ///     Sets the rate of the audio.<br />
+        ///     Will keep the pitch same if pitch stretch is on
         /// </summary>
         /// <param name="player"></param>
         /// <param name="rate"></param>

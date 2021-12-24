@@ -1,4 +1,3 @@
-using System.Threading;
 using System.Threading.Tasks;
 using Godot;
 using Quadrecep.GameMode;
@@ -35,7 +34,8 @@ namespace Quadrecep.UI
                     : Global.GetFileName(_mapSet.Maps[DifficultyIndex]);
                 GetNode<Label>("GameMode").Text = IsDifficultyLoaded(value)
                     ? Tr($"GameMode_ShortName_{Global.GetGameModeFullName(_maps[DifficultyIndex].GameModeShortName)}")
-                    : string.Format(Tr("GameMode_ShortName_Loading"), Tr($"GameMode_ShortName_{Global.GetGameMode(_mapSet.Maps[DifficultyIndex])}"));
+                    : string.Format(Tr("GameMode_ShortName_Loading"),
+                        Tr($"GameMode_ShortName_{Global.GetGameMode(_mapSet.Maps[DifficultyIndex])}"));
             }
         }
 
@@ -75,7 +75,7 @@ namespace Quadrecep.UI
         }
 
         /// <summary>
-        /// Loads maps of a map set simultaneously
+        ///     Loads maps of a map set simultaneously
         /// </summary>
         public async Task LoadMaps()
         {
@@ -117,8 +117,15 @@ namespace Quadrecep.UI
             Global.UpdateRate(AudioStreamPlayer, Parent.Rate, Config.PitchStretch);
         }
 
-        public void RateUp() => SetRate(Parent.Rate + 0.05f);
-        public void RateDown() => SetRate(Parent.Rate - 0.05f);
+        public void RateUp()
+        {
+            SetRate(Parent.Rate + 0.05f);
+        }
+
+        public void RateDown()
+        {
+            SetRate(Parent.Rate - 0.05f);
+        }
 
         public void _OnPlayPressed()
         {
@@ -127,7 +134,7 @@ namespace Quadrecep.UI
         }
 
         /// <summary>
-        /// Loads the game mode of selected map if the map is loaded
+        ///     Loads the game mode of selected map if the map is loaded
         /// </summary>
         private void PlayMap()
         {
@@ -139,7 +146,7 @@ namespace Quadrecep.UI
             }
 
             AudioStreamPlayer.Stop();
-            
+
             var scene = _maps[DifficultyIndex].InitScene();
             scene.Rate = Parent.Rate;
             // GetTree().Root.AddChild(scene);

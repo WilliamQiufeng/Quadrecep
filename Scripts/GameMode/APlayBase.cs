@@ -8,71 +8,86 @@ namespace Quadrecep.GameMode
     public abstract class APlayBase : Node2D
     {
         /// <summary>
-        /// If the gameplay finished
+        ///     If the gameplay finished
         /// </summary>
         public bool Finished;
 
+
+        public float GlobalOffset, GlobalVisualOffset;
+
         /// <summary>
-        /// MapSet path
+        ///     MapSet path
         /// </summary>
         [Export] public string MapSetFile;
 
         /// <summary>
-        /// Time of audio in current frame of _process
+        ///     If the gameplay is paused
+        /// </summary>
+        public bool Paused;
+
+        /// <summary>
+        ///     If pitch shifts on rate change
+        /// </summary>
+        public bool PitchStretch;
+
+        /// <summary>
+        ///     Rate of audio player playing
+        /// </summary>
+        public float Rate = 1.0f;
+
+        /// <summary>
+        ///     Time of audio in current frame of _process
         /// </summary>
         public float Time;
 
         /// <summary>
-        /// ZIndex used for note stack ordering
+        ///     ZIndex used for note stack ordering
         /// </summary>
         protected int ZInd;
 
         /// <summary>
-        /// interval before audio is played
+        ///     interval before audio is played
         /// </summary>
         public int PreAudioCountdown => Config.PreAudioCountdown;
 
         /// <summary>
-        /// From https://docs.godotengine.org/en/stable/tutorials/audio/sync_with_audio.html<br/>
-        /// Real-time audio progress
+        ///     From https://docs.godotengine.org/en/stable/tutorials/audio/sync_with_audio.html<br />
+        ///     Real-time audio progress
         /// </summary>
         public virtual float DynamicTime => AudioStreamPlayer.Playing && !AudioStreamPlayer.StreamPaused
             ? AudioTime
             : AudioStreamPlayer.GetPlaybackPosition();
-        
-        
-        public float GlobalOffset, GlobalVisualOffset;
 
         public virtual float AudioTime => (float) (AudioStreamPlayer.GetPlaybackPosition() +
             AudioServer.GetTimeSinceLastMix() - AudioServer.GetOutputLatency()) * 1000;
 
         /// <summary>
-        /// Path to background node
+        ///     Path to background node
         /// </summary>
         protected virtual string BackgroundNodePath => "ParallaxBackground/ParallaxLayer/Background";
 
         /// <summary>
-        /// Background node
+        ///     Background node
         /// </summary>
         public TextureRect Background => GetNode<TextureRect>(BackgroundNodePath);
 
         /// <summary>
-        /// Path to audioStreamPlayer node
+        ///     Path to audioStreamPlayer node
         /// </summary>
         protected virtual string AudioStreamPlayerPath => "AudioStreamPlayer";
 
         /// <summary>
-        /// audioStreamPlayer node
+        ///     audioStreamPlayer node
         /// </summary>
         public AudioStreamPlayer AudioStreamPlayer => GetNode<AudioStreamPlayer>(AudioStreamPlayerPath);
 
         /// <summary>
-        /// Path to input processor node
+        ///     Path to input processor node
         /// </summary>
         protected virtual string InputProcessorPath => "Player/InputProcessor";
 
         /// <summary>
-        /// Path to input retriever
+        ///     Path to input retriever
         /// </summary>
         protected virtual string InputRetrieverPath => "InputRetriever";
 
@@ -81,34 +96,19 @@ namespace Quadrecep.GameMode
         protected PausePanel PausePanel => GetNode<PausePanel>(PausePanelPath);
 
         /// <summary>
-        /// Path to background file
+        ///     Path to background file
         /// </summary>
         protected virtual string BackgroundPath => "";
 
         /// <summary>
-        /// Path to audio file
+        ///     Path to audio file
         /// </summary>
         protected virtual string AudioPath => "";
 
         /// <summary>
-        /// If the gameplay is paused
-        /// </summary>
-        public bool Paused;
-
-        /// <summary>
-        /// If the gameplay is going on
+        ///     If the gameplay is going on
         /// </summary>
         public bool IsPlaying => !Finished && !Paused;
-
-        /// <summary>
-        /// Rate of audio player playing
-        /// </summary>
-        public float Rate = 1.0f;
-
-        /// <summary>
-        /// If pitch shifts on rate change
-        /// </summary>
-        public bool PitchStretch;
 
         public override void _Ready()
         {
@@ -120,7 +120,7 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Bind parents of the members to *this*
+        ///     Bind parents of the members to *this*
         /// </summary>
         protected virtual void SetParents()
         {
@@ -128,7 +128,7 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Things to run after _Ready() is called
+        ///     Things to run after _Ready() is called
         /// </summary>
         protected virtual void AfterReady()
         {
@@ -140,7 +140,7 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Loads the map to be played
+        ///     Loads the map to be played
         /// </summary>
         protected virtual void LoadMap()
         {
@@ -149,14 +149,14 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Reads the map to be played
+        ///     Reads the map to be played
         /// </summary>
         protected virtual void ReadMap()
         {
         }
 
         /// <summary>
-        /// Feed notes to input processor
+        ///     Feed notes to input processor
         /// </summary>
         protected virtual void FeedNotes()
         {
@@ -170,25 +170,22 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Updates HUD information
+        ///     Updates HUD information
         /// </summary>
         protected virtual void UpdateHUD()
         {
         }
 
         /// <summary>
-        /// Updates Time.<br/>
-        /// It is called every _Process call, setting Time to DynamicTime
+        ///     Updates Time.<br />
+        ///     It is called every _Process call, setting Time to DynamicTime
         /// </summary>
         protected virtual void UpdateTime()
         {
             if (!IsPlaying) return;
             var prevTime = Time;
             var curTime = DynamicTime;
-            if (prevTime < curTime)
-            {
-                Time = curTime;
-            }
+            if (prevTime < curTime) Time = curTime;
         }
 
         protected virtual void CheckForPause()
@@ -223,8 +220,8 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Loads audio and plays them.<br/>
-        /// Delays interval before audio playing.
+        ///     Loads audio and plays them.<br />
+        ///     Delays interval before audio playing.
         /// </summary>
         protected virtual async Task LoadAudio()
         {
@@ -236,7 +233,7 @@ namespace Quadrecep.GameMode
         }
 
         /// <summary>
-        /// Loads audio file
+        ///     Loads audio file
         /// </summary>
         /// <param name="audioPath">the path to audio file</param>
         /// <returns>audio stream object of the audio</returns>
@@ -273,7 +270,7 @@ namespace Quadrecep.GameMode
 
 
         /// <summary>
-        /// Loads background file and sets texture
+        ///     Loads background file and sets texture
         /// </summary>
         protected virtual void LoadBackground()
         {
