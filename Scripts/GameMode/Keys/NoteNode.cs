@@ -72,13 +72,13 @@ namespace Quadrecep.GameMode.Keys
         {
             if (RemoveIfFinished()) return;
 
-            while (Parent.Parent.Time > _visiblePaths.First().EndTime)
+            while (Parent.Parent.Time > _visiblePaths[0].EndTime)
             {
                 _visiblePaths.RemoveAt(0);
                 if (RemoveIfFinished()) return;
             }
 
-            if (Parent.Parent.Time < _visiblePaths.First().StartTime)
+            if (Parent.Parent.Time < _visiblePaths[0].StartTime)
             {
                 RemoveFromParent();
                 return;

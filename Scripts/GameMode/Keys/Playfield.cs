@@ -71,22 +71,8 @@ namespace Quadrecep.GameMode.Keys
         }
 
 
-        public void GenerateNoteNodes(List<NoteObject> notes, List<ScrollVelocity> svs)
-        {
-            GD.Print("Starting Generation");
-            if (notes.Count == 0) return;
-            for (var i = 0; i < notes.Count; i++)
-                _tempNoteNodes.Enqueue(NoteNode.Scene.Instance<NoteNode>());
-            for (var i = 0; i < Parent.InputRetriever.Keys; i++) GenerateNoteNodesForLane(notes, svs, i);
-
-
-            NoteNodes.Sort((x, y) => x.Note.StartTime.CompareTo(y.Note.StartTime));
-        }
-
         public async Task GenerateNoteNodesAsync(List<NoteObject> notes, List<ScrollVelocity> svs)
         {
-            for (var i = 0; i < notes.Count; i++)
-                _tempNoteNodes.Enqueue(NoteNode.Scene.Instance<NoteNode>());
             GD.Print("Starting Generation");
             if (notes.Count == 0) return;
             List<Task> tasks = new();
@@ -101,6 +87,12 @@ namespace Quadrecep.GameMode.Keys
             // NoteNodes = _tempNoteNodesOut.ToList();
             // NoteNodes.Sort((x, y) => x.Note.StartTime.CompareTo(y.Note.StartTime));
             GD.Print("Generation async done");
+        }
+
+        public void PoolObjects(List<NoteObject> notes)
+        {
+            for (var i = 0; i < notes.Count; i++)
+                _tempNoteNodes.Enqueue(NoteNode.Scene.Instance<NoteNode>());
         }
 
         public void GenerateNoteNodesForLane(List<NoteObject> notes, List<ScrollVelocity> svs, int lane)
