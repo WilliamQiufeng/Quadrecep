@@ -84,23 +84,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DNoNodes" type="Label" parent="."]
-anchor_left = 0.999701
-anchor_top = 1.0
-anchor_right = 0.999701
-anchor_bottom = 1.0
-margin_left = -165.426
-margin_top = -53.0
-margin_right = -9.42603
-margin_bottom = -50.0
-custom_fonts/font = ExtResource( 2 )
-text = "0"
-align = 2
-valign = 2
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="PausePanel" parent="." instance=ExtResource( 4 )]
 margin_right = 1024.0
 margin_bottom = 600.0

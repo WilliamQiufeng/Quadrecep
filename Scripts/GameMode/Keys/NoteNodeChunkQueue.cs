@@ -6,7 +6,7 @@ namespace Quadrecep.GameMode.Keys
 {
     public class NoteNodeChunkQueue
     {
-        private const int ChunkTimeInterval = 1000;
+        private const int ChunkTimeInterval = 200;
         private const int TimeBeforeEntrance = 50;
         private int _currentChunkTime = -2;
         private readonly ConcurrentDictionary<int, ConcurrentQueue<NoteNode>> _chunks = new();
@@ -33,7 +33,7 @@ namespace Quadrecep.GameMode.Keys
                 nodes.Add(node);
             }
 
-            while (!_chunks.IsEmpty && GetChunkTime(time + TimeBeforeEntrance) >= _currentChunkTime)
+            while (GetChunkTime(time + TimeBeforeEntrance) >= _currentChunkTime && !_chunks.IsEmpty)
             {
                 if (_chunks.ContainsKey(_currentChunkTime))
                 {
