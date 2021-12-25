@@ -17,7 +17,7 @@ namespace Quadrecep.GameMode
         /// </summary>
         public virtual string InputName => "";
 
-        public override void _Input(InputEvent @event)
+        public override void _UnhandledInput(InputEvent @event)
         {
             if (!APlayParent.IsPlaying) return;
             for (var i = 0; i < Keys; i++)

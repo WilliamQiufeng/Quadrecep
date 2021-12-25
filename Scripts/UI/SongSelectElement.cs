@@ -52,13 +52,13 @@ namespace Quadrecep.UI
             else
             {
                 _mapSet = Global.DeserializeFromFile<MapSetObject>(MapFile, "MapSet.qbm");
-                GetNode<TextureRect>("Preview").Texture =
-                    Global.LoadImage(Global.RelativeToMap(MapFile, _mapSet.BackgroundPath));
+                Task.Run(() => GetNode<TextureRect>("Preview").Texture =
+                    Global.LoadImage(Global.RelativeToMap(MapFile, _mapSet.BackgroundPath)));
                 GetNode<Label>("Name").Text = _mapSet.Name;
                 GetNode<Label>("Author").Text = _mapSet.Creator;
                 GetNode<Label>("Artist").Text = _mapSet.Artist;
                 AudioStreamPlayer.Stream =
-                    APlayBase.LoadAudio(Global.RelativeToMap(MapFile, _mapSet.AudioPath));
+                    Global.LoadAudio(Global.RelativeToMap(MapFile, _mapSet.AudioPath));
                 DifficultyIndex = 0;
             }
             // GrabFocus();

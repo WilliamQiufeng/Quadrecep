@@ -79,7 +79,7 @@ namespace Quadrecep.GameMode
         /// <summary>
         ///     audioStreamPlayer node
         /// </summary>
-        public AudioStreamPlayer AudioStreamPlayer => GetNode<AudioStreamPlayer>(AudioStreamPlayerPath);
+        public AudioStreamPlayer AudioStreamPlayer;
 
         /// <summary>
         ///     Path to input processor node
@@ -91,9 +91,9 @@ namespace Quadrecep.GameMode
         /// </summary>
         protected virtual string InputRetrieverPath => "InputRetriever";
 
-        protected virtual string PausePanelPath => "HUD/PausePanel";
+        protected virtual string HUDPath => "HUD";
 
-        protected PausePanel PausePanel => GetNode<PausePanel>(PausePanelPath);
+        protected HUD HUD => GetNode<HUD>(HUDPath);
 
         /// <summary>
         ///     Path to background file
@@ -112,6 +112,7 @@ namespace Quadrecep.GameMode
 
         public override void _Ready()
         {
+            AudioStreamPlayer = GetNode<AudioStreamPlayer>(AudioStreamPlayerPath);
             SetParents();
             LoadMap();
             LoadBackground();
@@ -124,7 +125,7 @@ namespace Quadrecep.GameMode
         /// </summary>
         protected virtual void SetParents()
         {
-            PausePanel.Parent = this;
+            HUD.PausePanel.Parent = this;
         }
 
         /// <summary>
@@ -165,14 +166,12 @@ namespace Quadrecep.GameMode
         public override void _Process(float delta)
         {
             UpdateTime();
-            UpdateHUD();
-            CheckForPause();
         }
 
         /// <summary>
         ///     Updates HUD information
         /// </summary>
-        protected virtual void UpdateHUD()
+        public virtual void UpdateHUD()
         {
         }
 
@@ -183,14 +182,13 @@ namespace Quadrecep.GameMode
         protected virtual void UpdateTime()
         {
             if (!IsPlaying) return;
-            var prevTime = Time;
             var curTime = DynamicTime;
-            if (prevTime < curTime) Time = curTime;
+            if (Time < curTime) Time = curTime;
         }
 
-        protected virtual void CheckForPause()
+        public override void _Input(InputEvent @event)
         {
-            if (!Input.IsActionJustPressed("play_pause")) return;
+            if (!@event.IsActionPressed("play_pause")) return;
             TogglePause();
         }
 
@@ -198,8 +196,8 @@ namespace Quadrecep.GameMode
         {
             Paused = !Paused;
             AudioStreamPlayer.StreamPaused = Paused;
-            if (Paused) PausePanel.Popup_();
-            else PausePanel.Hide();
+            if (Paused) HUD.PausePanel.Popup_();
+            else HUD.PausePanel.Hide();
         }
 
         internal virtual void Retry()
@@ -226,46 +224,10 @@ namespace Quadrecep.GameMode
         protected virtual async Task LoadAudio()
         {
             PitchStretch = Config.PitchStretch;
-            AudioStreamPlayer.Stream = LoadAudio(Global.RelativeToMap(MapSetFile, AudioPath));
+            AudioStreamPlayer.Stream = Global.LoadAudio(Global.RelativeToMap(MapSetFile, AudioPath));
             Global.UpdateRate(AudioStreamPlayer, Rate, PitchStretch);
             await Task.Delay(Mathf.Abs(PreAudioCountdown));
             AudioStreamPlayer.Play();
-        }
-
-        /// <summary>
-        ///     Loads audio file
-        /// </summary>
-        /// <param name="audioPath">the path to audio file</param>
-        /// <returns>audio stream object of the audio</returns>
-        /// <exception cref="NotImplementedException">the file format is not supported (not one of mp3, wav or ogg)</exception>
-        public static AudioStream LoadAudio(string audioPath)
-        {
-            GD.Print($"Loading audio: {audioPath}");
-            var audioFile = new File();
-            audioFile.Open(audioPath, File.ModeFlags.Read);
-            var buffer = audioFile.GetBuffer((int) audioFile.GetLen());
-            if (audioPath.EndsWith(".mp3"))
-            {
-                var mp3Stream = new AudioStreamMP3();
-                mp3Stream.Data = buffer;
-                return mp3Stream;
-            }
-
-            if (audioPath.EndsWith(".wav"))
-            {
-                var wavStream = new AudioStreamSample();
-                wavStream.Data = buffer;
-                return wavStream;
-            }
-
-            if (audioPath.EndsWith(".ogg"))
-            {
-                var oggStream = new AudioStreamOGGVorbis();
-                oggStream.Data = buffer;
-                return oggStream;
-            }
-
-            throw new NotImplementedException();
         }
 
 

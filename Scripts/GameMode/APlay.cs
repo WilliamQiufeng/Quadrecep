@@ -29,12 +29,12 @@ namespace Quadrecep.GameMode
         ///     Updates HUD information<br />
         ///     By default accuracy, combo and score are updated.
         /// </summary>
-        protected override void UpdateHUD()
+        public override void UpdateHUD()
         {
-            GetNode<Label>("HUD/Accuracy").Text =
+            HUD.Accuracy.Text =
                 $"{Math.Round(InputProcessor.Counter.GetPercentageAccuracy() * 100, 2):00.00}%";
-            GetNode<Label>("HUD/Combo").Text = $"{InputProcessor.Counter.Combo}";
-            GetNode<Label>("HUD/Score").Text = $"{(int) InputProcessor.Counter.Score,8:0000000}";
+            HUD.Combo.Text = $"{InputProcessor.Counter.Combo}";
+            HUD.Score.Text = $"{(int) InputProcessor.Counter.Score,8:0000000}";
         }
     }
 }

@@ -45,6 +45,7 @@ namespace Quadrecep.GameMode.Keys
             {
                 NoteNodes[i].CheckVisible();
                 if (!NoteNodes[i].Finished) continue;
+                NoteNodes[i].QueueFree();
                 NoteNodes.RemoveAt(i);
                 i--;
             }

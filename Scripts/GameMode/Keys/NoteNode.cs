@@ -92,7 +92,7 @@ namespace Quadrecep.GameMode.Keys
         private bool RemoveIfFinished()
         {
             if (!Finished) return false;
-            RemoveFromParent();
+            Parent.Notes.RemoveChild(this);
             return true;
         }
 
@@ -102,15 +102,16 @@ namespace Quadrecep.GameMode.Keys
             _hasParent = true;
             Parent.Notes.AddChild(this);
             Visible = true;
+            SetProcess(true);
             UpdatePosition();
         }
 
         private void RemoveFromParent()
         {
             if (!_hasParent) return;
-            Parent.Notes.RemoveChild(this);
             _hasParent = false;
             Visible = false;
+            SetProcess(false);
         }
 
         public static void LoadTextures(int keys)

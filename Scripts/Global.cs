@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Godot;
@@ -306,9 +307,45 @@ namespace Quadrecep
 
         public static void SwitchScene(Node from, Node to, bool removeFromParent = false, bool queueFree = true)
         {
-            from.GetTree().Root.AddChild(to);
-            if (removeFromParent) from.GetParent().RemoveChild(from);
-            if (queueFree) from.QueueFree();
+            @from.GetTree().Root.AddChild(to);
+            if (removeFromParent) @from.GetParent().RemoveChild(@from);
+            if (queueFree) @from.QueueFree();
+        }
+
+        /// <summary>
+        ///     Loads audio file
+        /// </summary>
+        /// <param name="audioPath">the path to audio file</param>
+        /// <returns>audio stream object of the audio</returns>
+        /// <exception cref="NotImplementedException">the file format is not supported (not one of mp3, wav or ogg)</exception>
+        public static AudioStream LoadAudio(string audioPath)
+        {
+            GD.Print($"Loading audio: {audioPath}");
+            var audioFile = new File();
+            audioFile.Open(audioPath, File.ModeFlags.Read);
+            var buffer = audioFile.GetBuffer((int) audioFile.GetLen());
+            if (audioPath.EndsWith(".mp3"))
+            {
+                var mp3Stream = new AudioStreamMP3();
+                mp3Stream.Data = buffer;
+                return mp3Stream;
+            }
+
+            if (audioPath.EndsWith(".wav"))
+            {
+                var wavStream = new AudioStreamSample();
+                wavStream.Data = buffer;
+                return wavStream;
+            }
+
+            if (audioPath.EndsWith(".ogg"))
+            {
+                var oggStream = new AudioStreamOGGVorbis();
+                oggStream.Data = buffer;
+                return oggStream;
+            }
+
+            throw new NotImplementedException();
         }
     }
 }

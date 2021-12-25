@@ -69,7 +69,7 @@ namespace Quadrecep.GameMode
         public override void _PhysicsProcess(float delta)
         {
             ProcessInputs();
-            for (var i = 0; i < InputTracks; i++) RemoveMissed(i, APlayParent.DynamicTime);
+            for (var i = 0; i < InputTracks; i++) RemoveMissed(i, APlayParent.Time);
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace Quadrecep.GameMode
                 var targetInput = DequeueLatestInputEvent(key);
                 // if (targetInput.CountAsInput && targetInput.Release) GD.Print("Missed release");
                 if (!targetInput.CountAsInput) continue;
-                Counter.AddJudgement(Judgement.Miss, JudgementSet.Set.LastOrDefault());
+                AddJudgement(Judgement.Miss, JudgementSet.Set.LastOrDefault());
                 PlaceJudgementFeedback(targetInput, Judgement.Miss);
                 // GD.Print($"\nMiss, {targetInput}\n");
             }
@@ -175,7 +175,13 @@ namespace Quadrecep.GameMode
             // We take judgement from this and add it to the counter.
             var judgement = JudgementSet.GetJudgement(targetInput.Time, input.Time);
             PlaceJudgementFeedback(targetInput, judgement);
-            if (targetInput.CountAsInput) Counter.AddJudgement(judgement, input.Time - targetInput.Time);
+            if (targetInput.CountAsInput) AddJudgement(judgement, input.Time - targetInput.Time);
+        }
+
+        private void AddJudgement(Judgement judgement, float timeDiff)
+        {
+            Counter.AddJudgement(judgement, timeDiff);
+            APlayParent.UpdateHUD();
         }
 
         /// <summary>
