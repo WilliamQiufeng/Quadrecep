@@ -20,6 +20,7 @@ namespace Quadrecep.GameMode.Keys
         public NoteObject Note;
         public Playfield Parent;
         public List<Path> Paths = new();
+        public float FirstAppearanceTime = -1;
         private int Key => Note.Lane;
 
         public float XPositionBase => (Parent.ReceptorX[Key] + Parent.ReceptorX[Key + 1]) / 2;
@@ -61,6 +62,7 @@ namespace Quadrecep.GameMode.Keys
             _visiblePaths.Clear();
             foreach (var visiblePath in Paths.Select(path => Path.CutVisiblePath(path, regionPos1, regionPos2, false))
                 .Where(visiblePath => visiblePath != null)) _visiblePaths.Add(visiblePath);
+            if (_visiblePaths.Count != 0) FirstAppearanceTime = _visiblePaths[0].StartTime;
         }
 
         public Vector2 When(float time)

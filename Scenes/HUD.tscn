@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Fps.cs" type="Script" id=1]
 [ext_resource path="res://Fonts/font.tres" type="DynamicFont" id=2]
-[ext_resource path="res://Scripts/UI/PausePanel.cs" type="Script" id=3]
 [ext_resource path="res://Scenes/Pause.tscn" type="PackedScene" id=4]
 
 [node name="HUD" type="CanvasLayer"]
@@ -85,9 +84,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PausePanel" type="Popup" parent="." instance=ExtResource( 4 )]
-self_modulate = Color( 1, 1, 1, 0.501961 )
+[node name="DNoNodes" type="Label" parent="."]
+anchor_left = 0.999701
+anchor_top = 1.0
+anchor_right = 0.999701
+anchor_bottom = 1.0
+margin_left = -165.426
+margin_top = -53.0
+margin_right = -9.42603
+margin_bottom = -50.0
+custom_fonts/font = ExtResource( 2 )
+text = "0"
+align = 2
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PausePanel" parent="." instance=ExtResource( 4 )]
 margin_right = 1024.0
 margin_bottom = 600.0
-rect_min_size = Vector2( 1920, 1080 )
-script = ExtResource( 3 )

@@ -13,7 +13,7 @@ namespace Quadrecep.GameMode.Keys
     public class Playfield : CanvasLayer
     {
         public const float RealCoverHeight = 1080;
-        private readonly ConcurrentQueue<NoteNode> _tempNoteNodesOut = new();
+        private readonly NoteNodeChunkQueue _chunkQueue = new();
 
         private Vector2 _receptorSize = new(256, 277);
         private Vector2 _receptorsSize;
@@ -133,7 +133,7 @@ namespace Quadrecep.GameMode.Keys
                     node.GenerateVisiblePaths(VisibleRegionPos1, VisibleRegionPos2 + node.Paths.Last().EndPosition);
                     node.Parent = this;
                     node.Note = note;
-                    _tempNoteNodesOut.Enqueue(node);
+                    _chunkQueue.Enqueue(node);
                 }
 
                 // Add final path
@@ -156,11 +156,7 @@ namespace Quadrecep.GameMode.Keys
 
         public void PullNoteNode()
         {
-            while (!_tempNoteNodesOut.IsEmpty)
-            {
-                if (!_tempNoteNodesOut.TryDequeue(out var node)) continue;
-                NoteNodes.Add(node);
-            }
+            _chunkQueue.Pull(Parent.Time, ref NoteNodes);
         }
 
         public void PlaceReceptors()
