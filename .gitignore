@@ -15,6 +15,7 @@ Resources/
 mono_crash*.json
 .mono/assemblies
 .mono/temp
+.mono/
 
 # Output
 Exports
