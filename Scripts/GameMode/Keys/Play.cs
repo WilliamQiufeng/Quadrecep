@@ -48,6 +48,8 @@ namespace Quadrecep.GameMode.Keys
             GD.Print("Initializing Field");
             Playfield.InitField();
             GD.Print("Generating Nodes");
+            
+            Task.Run(() => Playfield.SupplyTempNoteNode(MapObject.Notes.Count));
             Task.Run(() => Playfield.GenerateNoteNodesAsync(MapObject.Notes, MapObject.ScrollVelocities));
             GetNode<Label>("HUD/Name").Text = MapSet.MapSetObject.Name;
             base.AfterReady();

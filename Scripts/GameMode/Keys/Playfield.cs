@@ -13,6 +13,7 @@ namespace Quadrecep.GameMode.Keys
     public class Playfield : CanvasLayer
     {
         public const float RealCoverHeight = 1080;
+        private readonly BlockingCollection<NoteNode> _tempNoteNodes = new();
         private readonly NoteNodeChunkQueue _chunkQueue = new();
 
         private Vector2 _receptorSize = new(256, 277);
@@ -109,11 +110,7 @@ namespace Quadrecep.GameMode.Keys
                                                 svIndex < laneSVs.Count - 1 && laneNotes.Peek().EndTime <
                                                 laneSVs[svIndex + 1].Time))
                 {
-                    NoteNode node;
-                    lock (NoteNode.Scene)
-                    {
-                        node = NoteNode.Scene.Instance<NoteNode>();
-                    }
+                    var node = _tempNoteNodes.Take();
                     var note = laneNotes.Dequeue();
                     if (note.CustomPaths != null && note.CustomPaths.Count != 0)
                     {
@@ -158,6 +155,15 @@ namespace Quadrecep.GameMode.Keys
         public void PullNoteNode()
         {
             _chunkQueue.Pull(Parent.Time, ref NoteNodes);
+        }
+
+        public void SupplyTempNoteNode(int count)
+        {
+            for (var i = 0; i < count; i++)
+            {
+                lock (NoteNode.Scene) {_tempNoteNodes.Add(NoteNode.Scene.Instance<NoteNode>());}
+            }
+            _tempNoteNodes.CompleteAdding();
         }
 
         public void PlaceReceptors()
