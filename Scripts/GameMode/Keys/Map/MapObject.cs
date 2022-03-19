@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Quadrecep.Gameplay;
 using Quadrecep.Map;
 
 namespace Quadrecep.GameMode.Keys.Map
@@ -10,6 +11,7 @@ namespace Quadrecep.GameMode.Keys.Map
         public float StartTime { get; set; }
         public List<NoteObject> Notes { get; set; } = new();
         public List<ScrollVelocity> ScrollVelocities { get; set; } = new();
+        public List<ValueTransformation> Transformations { get; set; } = new();
         public List<TimingPoint> TimingPoints { get; set; } = new();
 
 

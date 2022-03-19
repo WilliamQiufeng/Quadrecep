@@ -7,7 +7,16 @@ namespace Quadrecep.Gameplay
 {
     public class ValueTransformation
     {
-        public int Type = 4; // 0-4: x, y, rotation, alpha
+        public enum DefaultTypes
+        {
+            X,
+            Y,
+            Rotation,
+            Alpha
+        }
+
+        public int Type = (int)DefaultTypes.Y; // 0-4: x, y, rotation, alpha
+        public int Lane = -1;
         public float StartValue, EndValue;
         public float StartTime, EndTime;
         public int TimeTransformationFunction;
@@ -18,9 +27,11 @@ namespace Quadrecep.Gameplay
         {
         }
 
-        public ValueTransformation(int type, float startValue, float endValue, float startTime, float endTime, int timeTransformationFunction, List<float> transformationFunctionArgs)
+        public ValueTransformation(int type, int lane, float startValue, float endValue, float startTime, float endTime,
+            int timeTransformationFunction = 0, List<float> transformationFunctionArgs = default)
         {
             Type = type;
+            Lane = lane;
             StartValue = startValue;
             EndValue = endValue;
             StartTime = startTime;
