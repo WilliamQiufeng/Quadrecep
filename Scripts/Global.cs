@@ -4,9 +4,11 @@ using System.IO;
 using Godot;
 using Quadrecep.GameMode.Keys;
 using Quadrecep.GameMode.Navigate.Map;
+using Quadrecep.Map;
 using Quadrecep.UI;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
+using YamlDotNet.Serialization.ObjectGraphVisitors;
 using Directory = Godot.Directory;
 using File = Godot.File;
 using GameModeInfo = Quadrecep.GameMode.Navigate.GameModeInfo;
@@ -155,6 +157,7 @@ namespace Quadrecep
         {
             var serializer = new SerializerBuilder()
                 .WithNamingConvention(PascalCaseNamingConvention.Instance)
+                .WithEmissionPhaseObjectGraphVisitor(args => new YamlIEnumerableSkipEmptyObjectGraphVisitor(args.InnerVisitor))
                 .Build();
             var yaml = serializer.Serialize(obj);
             var dir = new Directory();
